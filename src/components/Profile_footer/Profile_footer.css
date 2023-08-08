@@ -1,0 +1,9 @@
+.profile_footer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    font-size: 12px;
+    margin-bottom: 30px;
+}

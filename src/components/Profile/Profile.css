@@ -1,0 +1,91 @@
+.profile {
+  width: 1000px;
+  margin: auto;
+}
+.profile_header_footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.profile_header_footericon {
+  margin: 1px 60px 0px 0px;
+}
+.profile_section {
+}
+.profile_header_footericons {
+  background-color: rgb(31, 29, 29);
+  border: 0px;
+  padding: 0px 16px;
+  height: 32px;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+.linkprofile {
+  color: white;
+  text-decoration: none;
+}
+.profile_header_footericons:hover {
+  background-color: gray;
+}
+
+.visually-hidden {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+.gallery-item {
+  position: relative;
+  flex: 1 0 22rem;
+  margin: 1rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.pl-22:hover .gallery-item-info,
+.pl-22:focus .gallery-item-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  width: 300px;
+  height: 300px;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.gallery-item-info {
+  display: none;
+}
+
+.gallery-item-info li {
+  display: inline-block;
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+.gallery-item-info > ul {
+  background-color: transparent;
+}
+.gallery-item-info > ul > li {
+  background-color: transparent;
+}
+.gallery-item-likes {
+  display: flex;
+  flex-direction:row;
+  margin-right: 2.2rem;
+}
+.gallery-item-comments{
+  display: flex;
+  flex-direction:row;
+}
+.gallery-item-type {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2.5rem;
+}
+.profileimage{
+    width: 300px;
+    height: 300px;
+}

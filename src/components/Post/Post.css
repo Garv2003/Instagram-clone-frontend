@@ -1,0 +1,100 @@
+.Postp {
+  width: 550px;
+  margin: 30px 40px 50px 30px;
+}
+.Postp_header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.postp_header_pro {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: bolder;
+}
+.postp_header_pro > span {
+  color: gray;
+  font-size: 15px;
+}
+.postp_image {
+  align-items: center;
+  margin: auto;
+}
+.postp_image > img {
+  width: 100%;
+  align-items: center;
+  border-radius: 6px;
+  border: 0.6px solid rgba(128, 128, 128, 0.516);
+}
+.postp_footer {
+  margin-bottom: 10px;
+}
+.posticons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.postIcon {
+  padding: 7px;
+  font-size: 30px;
+  cursor: pointer;
+}
+.postIcon :hover {
+  cursor: pointer;
+}
+.profile_footer1{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.formposts>span{  
+  display: inline;
+}
+.formposts_input{
+  position: relative;
+  display: inline-block;
+  font-size: 15px;
+  box-sizing: border-box;
+  background-color: transparent;
+  width: 80%;
+  border:none;
+  outline: none;
+  border-radius: 25px 0px 0px 25px;
+  color: white;
+}
+/* input[type="text"]{
+  background-color: transparent;
+  width: 80%;
+  border:none;
+  outline: none;
+  border-radius: 25px 0px 0px 25px;
+  color: white;
+} */
+.formposts_button{
+  position: relative;
+  border-radius: 0 25px 25px 0px;
+  width: 20%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: gray;
+  color: white;
+}
+/* input[type="submit"]{
+  position: relative;
+  border-radius: 0 25px 25px 0px;
+  width: 20%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: gray;
+  color: white;
+  font-size: 15px;
+} */
+input[type="submit"]:hover{
+  background-color: rgb(60, 57, 57);
+}
