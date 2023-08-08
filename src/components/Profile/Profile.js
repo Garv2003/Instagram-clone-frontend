@@ -24,7 +24,7 @@ const Profile = () => {
 
   const getmyposts = async () => {
     await axios
-      .get(URL("/profile"), {
+      .get(URL("/post/profile"), {
         headers: {
           Authorization:localStorage.getItem("token"),
         },

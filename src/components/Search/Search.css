@@ -4,6 +4,7 @@
     margin: auto;
     margin-top: 70px;
     padding: 10px;
+    text-align: center;
 }
 .search_heading{
     font-size: 40px;
@@ -21,4 +22,13 @@
 }
 .search_body{
     margin-top:30px;
+}
+.search_body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+}
+.search-title{
+    margin-top: 30px;
 }

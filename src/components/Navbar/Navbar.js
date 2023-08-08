@@ -35,7 +35,11 @@ const Navbar = () => {
         </button>
         <button className="navbutton">
           <SearchIcon />
-          <span><Link className="cl" to="/search">Search</Link></span>
+          <span>
+            <Link className="cl" to="/search">
+              Search
+            </Link>
+          </span>
         </button>
         <button className="navbutton">
           <ExploreIcon />
@@ -55,12 +59,19 @@ const Navbar = () => {
         </button>
         <button className="navbutton">
           <ChatIcon />
-          <span>Messages</span>
+          <span>
+            {" "}
+            <Link to="/message" className="cl">
+              Messages
+            </Link>
+          </span>
         </button>
         <button className="navbutton">
           <FavoriteBorderIcon />
           <span>
-            <Link  className="cl" to="notifications">Notifications</Link>
+            <Link className="cl" to="notifications">
+              Notifications
+            </Link>
           </span>
         </button>
         <button className="navbutton">

@@ -1,0 +1,12 @@
+.messages{
+    display: flex;
+    flex-direction: row;
+}
+.message_left{
+    flex: 0.3;
+}
+.message_right{
+    height:870px;
+    flex: 0.7;
+    border-left: 1px solid gray;
+}

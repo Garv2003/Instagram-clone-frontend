@@ -18,20 +18,20 @@ function Posts(props) {
   }, []);
 
   const getsuggestion = () => {
-    axios.get(URL("/suggestion")).then((res) => {
+    axios.get(URL("/user/suggestion")).then((res) => {
       setuser(res.data);
       console.log(res.data)
     });
   };
 
   const getdata = async () => {
-    const res = await axios.get(URL("/"));
+    const res = await axios.get(URL("/post"));
     setPosts(res.data)
   };
   
   async function showid(id) {
     await axios
-      .put(URL("/like"), {
+      .put(URL("/post/like"), {
         postid: id,
         id:localStorage.getItem("token")
       })
@@ -40,14 +40,14 @@ function Posts(props) {
       });
   }
   async function Unlike(id) {
-    const res = await axios.put(URL("/unlike"), {
+    const res = await axios.put(URL("/post/unlike"), {
       postid: id,
       id:localStorage.getItem("token")
     });
   }
   const onsubmit = async (id, text) => {
     await axios
-      .put(URL("/addcomment"), {
+      .put(URL("/post/addcomment"), {
         id: id,
         text: text,
       })

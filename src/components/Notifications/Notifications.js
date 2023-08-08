@@ -15,7 +15,7 @@ const Notifications = () => {
   }, []);
 
   const getsuggestion = () => {
-    axios.get(URL("/suggestion")).then((res) => {
+    axios.get(URL("/user/suggestion")).then((res) => {
       setuser(res.data);
       console.log(res.data);
     });

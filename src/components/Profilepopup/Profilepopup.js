@@ -22,7 +22,7 @@ const Popup = ({ Open, onClose, upload, remove}) => {
   const uploading = async () => {
     await axios({
       method: "Post",
-      url: URL("/addprofilephoto"),
+      url: URL("/post/addprofilephoto"),
       data: {
         ImageUrl: ImageUrl,
       },

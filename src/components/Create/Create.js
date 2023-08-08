@@ -60,10 +60,10 @@ const Create = ({ upload }) => {
               </label>
             </div>
             <div>
+              <label className="lab">Upload image</label>
               <input
                 className="input12"
                 type="file"
-                placeholder="Add ImageUrl"
                 name="ImageUrl"
                 onChange={(e) => {
                   setImageUrl(e.target.files[0]);

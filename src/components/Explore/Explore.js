@@ -17,7 +17,7 @@ const Explore = () => {
   }, []);
 
   const getdata = async () => {
-    const res = await axios.get(URL("/explore"));
+    const res = await axios.get(URL("/post/explore"));
     setExoposts(res.data);
   };
 

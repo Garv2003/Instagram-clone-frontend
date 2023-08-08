@@ -36,7 +36,7 @@ const Profile_header = ({ User, length, followers, following }) => {
     const token=localStorage.getItem('token')
     await axios({
       method: "Post",
-      url: URL("/addprofilephoto"),
+      url: URL("/post/addprofilephoto"),
       data: {
         ImageUrl: ImageUrl,
         id:token
@@ -52,7 +52,7 @@ const Profile_header = ({ User, length, followers, following }) => {
   };
   const Upload = () => {};
   const Remove = async () => {
-    await axios.post(URL("/deleteporfilephoto"),{id:localStorage.getItem("token")}).then(() => {
+    await axios.post(URL("/post/deleteporfilephoto"),{id:localStorage.getItem("token")}).then(() => {
       user.profileImage = "";
       setshowpopup(false);
     });

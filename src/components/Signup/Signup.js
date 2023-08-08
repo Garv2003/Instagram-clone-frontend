@@ -20,7 +20,7 @@ function Register() {
     setemail("");
     setname("");
     try {
-      const response = await axios.post(URL("/register"), {
+      const response = await axios.post(URL("/auth/register"), {
        data
       });
       console.log(response.data);

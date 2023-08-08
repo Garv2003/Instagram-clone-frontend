@@ -20,6 +20,7 @@ import {
 import Create from "../Create/Create";
 import Showpost from "../Showpost/Showpost";
 import Search from "../Search/Search";
+import Mesages from "../Messages/Mesages";
 
 const URL = (mypath) => {
   return `http://localhost:3456${mypath}`;
@@ -30,7 +31,7 @@ const Home = () => {
   const uploadpost = (post) => {
     axios({
       method: "post",
-      url: URL("/addpost"),
+      url: URL("/post/addpost"),
       data: {
         title: post.Title,
         ImageUrl: post.ImageUrl,
@@ -62,6 +63,7 @@ const Home = () => {
             path="/create"
             element={<Create upload={uploadpost} />}
           ></Route>
+          <Route path="/message" element={<Mesages/>}></Route>
           <Route path="/archive/stories/" element={<Archive />}></Route>
           <Route path="/accounts/edit" element={<Setting />}></Route>
           <Route path="/updatepost"></Route>

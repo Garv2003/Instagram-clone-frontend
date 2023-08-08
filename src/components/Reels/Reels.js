@@ -31,7 +31,7 @@ const Reels = () => {
     console.log(localStorage.getItem("token"));
     await axios
       .put(
-        URL("/like"),
+        URL("/post/like"),
         {
           postid: id,
           id:token
@@ -42,7 +42,7 @@ const Reels = () => {
       });
   }
   async function Unlike(id) {
-    const res = await axios.put(URL("/unlike"), {
+    const res = await axios.put(URL("/post/unlike"), {
       postid: id,
       id:localStorage.getItem("token")
     });
@@ -50,7 +50,7 @@ const Reels = () => {
   const onsubmit = async (id, text) => {
     await axios
       .put(
-        URL("/addcomment"),
+        URL("/post/addcomment"),
         {
           headers: {
             authorization: localStorage.getItem("token"),
@@ -66,7 +66,7 @@ const Reels = () => {
       });
   };
   const getdata = async () => {
-    const res = await axios.get(URL("/explore"));
+    const res = await axios.get(URL("/post/explore"));
     setExoposts(res.data);
   };
   const token = localStorage.getItem("token");

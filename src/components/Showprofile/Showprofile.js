@@ -29,7 +29,7 @@ const Profile = () => {
   const follow = (userid) => {
     setfole([...fol,userid])
     axios
-      .put(URL("/follow"), {
+      .put(URL("/user/follow"), {
         followId: userid,
         token: localStorage.getItem("token"),
       })
@@ -43,7 +43,7 @@ const Profile = () => {
 
   const unfollow = (userid) => {
     axios
-      .put(URL("/unfollow"), {
+      .put(URL("/user/unfollow"), {
         followId: userid,
         token: localStorage.getItem("token"),
       })
@@ -57,7 +57,7 @@ const Profile = () => {
 
   const getmyposts = async () => {
     await axios
-      .get(URL(`/showprofile/${id}`), {
+      .get(URL(`/user/showprofile/${id}`), {
         headers: {
           Authorization: localStorage.getItem("token"),
         },

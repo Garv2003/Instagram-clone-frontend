@@ -14,7 +14,7 @@ function Login({ Onlogin }) {
     const data = { username, password };
     console.log(data);
     try {
-      const response = await axios.post(URL("/login"), { username, password });
+      const response = await axios.post(URL("/auth/login"), { username, password });
       console.log(response.data);
       // localStorage.setItem("token", response.data.token);
       localStorage.setItem("token",response.data.user._id)

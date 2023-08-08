@@ -16,12 +16,12 @@ const Showpost = () => {
     getpost();
   },[]);
   const getpost = async () => {
-    const res = await axios.get(URL(`/showpost/${id}`));
+    const res = await axios.get(URL(`/post/showpost/${id}`));
     setspost(res.data.post);
   };
   const navigate = useNavigate();
   function deletepost() {
-    axios.get(URL(`/deletepost/${id}`)).then((res) => {
+    axios.get(URL(`/post/deletepost/${id}`)).then((res) => {
       navigate("/profile");
     });
   }
@@ -45,15 +45,15 @@ const Showpost = () => {
         <div>
           {/* {p.User_id.profileImage ? (
             <img className="profile_header_avatar" src={p.profileImage} />
-          ) : (
-            <button className="photobtn"> */}
+          ) : ( */}
+            <button className="photobtn">
               <Avatar
                 className="profile_header_avatar"
                 style={{ width: "32px", height: "32px", margin: "40px" }}
               ></Avatar>
-            {/* </button>
-          )} */}
-          {/* <div>{spost.User_id.username}</div> */}
+            </button>
+          {/* )}  */}
+           <div>{spost.title}</div> 
         </div>
         <div className="commnetbody">
 
