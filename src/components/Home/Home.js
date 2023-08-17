@@ -22,31 +22,7 @@ import Showpost from "../Showpost/Showpost";
 import Search from "../Search/Search";
 import Mesages from "../Messages/Mesages";
 
-const URL = (mypath) => {
-  return `http://localhost:3456${mypath}`;
-};
-
 const Home = () => {
-  const navigate = useNavigate();
-  const uploadpost = (post) => {
-    axios({
-      method: "post",
-      url: URL("/post/addpost"),
-      data: {
-        title: post.Title,
-        ImageUrl: post.ImageUrl,
-        description: post.Description,
-      },
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: localStorage.getItem("token"),
-      },
-    }).then((res) => {
-      if (res.status == 200) {
-        navigate("/profile");
-      }
-    });
-  };
   return (
     <div className="home">
       <div className="navbar">
@@ -55,13 +31,13 @@ const Home = () => {
       <div className="posts">
         <Routes>
           <Route exact path="/profile/*" element={<Profile />}></Route>
-          <Route path="/explore" element={<Explore />}></Route>
-          <Route path="/" element={<Posts />}></Route>
+          <Route path="/explore/*" element={<Explore />}></Route>
+          <Route path="/*" element={<Posts />}></Route>
           <Route path="/reels" element={<Reels />}></Route>
           <Route path="/showpost/:id" element={<Showpost />}></Route>
           <Route
             path="/create"
-            element={<Create upload={uploadpost} />}
+            element={<Create/>}
           ></Route>
           <Route path="/message" element={<Mesages/>}></Route>
           <Route path="/archive/stories/" element={<Archive />}></Route>

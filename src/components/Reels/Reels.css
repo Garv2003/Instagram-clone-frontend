@@ -1,3 +1,17 @@
 .reels{
-    
+    width: 1000px;
+    margin: auto;
+}
+
+.reels_header{
+    min-height:770px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:center;
+}
+.imagexplore{
+    width: 300px;
+    height: 300px;
 }

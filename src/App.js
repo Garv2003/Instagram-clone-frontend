@@ -24,7 +24,7 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<SignUp />}></Route>
         {!user ? (
-          <Route exact path="/" element={<Login/>}></Route>
+          <Route exact path="/*" element={<Login/>}></Route>
         ) : (
           <Route path="/*" element={<Home user={user} />}></Route>
         )}

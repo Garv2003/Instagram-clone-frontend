@@ -8,7 +8,7 @@ const URL = (mypath) => {
   return `http://localhost:3456${mypath}`;
 };
 
-function Posts(props) {
+function Posts() {
   const [posts, setPosts] = useState([]);
   const [user, setuser] = useState([]);
 
@@ -20,66 +20,28 @@ function Posts(props) {
   const getsuggestion = () => {
     axios.get(URL("/user/suggestion")).then((res) => {
       setuser(res.data);
-      console.log(res.data)
     });
   };
-
   const getdata = async () => {
     const res = await axios.get(URL("/post"));
-    setPosts(res.data)
+    setPosts(res.data);
   };
-  
-  async function showid(id) {
-    await axios
-      .put(URL("/post/like"), {
-        postid: id,
-        id:localStorage.getItem("token")
-      })
-      .then((res) => {
-        console.log(res);
-      });
-  }
-  async function Unlike(id) {
-    const res = await axios.put(URL("/post/unlike"), {
-      postid: id,
-      id:localStorage.getItem("token")
-    });
-  }
-  const onsubmit = async (id, text) => {
-    await axios
-      .put(URL("/post/addcomment"), {
-        id: id,
-        text: text,
-      })
-      .then((res) => {
-        console.log(res);
-      });
-  };
-  console.log(user)
+
   return (
     <div className="timeline">
       <div className="timeline__left">
-        <div className="timeline__posts">
+        {posts.map((post) => (
           <div>
-            {posts.map((post, i) => (
-              <Post
-              key={i}
-                post={post}
-                a={post._id}
-                like={post.like}
-                likes={post.likes != undefined ? post.likes.length : 0}
-                user={post.User_id.username}
-                postImage={post.ImageUrl}
-                Showid={showid}
-                unlike={Unlike}
-                onsubmit={onsubmit}
-              />
-            ))}
+            {post.User_id._id != localStorage.getItem("token") ? (
+              <Post post={post} />
+            ) : (
+              ""
+            )}
           </div>
-        </div>
+        ))}
       </div>
       <div className="timeline__right">
-        <Suggestions user={user}/>
+        <Suggestions user={user} key={user.length}/>
       </div>
     </div>
   );

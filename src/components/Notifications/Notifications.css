@@ -23,3 +23,19 @@
   font-size: 15px;
   margin-top: 20px;
 }
+.footer_icons{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  font-size: 14px;
+}
+.footer_icons>div{
+  cursor: pointer;
+}
+.notifications_footer>div>div:hover{
+  text-decoration: underline;
+}
+.high:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}

@@ -8,67 +8,148 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import axios from "axios";
 
-const Post = ({
-  user,
-  postImage,
-  a,
-  likes,
-  Showid,
-  unlike,
-  post,
-  onsubmit,
-}) => {
+const URL = (mypath) => {
+  return `http://localhost:3456${mypath}`;
+};
+
+const Post = ({ post }) => {
   const [info, setinfo] = useState("");
+  const [like, setlike] = useState(
+    post.likes.includes(localStorage.getItem("token"))
+  );
+  const [likecount, setlikecount] = useState(post.likes.length);
+  const [commentlength, setcommentlength] = useState(post.comments.length);
+  const [fol, setfol] = useState(
+    post.User_id.followers.includes(localStorage.getItem("token"))
+  );
+
+  const follow = (userid) => {
+    axios
+      .put(URL("/user/follow"), {
+        followId: userid,
+        token: localStorage.getItem("token"),
+      })
+      .then((res) => {
+        setfol(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const unfollow = (userid) => {
+    axios
+      .put(URL("/user/unfollow"), {
+        followId: userid,
+        token: localStorage.getItem("token"),
+      })
+      .then((res) => {
+        setfol(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const addinfo = (e) => {
     e.preventDefault();
-    onsubmit(a, info);
+    onsubmit(post._id, info);
     setinfo("");
   };
+
+  async function Like(id) {
+    await axios
+      .put(URL("/post/like"), {
+        postid: id,
+        id: localStorage.getItem("token"),
+      })
+      .then((res) => {
+        setlike(true);
+        setlikecount(likecount + 1);
+      });
+  }
+  async function Unlike(id) {
+    const res = await axios
+      .put(URL("/post/unlike"), {
+        postid: id,
+        id: localStorage.getItem("token"),
+      })
+      .then(() => {
+        setlike(false);
+        setlikecount(likecount - 1);
+      });
+  }
+
+  const onsubmit = async (id, text) => {
+    await axios
+      .put(URL("/post/addcomment"), {
+        id: id,
+        text: text,
+      })
+      .then((res) => {
+        setcommentlength(commentlength + 1);
+      });
+  };
+
   return (
-    <div className="Postp" key={a}>
+    <div className="Postp" key={post._id}>
       <div className="Postp_header">
         <div className="postp_header_pro">
-          <Link className="cl" to={`/showprofile/${a}`}>
-            <Avatar style={{ marginRight: "10px" }}>
-              {user.charAt(0).toUpperCase()}
-            </Avatar>{" "}
+          <Avatar style={{ marginRight: "10px" }}>
+            {post.User_id.username.charAt(0).toUpperCase()}
+          </Avatar>{" "}
+          <Link to={`/showprofile/${post.User_id._id}`} className="cl">
+            {post.User_id.username}
           </Link>
-          <Link to={`/showprofile/${a}`} className="cl">
-            {user}
+          <Link className="cl" to={`/showprofile/${post.User_id._id}`}>
+            {" "}
+            •12h•{" "}
           </Link>
-          <span>•12h•</span>
-          <div>follow</div>
+          <div>
+            {" "}
+            {fol ? (
+              <button
+                className="follow__button"
+                onClick={() => unfollow(post.User_id._id)}
+              >
+                Unfollow
+              </button>
+            ) : (
+              <button
+                className="follow__button"
+                onClick={() => follow(post.User_id._id)}
+              >
+                Follow
+              </button>
+            )}
+          </div>
         </div>
         <MoreHorizIcon></MoreHorizIcon>
       </div>
       <div className="postp_image">
-        <img src={postImage} alt="Post Image" />
+        <img src={post.ImageUrl} alt="Post Image" />
       </div>
       <div className="postp_footer">
         <div className="posticons">
           <div className="post_iconsMain">
-            {(
-              post.likes != undefined
-                ? post.likes.includes(localStorage.getItem("token"))
-                : false
-            ) ? (
+            {like ? (
               <FavoriteIcon
                 style={{ color: "red" }}
                 className="postIcon"
                 onClick={(e) => {
-                  unlike(a);
+                  Unlike(post._id);
                 }}
               />
             ) : (
               <FavoriteBorderIcon
                 className="postIcon"
-                onClick={(e) => {
-                  Showid(a);
+                onClick={() => {
+                  Like(post._id);
                 }}
               />
             )}
-            <Link to={`/showpost/${a}`}>
+            <Link to={`/showpost/${post._id}`}>
               <ChatBubbleOutlineIcon className="postIcon cl" />
             </Link>
             <TelegramIcon className="postIcon" />
@@ -77,11 +158,11 @@ const Post = ({
             <BookmarkBorderIcon className="postIcon" />
           </div>
         </div>
-        <div>{likes} likes</div>
+        <div>{likecount} likes</div>
       </div>
       <div className="profile_footer1">
-        <Link className="cl" to={`/showpost/${a}`}>
-          View all {post.comments.length} comments
+        <Link className="cl" to={`/showpost/${post._id}`}>
+          View all {commentlength} comments
         </Link>
         <form className="formposts" onSubmit={addinfo}>
           <div className="field">
@@ -95,7 +176,7 @@ const Post = ({
               }}
               value={info}
             />
-            <label className="login-label" for="username">
+            <label className="login-label" htmlFor="username">
               Add a commet...
             </label>
             <input className="formposts_button" type="submit" value="Post" />

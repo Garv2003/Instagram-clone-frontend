@@ -19,6 +19,9 @@
   cursor: pointer;
   text-decoration: none;
 }
+.seeall:hover{
+  color: rgb(55, 53, 53);
+}
 .username__left {
   display: inline-flex;
 }
@@ -52,16 +55,29 @@
   color: white;
   cursor: pointer;
 }
-
+.userprofile{
+  margin-bottom: 30px;
+}
 .username {
   font-weight: 600;
   font-size: 14px;
 }
 .suggestion_footer{
-  margin-top: 50px;
+  margin-top: 40px;
+  width: 250px;
   display: flex;
   flex-direction: column;
   gap: 5px;
   color: gray;
   font-size: 12px;
+}
+.suggestion_icons{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  cursor: pointer;
+  gap: 2px;
+}
+.suggestion_icons>div:hover{
+  text-decoration: underline;
 }

@@ -9,4 +9,14 @@
     height:870px;
     flex: 0.7;
     border-left: 1px solid gray;
+    position: relative;
+}
+.friends{
+    padding: 15px;
+}
+.message_body{
+    position:fixed;
+    top: 50%;
+    left: -50%;
+
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Avatar } from "@mui/material";
+import Profilebar from "../profilebar/Profilebar";
 import "./Notifications.css";
-import { Link } from "react-router-dom";
+
 import axios from "axios";
 
 const URL = (mypath) => {
@@ -9,6 +9,8 @@ const URL = (mypath) => {
 };
 const Notifications = () => {
   const [user, setuser] = useState([]);
+  // const [fol, setfol] = useState(false);
+  // const [unfol, setunfol] = useState(false);
 
   useEffect(() => {
     getsuggestion();
@@ -17,13 +19,12 @@ const Notifications = () => {
   const getsuggestion = () => {
     axios.get(URL("/user/suggestion")).then((res) => {
       setuser(res.data);
-      console.log(res.data);
     });
   };
   return (
     <div className="notifications">
       <div className="notifications_header">
-        <h1 classsName="not_heading">Notifications</h1>
+        <h1 className="not_heading">Notifications</h1>
         <div>Activity On Your Posts</div>
         <div>
           When someone likes or comments on one of your posts, you'll see it
@@ -36,31 +37,27 @@ const Notifications = () => {
         </div>
         <div className="suggestions__usernames">
           {user.map((post) => (
-            <div>
-              {post._id != localStorage.getItem("token") ? (
-                <div className="suggestions__username">
-                  <div className="username__left">
-                    <Link to={`/showprofile/${post._id}`} className="avatar">
-                      <Avatar>{post.username[0]}</Avatar>
-                    </Link>
-                    <div className="username__info">
-                      <Link to={`/showprofile/${post._id}`} className="username cl">{post.username}</Link>
-                      <span className="relation">New to Instagram</span>
-                    </div>
-                  </div>
-                  <button className="follow__button">Follow</button>
-                </div>
-              ) : (
-                <div></div>
-              )}
-            </div>
+            <Profilebar key={post._id} post={post}/>
           ))}
         </div>
       </div>
       <div className="notifications_footer">
-        <span>About Help Press API Jobs Privacy Terms </span>
-        <div>Locations Language English Meta Verified</div>
-        <div>© 2023 INSTAGRAM FROM META</div>
+        <div className="footer_icons">
+          <div>About</div>
+          <div>Help</div>
+          <div>Press</div>
+          <div>API</div>
+          <div>Jobs</div>
+          <div>Privacy</div>
+          <div>Terms </div>
+        </div>
+        <div className="footer_icons">
+          <div>Locations</div>
+          <div>Language</div>
+          <div>English</div>
+          <div> Meta Verified</div>
+        </div>
+        <div className="high">© 2023 INSTAGRAM FROM META</div>
       </div>
     </div>
   );

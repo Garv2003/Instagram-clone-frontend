@@ -7,3 +7,9 @@
     font-size: 12px;
     margin-bottom: 30px;
 }
+.profile_footer>div{
+    cursor: pointer;
+}
+.profile_footer>div:hover{
+    text-decoration: underline;
+}

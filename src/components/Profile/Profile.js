@@ -87,7 +87,7 @@ const Profile = () => {
         <div className="explore_header">
           {data.map((post) => {
             return (
-              <div className="pl-22">
+              <div className="pl-22" key={post._id}>
                 <div className="gallery-item">
                   <div>
                     <img className="profileimage" src={post.ImageUrl} alt="" />

@@ -13,9 +13,8 @@ const Search = () => {
 
   const getdata = () => {
     axios
-      .post(URL("/user/search"), { key: Search })
+      .get(URL(`/user/search?user=${Search}`))
       .then((res) => {
-        console.log(res.data);
         setuser(res.data);
         console.log(user);
       })
@@ -34,16 +33,22 @@ const Search = () => {
       <div className="search_heading">Search</div>
       <form>
         <input
-          className="search_input"
+          className="search_input1"
           type="text"
           onChange={(e) => {
             handlechange(e.target.value);
           }}
         />
       </form>
-      <div className="searchbody"> 
-        {user.length > 0
-          ? user.map((us) => {
+      <div className="searchbody">
+        <div>
+          {user.map((us)=>{
+            <div>{us}</div>
+          })}
+        </div>
+        {/* {user.length > 0 ? (
+          <div>
+            {user.map((us) => {
               <div className="search_body">
                 <div className="suggestions__username">
                   <div className="username__left">
@@ -56,9 +61,12 @@ const Search = () => {
                     </div>
                   </div>
                 </div>
-              </div>;
-            })
-          : <div className="search-title">No Recent Search</div>}
+              </div>
+            })}
+          </div>
+        ) : (
+          <div className="search-title">No Recent Search</div>
+        )} */}
       </div>
     </div>
   );

@@ -1,23 +1,51 @@
 import React, { useState } from "react";
 import "./Create.css";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-const Create = ({ upload }) => {
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+const URL = (mypath) => {
+  return `http://localhost:3456${mypath}`;
+};
+
+const Create = () => {
   const [Title, setTitle] = useState("");
   const [ImageUrl, setImageUrl] = useState("");
   const [Description, setDescription] = useState("");
 
   const onSubmit = (e) => {
     e.preventDefault();
-    upload({ Title, ImageUrl, Description });
+    uploadpost({ Title, ImageUrl, Description });
     setTitle("");
     setImageUrl("");
     setDescription("");
   };
 
+  const navigate = useNavigate();
+
+  const uploadpost = (post) => {
+    axios({
+      method: "post",
+      url: URL("/post/addpost"),
+      data: {
+        title: post.Title,
+        ImageUrl: post.ImageUrl,
+        description: post.Description,
+      },
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: localStorage.getItem("token"),
+      },
+    }).then((res) => {
+      if (res.status == 200) {
+        navigate("/profile");
+      }
+    });
+  };
+  
   return (
-    <div class="container">
-      <div class="container1">
-        <div class="tic">
+    <div className="container">
+      <div className="container1">
+        <div className="tic">
           <h1>Create New Post</h1>
         </div>
         <div className="addphotoicon">
@@ -40,7 +68,7 @@ const Create = ({ upload }) => {
                   setTitle(e.target.value);
                 }}
               />
-              <label className="login-label" for="username">
+              <label className="login-label" htmlFor="username">
                 Title
               </label>
             </div>
@@ -55,12 +83,11 @@ const Create = ({ upload }) => {
                   setDescription(e.target.value);
                 }}
               />
-              <label className="login-label" for="username">
+              <label className="login-label" htmlFor="username">
                 Description
               </label>
             </div>
             <div>
-              <label className="lab">Upload image</label>
               <input
                 className="input12"
                 type="file"

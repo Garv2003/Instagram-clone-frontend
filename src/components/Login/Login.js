@@ -50,7 +50,7 @@ function Login({ Onlogin }) {
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Phone number, username, or email"
             />
-            <label className="login-label" for="username">Phone number, username, or email</label>
+            <label className="login-label" htmlFor="username">Phone number, username, or email</label>
           </div>
           <div className="field">
             <input
@@ -61,7 +61,7 @@ function Login({ Onlogin }) {
               type="password"
               placeholder="password"
             />
-            <label className="login-label" for="password">Password</label>
+            <label className="login-label" htmlFor="password">Password</label>
           </div>
           <button className="login-button" type="submit" title="login">
             Log In

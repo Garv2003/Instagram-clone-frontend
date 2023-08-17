@@ -26,21 +26,21 @@ const Explore = () => {
       <div className="explore_header">
         {exoposts.map((post) => {
           return (
-            <div class="pl-22">
-              <div class="gallery-item">
+            <div className="pl-22" key={post._id}>
+              <div className="gallery-item">
                 <div>
-                  <img class="profileimage" src={post.ImageUrl} alt="" />
+                  <img className="profileimage" src={post.ImageUrl} alt="" />
                   <div />
                   <Link to={`/showpost/${post._id}`}>
-                    <div class="gallery-item-info">
+                    <div className="gallery-item-info">
                       <ul>
-                        <li class="gallery-item-likes cl">
-                          <span class="visually-hidden">Likes:</span>{" "}
+                        <li className="gallery-item-likes cl">
+                          <span className="visually-hidden">Likes:</span>{" "}
                           <FavoriteIcon />
                           {post.likes.length}
                         </li>
-                        <li class="gallery-item-comments cl">
-                          <span class="visually-hidden">Comments:</span>{" "}
+                        <li className="gallery-item-comments cl">
+                          <span className="visually-hidden">Comments:</span>{" "}
                           <CommentIcon />{post.comments.length}
                         </li>
                       </ul>
