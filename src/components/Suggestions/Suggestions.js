@@ -10,7 +10,7 @@ function Suggestions(props) {
     <div className="suggestions">
       <div className="userprofile">
         {user.map((post) => (
-          <div>
+          <div key={post._id}>
             {post._id === localStorage.getItem("token") ? (
               <div className="suggestions__username">
                 <div className="username__left">
@@ -46,7 +46,7 @@ function Suggestions(props) {
             {post._id != localStorage.getItem("token") ? (
               <Profilebar post={post} key={post._id}/>
             ) : (
-              <></>
+              <div></div>
             )}
           </div>
         ))}

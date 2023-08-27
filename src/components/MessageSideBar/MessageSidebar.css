@@ -1,0 +1,16 @@
+.currentuser{
+    padding: 20px 0px 0px 20px;
+    display: flex;
+    flex-direction: column;
+}
+.head{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 20px 0px 20px;
+}
+.friends{
+    padding: 15px;
+    min-height: 760px;
+    overflow-y: scroll;
+}

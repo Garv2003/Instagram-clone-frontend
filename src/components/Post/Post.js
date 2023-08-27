@@ -8,6 +8,7 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
 import axios from "axios";
 
 const URL = (mypath) => {
@@ -23,6 +24,10 @@ const Post = ({ post }) => {
   const [commentlength, setcommentlength] = useState(post.comments.length);
   const [fol, setfol] = useState(
     post.User_id.followers.includes(localStorage.getItem("token"))
+  );
+  const [bookmark, setbookmark] = useState(
+    post.bookmarks.includes(localStorage.getItem("token"))
+    // false
   );
 
   const follow = (userid) => {
@@ -81,6 +86,27 @@ const Post = ({ post }) => {
       });
   }
 
+  async function Bookmark(id) {
+    await axios
+      .put(URL("/post/bookmark"), {
+        postid: id,
+        id: localStorage.getItem("token"),
+      })
+      .then((res) => {
+        setbookmark(true);
+      });
+  }
+  async function Unbookmark(id) {
+    const res = await axios
+      .put(URL("/post/unbookmark"), {
+        postid: id,
+        id: localStorage.getItem("token"),
+      })
+      .then(() => {
+        setbookmark(false);
+      });
+  }
+
   const onsubmit = async (id, text) => {
     await axios
       .put(URL("/post/addcomment"), {
@@ -96,9 +122,13 @@ const Post = ({ post }) => {
     <div className="Postp" key={post._id}>
       <div className="Postp_header">
         <div className="postp_header_pro">
-          <Avatar style={{ marginRight: "10px" }}>
-            {post.User_id.username.charAt(0).toUpperCase()}
-          </Avatar>{" "}
+          {post.User_id.profileImage ? (
+            <img className="postprofileimage" src={post.User_id.profileImage} />
+          ) : (
+            <Avatar style={{ marginRight: "10px" }}>
+              {post.User_id.username.charAt(0).toUpperCase()}
+            </Avatar>
+          )}
           <Link to={`/showprofile/${post.User_id._id}`} className="cl">
             {post.User_id.username}
           </Link>
@@ -155,7 +185,22 @@ const Post = ({ post }) => {
             <TelegramIcon className="postIcon" />
           </div>
           <div className="post_iconsb">
-            <BookmarkBorderIcon className="postIcon" />
+            {bookmark ? (
+              <BookmarkIcon
+                style={{ color: "white" }}
+                className="postIcon"
+                onClick={() => {
+                  Unbookmark(post._id);
+                }}
+              />
+            ) : (
+              <BookmarkBorderIcon
+                className="postIcon"
+                onClick={() => {
+                  Bookmark(post._id);
+                }}
+              />
+            )}
           </div>
         </div>
         <div>{likecount} likes</div>

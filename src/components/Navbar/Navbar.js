@@ -69,7 +69,7 @@ const Navbar = () => {
         <button className="navbutton">
           <FavoriteBorderIcon />
           <span>
-            <Link className="cl" to="notifications">
+            <Link className="cl" to="/notifications">
               Notifications
             </Link>
           </span>

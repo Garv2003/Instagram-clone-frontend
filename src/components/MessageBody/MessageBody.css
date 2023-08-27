@@ -1,0 +1,130 @@
+.messagebody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: black;
+  box-sizing: border-box;
+}
+.messagebody_top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 1rem;
+  margin-bottom: 20px;
+  border-bottom: 1px solid gray;
+}
+.messagestatus{
+  display: flex;
+  flex-direction: column;
+}
+.topicon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  padding: 5px;
+}
+.status{
+  margin-bottom: 10px;
+}
+.messagebody_middle {
+  box-sizing: border-box;
+  margin-top: 20px;
+  width: 100%;
+  height: 700px;
+  overflow-y: scroll;
+}
+.chatbox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+.messagebody_footer {
+  width: 56%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  gap: 15px;
+  padding: 6px;
+  border: 1px solid gray;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.messagebody_footer textarea {
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 20px;
+  background-color: black;
+  font-size: 1rem;
+  color: white;
+}
+.messagebody_footer textarea::placeholder {
+  color: gray;
+}
+.messagebody_footer button {
+  border: none;
+  outline: none;
+  background-color: black;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.messagebody_footer button:hover {
+  color: gray;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+.message__container {
+  width: 100%;
+  height: 80vh;
+  padding: 20px;
+  overflow-y: scroll;
+}
+.message__recipient {
+  background-color: rgb(0, 132, 255);
+  max-width: 300px;
+  padding: 10px;
+  border-radius: 20px;
+  margin-right: auto;
+  font-size: 15px;
+}
+.message__sender {
+  background-color: rgb(135, 86, 215);
+  max-width: 300px;
+  padding: 10px;
+  border-radius: 20px;
+  margin-left: auto;
+  font-size: 15px;
+}
+.message__chats {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.message__chats > p {
+  font-size: 13px;
+}
+.sender__name {
+  text-align: right;
+}
+/* .message__status {
+  position: fixed;
+  bottom: 50px;
+  font-size: 13px;
+  font-style: italic;
+} */

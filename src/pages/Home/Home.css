@@ -1,0 +1,33 @@
+.home{
+    display: flex;
+    flex-direction:row;
+}
+.navbar{
+    flex: 16%;
+    position: relative;
+    border-right:1px solid gray;
+}
+.posts{
+    flex:84%;
+    min-height: 870px;
+    padding: 0;
+}
+.timeline {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .timeline__left {
+    flex: 0.6;
+    /* margin-right: 80px; */
+    margin-left: 150px;
+  }
+  
+  .timeline__right {
+    flex: 0.4;
+    padding: 50px;
+    padding-top: 20px;
+  }
+  
+  .timeline__posts {
+  }

@@ -1,36 +1,148 @@
 import React, { useState } from "react";
 import "./App.css";
-import { useEffect } from "react";
-import Home from "./components/Home/Home";
-import Login from "./components/Login/Login";
-import SignUp from "./components/Signup/Signup";
+import Explore from "./pages/Explore/Explore";
+import Reels from "./pages/Reels/Reels";
+import Showpost from "./pages/Showpost/Showpost";
+import Create from "./pages/Create/Create";
+import Messages from "./pages/Messages/Messages";
+import Archive from "./pages/Archive/Archive";
+import Setting from "./pages/Setting/Setting";
+import Notifications from "./pages/Notifications/Notifications";
+import Search from "./pages/Search/Search";
+import Showprofile from "./pages/Showprofile/Showprofile";
+import Home from "./pages/Home/Home";
+import Login from "./pages/Login/Login";
+import SignUp from "./pages/Signup/Signup";
+import Profile from "./pages/Profile/Profile";
+
 import {
   BrowserRouter as Router,
   Route,
   Routes,
-  useNavigate,
+  Navigate,
 } from "react-router-dom";
-import Profile from "./components/Profile/Profile";
 
 function App() {
-  const [user, setuser] = useState(null);
-  useEffect(()=>{
-    const token = localStorage.getItem('token');
-    setuser(token)
-  },[])
   return (
-    <div>
+    <>
       <Routes>
-        <Route path="/login" element={<Login />}></Route>
+        <Route exact path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<SignUp />}></Route>
-        {!user ? (
-          <Route exact path="/*" element={<Login/>}></Route>
-        ) : (
-          <Route path="/*" element={<Home user={user} />}></Route>
-        )}
-        <Route path="*/profile/*" element={<Profile/>}></Route>
+        <Route
+          path="/"
+          element={
+            localStorage.getItem("token") ? <Home /> : <Navigate to="/login" />
+          }
+        ></Route>
+        <Route
+          path="/profile/*"
+          element={
+            localStorage.getItem("token") ? (
+              <Profile />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        ></Route>
+        <Route
+          path="/explore"
+          element={
+            localStorage.getItem("token") ? (
+              <Explore />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        ></Route>
+        <Route
+          path="/reels"
+          element={
+            localStorage.getItem("token") ? <Reels /> : <Navigate to="/login" />
+          }
+        ></Route>
+        <Route
+          path="/showpost/:id"
+          element={
+            localStorage.getItem("token") ? (
+              <Showpost />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        ></Route>
+        <Route
+          path="/create"
+          element={
+            localStorage.getItem("token") ? (
+              <Create />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        ></Route>
+        <Route
+          path="/message"
+          element={
+            localStorage.getItem("token") ? (
+              <Messages />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        ></Route>
+        <Route
+          path="/archive/stories/"
+          element={
+            localStorage.getItem("token") ? (
+              <Archive />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        ></Route>
+        <Route
+          path="/accounts/edit"
+          element={
+            localStorage.getItem("token") ? (
+              <Setting />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        ></Route>
+        <Route path="/updatepost"></Route>
+        <Route
+          path="/notifications"
+          element={
+            localStorage.getItem("token") ? (
+              <Notifications />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        ></Route>
+        <Route
+          path="/search"
+          element={
+            localStorage.getItem("token") ? (
+              <Search />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        ></Route>
+        <Route
+          path="/showprofile/:id"
+          element={
+            localStorage.getItem("token") ? (
+              <Showprofile />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        ></Route>
       </Routes>
-    </div>
+    </>
   );
 }
 

@@ -44,7 +44,11 @@ const profilebar = ({ post }) => {
         <div className="suggestions__username">
           <div className="username__left">
             <Link to={`/showprofile/${post._id}`} className="avatar">
-              <Avatar>{post.username[0]}</Avatar>
+              {post.profileImage ? (
+                <img className="postprofileimage" src={post.profileImage} />
+              ) : (
+                <Avatar>{post.username[0]}</Avatar>
+              )}
             </Link>
             <div className="username__info">
               <Link to={`/showprofile/${post._id}`} className="username cl">

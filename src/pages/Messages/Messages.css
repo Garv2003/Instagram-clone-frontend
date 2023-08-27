@@ -1,0 +1,49 @@
+.messages{
+    display: flex;
+    flex-direction: row;
+}
+.message_left{
+    flex: 0.3;
+    border-right: 1px solid gray;
+}
+.postprofileimage{
+    border-radius:50%;
+    width: 50px;
+    height: 50px;
+}
+.message_right{
+    height:870px;
+    flex: 0.7;
+    border-left: 1px solid gray;
+}
+.chaticon{
+    width: 100px;
+    height: 100px;
+    border: 5px solid  #ccc;
+    border-radius:50%;
+}
+.messagewelcome{
+   
+}
+.messageicon{
+    margin-top: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: #ccc;
+}
+.messageicon h1{
+    font-weight: 500;
+    margin-top: 10px;
+}
+.smbtn{
+    background-color: #0095F6;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: 600;
+    padding: 8px 12px;
+    margin: 10px 0px;
+}
