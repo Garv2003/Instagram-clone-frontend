@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Post from "../../components/Post/Post";
 import "./Reels.css";
-import Profile_footer from "../Profile_footer/Profile_footer";
+import ProfileFooter from "../../components/ProfileFooter/ProfileFooter";
 import Navbar from "../../components/Navbar/Navbar";
 import axios from "axios";
 
@@ -33,7 +33,7 @@ function Reels() {
           <div className="reels_header">
             {posts.map((post) => (
               <div key={post._id}>
-                {post.User_id._id != localStorage.getItem("token") ? (
+                {post.User_id._id !== localStorage.getItem("token") ? (
                   <Post post={post} />
                 ) : (
                   <div></div>
@@ -41,7 +41,7 @@ function Reels() {
               </div>
             ))}
             <div className="explore_footer">
-              <Profile_footer />
+              <ProfileFooter />
             </div>
           </div>
         </div>

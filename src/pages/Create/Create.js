@@ -37,7 +37,7 @@ const Create = () => {
         Authorization: localStorage.getItem("token"),
       },
     }).then((res) => {
-      if (res.status == 200) {
+      if (res.status === 200) {
         navigate("/profile");
       }
     });

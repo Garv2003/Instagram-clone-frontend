@@ -36,7 +36,7 @@ const Post = ({ post }) => {
         followId: userid,
         token: localStorage.getItem("token"),
       })
-      .then((res) => {
+      .then(() => {
         setfol(true);
       })
       .catch((err) => {
@@ -50,7 +50,7 @@ const Post = ({ post }) => {
         followId: userid,
         token: localStorage.getItem("token"),
       })
-      .then((res) => {
+      .then(() => {
         setfol(false);
       })
       .catch((err) => {
@@ -69,13 +69,13 @@ const Post = ({ post }) => {
         postid: id,
         id: localStorage.getItem("token"),
       })
-      .then((res) => {
+      .then(() => {
         setlike(true);
         setlikecount(likecount + 1);
       });
   }
   async function Unlike(id) {
-    const res = await axios
+    await axios
       .put(URL("/post/unlike"), {
         postid: id,
         id: localStorage.getItem("token"),
@@ -92,12 +92,12 @@ const Post = ({ post }) => {
         postid: id,
         id: localStorage.getItem("token"),
       })
-      .then((res) => {
+      .then(() => {
         setbookmark(true);
       });
   }
   async function Unbookmark(id) {
-    const res = await axios
+    await axios
       .put(URL("/post/unbookmark"), {
         postid: id,
         id: localStorage.getItem("token"),
@@ -113,7 +113,7 @@ const Post = ({ post }) => {
         id: id,
         text: text,
       })
-      .then((res) => {
+      .then(() => {
         setcommentlength(commentlength + 1);
       });
   };
@@ -123,7 +123,7 @@ const Post = ({ post }) => {
       <div className="Postp_header">
         <div className="postp_header_pro">
           {post.User_id.profileImage ? (
-            <img className="postprofileimage" src={post.User_id.profileImage} />
+            <img className="postprofileimage" src={post.User_id.profileImage} alt="profile"/>
           ) : (
             <Avatar style={{ marginRight: "10px" }}>
               {post.User_id.username.charAt(0).toUpperCase()}
@@ -158,7 +158,7 @@ const Post = ({ post }) => {
         <MoreHorizIcon></MoreHorizIcon>
       </div>
       <div className="postp_image">
-        <img src={post.ImageUrl} alt="Post Image" />
+        <img src={post.ImageUrl} alt="PostImage" />
       </div>
       <div className="postp_footer">
         <div className="posticons">
@@ -167,6 +167,7 @@ const Post = ({ post }) => {
               <FavoriteIcon
                 style={{ color: "red" }}
                 className="postIcon"
+                sx={{ fontSize: 45 }}
                 onClick={(e) => {
                   Unlike(post._id);
                 }}
@@ -174,21 +175,23 @@ const Post = ({ post }) => {
             ) : (
               <FavoriteBorderIcon
                 className="postIcon"
+                sx={{ fontSize: 45 }}
                 onClick={() => {
                   Like(post._id);
                 }}
               />
             )}
             <Link to={`/showpost/${post._id}`}>
-              <ChatBubbleOutlineIcon className="postIcon cl" />
+              <ChatBubbleOutlineIcon sx={{ fontSize: 45 }} className="postIcon cl" />
             </Link>
-            <TelegramIcon className="postIcon" />
+            <TelegramIcon sx={{ fontSize: 45 }} className="postIcon" />
           </div>
           <div className="post_iconsb">
             {bookmark ? (
               <BookmarkIcon
                 style={{ color: "white" }}
                 className="postIcon"
+                sx={{ fontSize: 45 }}
                 onClick={() => {
                   Unbookmark(post._id);
                 }}
@@ -196,6 +199,7 @@ const Post = ({ post }) => {
             ) : (
               <BookmarkBorderIcon
                 className="postIcon"
+                sx={{ fontSize: 45 }}
                 onClick={() => {
                   Bookmark(post._id);
                 }}

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Setting.css";
 import { Avatar } from "@mui/material";
-import Profile_footer from "../Profile_footer/Profile_footer";
+import ProfileFooter from "../../components/ProfileFooter/ProfileFooter";
 const Setting = () => {
   return (
     <div>
@@ -60,7 +60,7 @@ const Setting = () => {
         </div>
       </div>
       <div className="setting_footer">
-        <Profile_footer />
+        <ProfileFooter />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Explore.css";
-import Profile_footer from "../Profile_footer/Profile_footer";
+import ProfileFooter from "../../components/ProfileFooter/ProfileFooter";
 import Savedpost from "../../components/Savedpost/Savedpost";
 import Navbar from "../../components/Navbar/Navbar";
 import axios from "axios";
@@ -34,7 +34,7 @@ const Explore = () => {
            <Savedpost data={exoposts}/>
           </div>
           <div className="explore_footer">
-            <Profile_footer />
+            <ProfileFooter />
           </div>
         </div>
       </div>

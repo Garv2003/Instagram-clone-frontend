@@ -9,7 +9,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Link, BrowserRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Popup from "../Popup/Popup";
 const Navbar = () => {
   const [open, setopen] = useState(false);
@@ -100,7 +100,7 @@ const Navbar = () => {
         />
         <button
           onClick={(e) => {
-            if (open == true) {
+            if (open === true) {
               setopen(false);
             } else {
               setopen(true);

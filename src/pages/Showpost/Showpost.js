@@ -9,15 +9,18 @@ const URL = (mypath) => {
 };
 
 const Showpost = () => {
-  const [update, setupdate] = useState(false);
-  const [spost, setspost] = useState([]);
+  // const [update, setupdate] = useState(false);
+  const [spost, setspost] = useState();
   const { id } = useParams();
+
   useEffect(() => {
     getpost();
-  },[]);
+  }, []);
+
   const getpost = async () => {
     const res = await axios.get(URL(`/post/showpost/${id}`));
     setspost(res.data.post);
+    console.log(spost); 
   };
   const navigate = useNavigate();
   function deletepost() {
@@ -26,7 +29,6 @@ const Showpost = () => {
     });
   }
   function updatepost() {}
-  let p=spost;
   return (
     <div className="showpost">
       <div className="shwpost1">
@@ -42,22 +44,20 @@ const Showpost = () => {
         </div>
       </div>
       <div>
-        <div>
-          {/* {p.User_id.profileImage ? (
-            <img className="profile_header_avatar" src={p.profileImage} />
-          ) : ( */}
+        <div className="showpost2">
+          {spost.User_id.profileImage ? (
+            <img className="profile_header_avatar" src={spost.User_id.profileImage} />
+          ) : (
             <button className="photobtn">
               <Avatar
                 className="profile_header_avatar"
                 style={{ width: "32px", height: "32px", margin: "40px" }}
               ></Avatar>
             </button>
-          {/* )}  */}
-           <div>{spost.title}</div> 
+          )}
+          <div>{spost.title}</div>
         </div>
-        <div className="commnetbody">
-
-        </div>
+        <div className="commnetbody"></div>
         <div></div>
         <div></div>
       </div>

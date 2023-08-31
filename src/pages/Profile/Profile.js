@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
-import Profile_header from "../../components/Profile_header/Profile_header";
-import Profile_footer from "../Profile_footer/Profile_footer";
+import ProfileHeader from "../../components/ProfileHeader/ProfileHeader";
+import ProfileFooter from "../../components/ProfileFooter/ProfileFooter";
 import { Link, Route, Routes } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import Savedpost from "../../components/Savedpost/Savedpost";
@@ -17,7 +17,7 @@ const Profile = () => {
   const [savedpost, setsavedpost] = useState([]);
   const [followers, setfollowers] = useState(0);
   const [following, setfollowing] = useState(0);
-  const token = localStorage.getItem("token");
+  
   useEffect(() => {
     getmyposts();
   }, []);
@@ -33,10 +33,10 @@ const Profile = () => {
         setdata(res.data[1]);
         setuser(res.data[0]);
         setsavedpost(res.data[0].savedpost);
-        if (res.data[0].followers != undefined) {
+        if (res.data[0].followers !== undefined) {
           setfollowers(res.data[0].followers.length);
         }
-        if (res.data[0].following != undefined) {
+        if (res.data[0].following !== undefined) {
           setfollowing(res.data[0].following.length);
         }
       });
@@ -50,7 +50,7 @@ const Profile = () => {
       <div className="posts">
         <div className="profile">
           <div>
-            <Profile_header
+            <ProfileHeader
               User={user}
               length={data.length}
               followers={followers}
@@ -99,7 +99,7 @@ const Profile = () => {
               </Routes>
             </div>
           </div>
-          <Profile_footer />
+          <ProfileFooter />
         </div>
       </div>
     </div>

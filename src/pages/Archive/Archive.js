@@ -1,6 +1,6 @@
 import React from "react";
 import "./Archive.css";
-import Profile_footer from "../Profile_footer/Profile_footer";
+import ProfileFooter from "../../components/ProfileFooter/ProfileFooter";
 import RestoreIcon from "@mui/icons-material/Restore";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import RotateLeftIcon from "@mui/icons-material/RotateLeft";
@@ -40,7 +40,7 @@ const Archive = () => {
         <span>your memories. Only you can see what's in your archive.</span>
       </div>
       <div className="archive_footer">
-        <Profile_footer />
+        <ProfileFooter />
       </div>
     </div>
   );

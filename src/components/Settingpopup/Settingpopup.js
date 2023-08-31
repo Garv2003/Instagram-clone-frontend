@@ -1,10 +1,7 @@
 import React from "react";
 import "./Settingpopup.css";
 import { Link, useNavigate } from "react-router-dom";
-const Settingpopup = ({ openpop,Onclose }) => {
-  if (!openpop) {
-    return null;
-  }
+const Settingpopup = ({Onclose}) => {
   const navigate=useNavigate()
   const handlelogout=()=>{
     localStorage.removeItem("token")

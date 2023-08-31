@@ -31,7 +31,7 @@ const MessageSidebar = ({ user, handledata }) => {
         {user.map((post) => {
           return (
             <div key={post._id}>
-              {post._id != localStorage.getItem("token") ? (
+              {post._id !== localStorage.getItem("token") ? (
                 <div className="suggestions__username">
                   <div className="username__left">
                     <Link to={`/showprofile/${post._id}`} className="avatar">
@@ -39,6 +39,7 @@ const MessageSidebar = ({ user, handledata }) => {
                         <img
                           className="postprofileimage"
                           src={post.profileImage}
+                          alt="profile"
                         />
                       ) : (
                         <Avatar>{post.username[0]}</Avatar>

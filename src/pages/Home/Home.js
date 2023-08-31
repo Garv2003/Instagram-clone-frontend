@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import "./Home.css";
 import Post from "../../components/Post/Post";
-import { useNavigate } from "react-router-dom";
 import Suggestions from "../../components/Suggestions/Suggestions";
 import axios from "axios";
 
@@ -11,7 +10,6 @@ const URL = (mypath) => {
 };
 
 const Home = () => {
-  const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [user, setuser] = useState([]);
 

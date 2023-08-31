@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Profilebar from "../../components/profilebar/Profilebar";
+import Profilebar from "../../components/Profilebar/Profilebar";
 import "./Notifications.css";
 import  Navbar  from "../../components/Navbar/Navbar";
 import axios from "axios";

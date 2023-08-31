@@ -7,8 +7,8 @@ const URL = (mypath) => {
   return `http://localhost:3456${mypath}`;
 };
 
-const profilebar = ({ post }) => {
-  const [fol, setfol] = useState(
+const Profilebar = ({ post }) => {
+  const [Fol, setFol] = useState(
     post.followers.includes(localStorage.getItem("token"))
   );
   const follow = (userid) => {
@@ -18,7 +18,7 @@ const profilebar = ({ post }) => {
         token: localStorage.getItem("token"),
       })
       .then((res) => {
-        setfol(true);
+        setFol(true);
       })
       .catch((err) => {
         console.log(err);
@@ -32,7 +32,7 @@ const profilebar = ({ post }) => {
         token: localStorage.getItem("token"),
       })
       .then((res) => {
-        setfol(false);
+        setFol(false);
       })
       .catch((err) => {
         console.log(err);
@@ -40,12 +40,12 @@ const profilebar = ({ post }) => {
   };
   return (
     <div key={post._id}>
-      {post._id != localStorage.getItem("token") ? (
+      {post._id !== localStorage.getItem("token") ? (
         <div className="suggestions__username">
           <div className="username__left">
             <Link to={`/showprofile/${post._id}`} className="avatar">
               {post.profileImage ? (
-                <img className="postprofileimage" src={post.profileImage} />
+                <img className="postprofileimage" src={post.profileImage} alt="profile"/>
               ) : (
                 <Avatar>{post.username[0]}</Avatar>
               )}
@@ -57,7 +57,7 @@ const profilebar = ({ post }) => {
               <span className="relation">New to Instagram</span>
             </div>
           </div>
-          {fol ? (
+          {Fol ? (
             <button
               className="follow__button"
               onClick={() => unfollow(post._id)}
@@ -77,4 +77,4 @@ const profilebar = ({ post }) => {
   );
 };
 
-export default profilebar;
+export default Profilebar;

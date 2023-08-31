@@ -1,6 +1,6 @@
 import React from "react";
 import "./Popup.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import SettingsIcon from "@mui/icons-material/Settings";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import ModeNightOutlinedIcon from "@mui/icons-material/ModeNightOutlined";
@@ -10,11 +10,12 @@ const Popup = ({ Open, onClose }) => {
   if (!Open) {
     return null;
   }
-  const navigate=useNavigate()
+
   const handlelogout=()=>{
     localStorage.removeItem("token")
-    navigate('/login')
+    window.location.assign("/login")
   }
+
   return (
     <div className="Popup" onClick={onClose}>
       <div >

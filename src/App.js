@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import Explore from "./pages/Explore/Explore";
 import Reels from "./pages/Reels/Reels";
@@ -16,7 +16,6 @@ import SignUp from "./pages/Signup/Signup";
 import Profile from "./pages/Profile/Profile";
 
 import {
-  BrowserRouter as Router,
   Route,
   Routes,
   Navigate,

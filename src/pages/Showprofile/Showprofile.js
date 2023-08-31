@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Profile_footer from "../Profile_footer/Profile_footer";
+import ProfileFooter from "../../components/ProfileFooter/ProfileFooter";
 import { Route, Routes, Link } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import Savedpost from "../../components/Savedpost/Savedpost";
@@ -18,12 +18,11 @@ const Profile = () => {
   const [followers, setfollowers] = useState(0);
   const [following, setfollowing] = useState(0);
   const [fol, setfole] = useState([]);
-  const token = localStorage.getItem("token");
   const { id } = useParams();
 
   useEffect(() => {
     getmyposts();
-  }, []);
+  });
 
   const follow = (userid) => {
     setfole([...fol, userid]);
@@ -64,12 +63,12 @@ const Profile = () => {
       .then((res) => {
         setdata(res.data[1]);
         setuser(res.data[0]);
-        if (res.data[0].followers != undefined) {
+        if (res.data[0].followers !== undefined) {
           setfollowers(res.data[0].followers.length);
           setfole(res.data[0].followers);
           console.log(fol);
         }
-        if (res.data[0].following != undefined) {
+        if (res.data[0].following !== undefined) {
           setfollowing(res.data[0].following.length);
         }
       });
@@ -88,7 +87,7 @@ const Profile = () => {
                 {User.profileImage ? (
                   <img
                     className="profile_header_avatar"
-                    src={User.profileImage}
+                    src={User.profileImage} alt="profile"
                   />
                 ) : (
                   <button className="photobtn">
@@ -175,7 +174,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="">
-            <Profile_footer />
+            <ProfileFooter />
           </div>
         </div>
       </div>

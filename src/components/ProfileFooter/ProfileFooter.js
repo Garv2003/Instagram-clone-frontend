@@ -1,5 +1,5 @@
 import React from "react";
-import './Profile_footer.css'
+import './ProfileFooter.css'
 const Profile_footer = () => {
   return (
     <div className="profile_footer">

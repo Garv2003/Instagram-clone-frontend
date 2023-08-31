@@ -1,7 +1,7 @@
 import { Avatar } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import Profilebar from "../profilebar/Profilebar"
+import Profilebar from "../Profilebar/Profilebar"
 import "./Suggestions.css";
 
 function Suggestions(props) {
@@ -43,7 +43,7 @@ function Suggestions(props) {
       <div>
         {user.map((post) => (
           <div>
-            {post._id != localStorage.getItem("token") ? (
+            {post._id !== localStorage.getItem("token") ? (
               <Profilebar post={post} key={post._id}/>
             ) : (
               <div></div>
