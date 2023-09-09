@@ -6,9 +6,6 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 import { Link } from "react-router-dom";
 const Archive = ({setProgress}) => {
-  setProgress(0);
-  setProgress(50);
-  setProgress(100);
   return (
     <div className="archive">
       <div className="archive_header">

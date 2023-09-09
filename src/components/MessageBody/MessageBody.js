@@ -66,7 +66,7 @@ const MessageBody = ({ info }) => {
       socket.current.emit("sendmessage", message);
       setMessages((messages) => [...messages, message]);
       setNewMessage("");
-      const response = await axios
+      await axios
         .post(URL("/message/addmessage"), {
           from: localStorage.getItem("token"),
           to: info._id,

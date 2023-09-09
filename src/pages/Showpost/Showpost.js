@@ -1,8 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import "./Showpost.css";
-import { Link } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -11,6 +9,7 @@ import TelegramIcon from "@mui/icons-material/Telegram";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import "./Showpost.css";
 import {
   deletePost,
   unbookmark,
@@ -27,17 +26,27 @@ const API_URL = "http://localhost:3456";
 
 const Showpost = ({ setProgress }) => {
   const { id } = useParams();
-  const [Post, setPost] = useState({});
-  const [userpost, setUserpost] = useState("");
-  const [profileImage, setProfileImage] = useState("");
+  const navigate = useNavigate();
+
+  const [post, setPost] = useState({
+    User_id: {
+      _id: "",
+      username: "",
+      profileImage: "",
+      followers: [],
+    },
+    ImageUrl: "",
+    comments: [],
+    likes: [],
+    bookmarks: [],
+    date: "",
+  });
+
   const [comment, setComment] = useState("");
   const [commentlength, setCommentLength] = useState(0);
-  const [commentarr, setCommentArr] = useState([]);
-  const [username, setUsername] = useState("");
   const [like, setLike] = useState(false);
   const [likecount, setLikeCount] = useState(0);
   const [bookmark, setBookmark] = useState(false);
-  const [user, setUser] = useState({});
   const [followed, setFollowed] = useState(false);
 
   useEffect(() => {
@@ -47,17 +56,33 @@ const Showpost = ({ setProgress }) => {
 
   const getPost = async () => {
     try {
-      await axios.get(`${API_URL}/post/showpost/${id}`).then((res) => {
-        console.log(res.data);
-        setPost(res.data);
-        setProgress(100);
-      });
+      const response = await axios.get(`${API_URL}/post/showpost/${id}`);
+      const postData = response.data;
+      setPost(postData);
+
+      const {
+        User_id: { _id, username, profileImage, followers },
+        ImageUrl,
+        comments,
+        likes,
+        bookmarks,
+        date,
+      } = postData;
+
+      setCommentLength(comments.length);
+      setLike(likes.includes(localStorage.getItem("token")));
+      setLikeCount(likes.length);
+      setBookmark(bookmarks.includes(localStorage.getItem("token")));
+      setFollowed(followers.includes(localStorage.getItem("token")));
+
+      // Set state variables for user data
+      setComment("");
     } catch (error) {
       console.error("Error fetching post:", error);
+    } finally {
+      setProgress(100);
     }
   };
-
-  const navigate = useNavigate();
 
   const toggleFollow = (userid) => {
     const followAction = followed ? unfollow : follow;
@@ -66,60 +91,53 @@ const Showpost = ({ setProgress }) => {
     });
   };
 
-  const addComment = async (e) => {
+  const addCommentHandler = async (e) => {
     e.preventDefault();
-    addCommentToPost(post._id, comment).then((res) => {
-      if (res) {
-        setCommentLength(commentlength + 1);
-        setComment("");
-      }
-    });
+    const res = await addCommentToPost(post._id, comment);
+    if (res) {
+      setCommentLength(commentlength + 1);
+      setComment("");
+    }
   };
 
-  const toggleLike = (id) => {
+  const toggleLikeHandler = () => {
     const likeAction = like ? unlikePost : likePost;
-    likeAction(id).then((res) => {
+    likeAction(post._id).then((res) => {
       setLike(res);
-      if (res) {
-        setLikeCount(likecount + 1);
-      } else {
-        setLikeCount(likecount - 1);
-      }
+      setLikeCount((prevCount) => (res ? prevCount + 1 : prevCount - 1));
     });
   };
 
-  const toggleBookmark = (id) => {
+  const toggleBookmarkHandler = () => {
     const bookmarkAction = bookmark ? unbookmark : bookmarkPost;
-    bookmarkAction(id).then((res) => {
+    bookmarkAction(post._id).then((res) => {
       setBookmark(res);
     });
   };
 
-  const handledelete = (id) => {
-    deletePost(id).then((res) => {
+  const handleDelete = () => {
+    deletePost(post._id).then((res) => {
       if (res) {
         navigate("/profile");
       }
     });
   };
 
-  const updatePost = () => {
+  const handleUpdate = () => {
     // Implement the update post functionality here
   };
 
   return (
     <div className="showpost">
       <div className="showpost1">
-        <img className="im" src={Post.ImageUrl} alt="Post" />
+        <img className="im" src={post.ImageUrl} alt="Post" />
         <div className="showbuttons">
-          {userpost === localStorage.getItem("token") ? (
-            <button className="showbtn" onClick={() => handledelete(Post._id)}>
+          {post.User_id._id === localStorage.getItem("token") && (
+            <button className="showbtn" onClick={handleDelete}>
               Delete
             </button>
-          ) : (
-            ""
           )}
-          <button className="showbtn" onClick={updatePost}>
+          <button className="showbtn" onClick={handleUpdate}>
             Edit
           </button>
           <button className="showbtn">About this account</button>
@@ -128,42 +146,51 @@ const Showpost = ({ setProgress }) => {
       <div className="showpost2">
         <div className="Postp_header">
           <div className="postp_header_pro">
-            {profileImage ? (
+            {post.User_id.profileImage ? (
               <img
                 className="postprofileimage"
-                src={profileImage}
+                src={post.User_id.profileImage}
                 alt="profile"
               />
             ) : (
               <Avatar style={{ marginRight: "10px" }}>
-                {username.charAt(0).toUpperCase()}
+                {post.User_id.username.charAt(0).toUpperCase()}
               </Avatar>
             )}
-            <Link to={`/showprofile/${user._id}`} className="cl">
-              {username}
+            <Link
+              to={
+                post.User_id._id === localStorage.getItem("token")
+                  ? "/profile"
+                  : `/showprofile/${post.User_id._id}`
+              }
+              className="cl"
+            >
+              {post.User_id.username}
             </Link>
-            <div>
-              {followed ? (
-                <button
-                  className="follow__button"
-                  onClick={() => toggleFollow(user._id)}
-                >
-                  Unfollow
-                </button>
-              ) : (
-                <button
-                  className="follow__button"
-                  onClick={() => toggleFollow(user._id)}
-                >
-                  Follow
-                </button>
-              )}
-            </div>
+            {post.User_id._id !== localStorage.getItem("token") && (
+              <div>
+                {followed ? (
+                  <button
+                    className="follow__button"
+                    onClick={() => toggleFollow(post.User_id._id)}
+                  >
+                    Unfollow
+                  </button>
+                ) : (
+                  <button
+                    className="follow__button"
+                    onClick={() => toggleFollow(post.User_id._id)}
+                  >
+                    Follow
+                  </button>
+                )}
+              </div>
+            )}
           </div>
           <MoreHorizIcon />
         </div>
         <div className="commentsection">
-          {commentarr.map((comment, index) => (
+          {post.comments.map((comment, index) => (
             <div className="comment" key={index}>
               {console.log(comment)}
               {comment.postedby.profileImage ? (
@@ -192,13 +219,13 @@ const Showpost = ({ setProgress }) => {
                   style={{ color: "red" }}
                   className="postIcon"
                   sx={{ fontSize: 45 }}
-                  onClick={() => toggleLike(Post._id)}
+                  onClick={toggleLikeHandler}
                 />
               ) : (
                 <FavoriteBorderIcon
                   className="postIcon"
                   sx={{ fontSize: 45 }}
-                  onClick={() => toggleLike(Post._id)}
+                  onClick={toggleLikeHandler}
                 />
               )}
               <ChatBubbleOutlineIcon
@@ -213,25 +240,25 @@ const Showpost = ({ setProgress }) => {
                   style={{ color: "white" }}
                   className="postIcon"
                   sx={{ fontSize: 45 }}
-                  onClick={() => toggleBookmark(Post._id)}
+                  onClick={toggleBookmarkHandler}
                 />
               ) : (
                 <BookmarkBorderIcon
                   className="postIcon"
                   sx={{ fontSize: 45 }}
-                  onClick={() => toggleBookmark(Post._id)}
+                  onClick={toggleBookmarkHandler}
                 />
               )}
             </div>
           </div>
           <div>{likecount} likes</div>
-          <Link className="cl" to={`/showprofile/${user._id}`}>
-            {formatInstagramDate(Post.date)}
+          <Link className="cl" to={`/showprofile/${post.User_id._id}`}>
+            {formatInstagramDate(post.date)}
           </Link>
         </div>
         <div className="profile_footer1">
           View all {commentlength} comments
-          <form className="formposts" onSubmit={addComment}>
+          <form className="formposts" onSubmit={addCommentHandler}>
             <div className="field">
               <input
                 id="username"

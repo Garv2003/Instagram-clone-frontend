@@ -9,7 +9,6 @@ const URL = (mypath) => {
 };
 
 const Create = ({ setProgress }) => {
-  setProgress(100);
   const [Title, setTitle] = useState("");
   const [ImageUrl, setImageUrl] = useState("");
   const [Description, setDescription] = useState("");

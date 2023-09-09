@@ -86,10 +86,24 @@ const Post = ({ post }) => {
               {post.User_id.username.charAt(0).toUpperCase()}
             </Avatar>
           )}
-          <Link to={`/showprofile/${post.User_id._id}`} className="cl">
+          <Link
+            to={
+              post.User_id._id === localStorage.getItem("token")
+                ? "/profile"
+                : `/showprofile/${post.User_id._id}`
+            }
+            className="cl"
+          >
             {post.User_id.username}
           </Link>
-          <Link className="cl date" to={`/showprofile/${post.User_id._id}`}>
+          <Link
+            className="cl date"
+            to={
+              post.User_id._id === localStorage.getItem("token")
+                ? "/profile"
+                : `/showprofile/${post.User_id._id}`
+            }
+          >
             {" "}
             •{formattedDate}•{" "}
           </Link>

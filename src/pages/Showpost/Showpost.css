@@ -1,42 +1,44 @@
-.showpost{
-    width: 85%;
-    height:800px;
-    display: flex;
-    flex-direction:row;
-    margin: auto;
-    margin-top: 70px;
+.showpost {
+  width: 85%;
+  height: 800px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: row;
 }
-.showpost1{
-    width: 60%;
-    padding: 10px;
+.showpost1 {
+  width: 60%;
+  padding: 10px;
 }
-.im{
-    width:100%;
-    height:600px;
+.im {
+  width: 100%;
+  height: 600px;
 }
-.showbuttons{
-    display: flex;
-    flex-direction:row;
-    justify-content: space-between;
+.showbuttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
-.showbtn{
-    width: 100px;
-    padding: 15px;
-    background-color: transparent;
-    color: white;
-    border: 1px solid gray;
-    border-radius: 10px;
-    cursor: pointer;
+.showbtn {
+  width: 100px;
+  padding: 15px;
+  background-color: transparent;
+  color: white;
+  border: 1px solid gray;
+  border-radius: 10px;
+  cursor: pointer;
 }
-.showbtn:hover{
-    background-color: rgb(115, 124, 124);
+.showbtn:hover {
+  background-color: rgb(115, 124, 124);
 }
-.showpost2{
-    width: 40%;
+.showpost2 {
+  width: 40%;
 }
-.commentsection{
-    height: 450px;
-    border-top: 1px solid gray;
-    border-bottom: 1px solid gray;
-    color: white;
+.commentsection {
+  height: 450px;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  color: white;
 }
