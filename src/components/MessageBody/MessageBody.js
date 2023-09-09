@@ -3,7 +3,11 @@ import { Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
+import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
+import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import Picker from "emoji-picker-react";
+import EmojiPicker from "emoji-picker-react";
+import InputEmoji from "react-input-emoji";
 import axios from "axios";
 import { io } from "socket.io-client";
 import "./MessageBody.css";
@@ -18,6 +22,7 @@ const MessageBody = ({ info }) => {
   const [newMessage, setNewMessage] = useState("");
   const [arrMessage, setarrMessage] = useState(null);
   const [Status, setStatus] = useState("offline");
+  const [EmojiBox, setEmojiBox] = useState(false);
   const socket = useRef();
   const scrollRef = useRef();
 
@@ -159,14 +164,38 @@ const MessageBody = ({ info }) => {
         <div ref={scrollRef}></div>
       </div>
       <div className="messagebody_footer">
+        <button onClick={() => setEmojiBox(!EmojiBox)}>
+          <EmojiEmotionsIcon />
+        </button>
+        <button>
+          <InsertPhotoIcon />
+        </button>
+        <div className="emoji">
+          {EmojiBox && (
+            <Picker
+              onEmojiClick={(event) => {
+                setNewMessage(newMessage + event.emoji);
+                // setEmojiBox(false)
+              }}
+              pickerStyle={{ width: "100%" }}
+            />
+          )}
+        </div>
         <textarea
           type="text"
           placeholder="Message..."
           value={newMessage}
-          onFocus={() => handleTyping(true)}
+          theme="dark"
+          onFocus={() => {
+            handleTyping(true);
+            setEmojiBox(false);
+          }}
           onBlur={() => handleTyping(false)}
           onKeyDown={() => handleTyping(true)}
-          onChange={(e) => setNewMessage(e.target.value)}
+          onChange={(e) => {
+            setNewMessage(e.target.value);
+            console.log(e.target.value);
+          }}
         />
         <button onClick={handleSendMessage}>
           <SendRoundedIcon />

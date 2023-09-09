@@ -3,7 +3,7 @@ import "./MessageSidebar.css";
 import { Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
 
-const MessageSidebar = ({ user, handledata }) => {
+const MessageSidebar = ({ user, handleData }) => {
   return (
     <>
       <div className="message_header">
@@ -58,7 +58,7 @@ const MessageSidebar = ({ user, handledata }) => {
                   <button
                     className="follow__button"
                     onClick={() => {
-                      handledata(post);
+                      handleData(post);
                     }}
                   >
                     Message

@@ -4,35 +4,35 @@ import axios from "axios";
 import MessageBody from "../../components/MessageBody/MessageBody";
 import MessageSidebar from "../../components/MessageSideBar/MessageSidebar";
 import ChatIcon from "@mui/icons-material/Chat";
-import Navbar from "../../layout/Navbar/Navbar"
+import Navbar from "../../layout/Navbar/Navbar";
+
 const URL = (mypath) => {
   return `http://localhost:3456${mypath}`;
 };
 
-const Mesages = ({setProgress}) => {
-  const [user, setuser] = useState([]);
-  const [info, setinfo] = useState();
+const Messages = ({ setProgress }) => {
+  const [user, setUser] = useState([]);
+  const [info, setInfo] = useState(null);
 
   useEffect(() => {
-    getuser();
+    getMessagesData();
   }, []);
 
-  const getuser = () => {
-    setProgress(50);
+  const getMessagesData = () => {
+    setProgress(0); 
     axios
       .get(URL("/user/suggestion"))
       .then((res) => {
-        setProgress(100);
-        setuser(res.data);
+        setUser(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.error("Error fetching user data:", err);
       });
+      setProgress(100);
   };
 
-  const handledata = (data) => {
-    setinfo(data);
-    console.log(info);
+  const handleData = (data) => {
+    setInfo(data);
   };
 
   return (
@@ -43,7 +43,7 @@ const Mesages = ({setProgress}) => {
       <div className="posts">
         <div className="messages">
           <div className="message_left">
-            <MessageSidebar user={user} handledata={handledata} />
+            <MessageSidebar user={user} handleData={handleData} />
           </div>
           <div className="message_right">
             {info ? (
@@ -67,4 +67,4 @@ const Mesages = ({setProgress}) => {
   );
 };
 
-export default Mesages;
+export default Messages;
