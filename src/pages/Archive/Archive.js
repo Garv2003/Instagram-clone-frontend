@@ -1,11 +1,14 @@
 import React from "react";
 import "./Archive.css";
-import ProfileFooter from "../../components/ProfileFooter/ProfileFooter";
+import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
 import RestoreIcon from "@mui/icons-material/Restore";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 import { Link } from "react-router-dom";
-const Archive = () => {
+const Archive = ({setProgress}) => {
+  setProgress(0);
+  setProgress(50);
+  setProgress(100);
   return (
     <div className="archive">
       <div className="archive_header">

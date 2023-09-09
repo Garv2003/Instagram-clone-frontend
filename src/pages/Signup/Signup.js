@@ -2,7 +2,8 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import './Signup.module.css'
-function Register() {
+function Register({ setProgress}) {
+  setProgress(100);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setname] = useState("");

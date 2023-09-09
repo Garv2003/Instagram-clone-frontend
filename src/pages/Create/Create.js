@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import "./Create.css";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../../components/Navbar/Navbar";
+import Navbar from "../../layout/Navbar/Navbar"
 import axios from "axios";
 const URL = (mypath) => {
   return `http://localhost:3456${mypath}`;
 };
 
-const Create = () => {
+const Create = ({ setProgress }) => {
+  setProgress(100);
   const [Title, setTitle] = useState("");
   const [ImageUrl, setImageUrl] = useState("");
   const [Description, setDescription] = useState("");
-
   const onSubmit = (e) => {
     e.preventDefault();
     uploadpost({ Title, ImageUrl, Description });
@@ -24,6 +24,7 @@ const Create = () => {
   const navigate = useNavigate();
 
   const uploadpost = (post) => {
+    setProgress(10);
     axios({
       method: "post",
       url: URL("/post/addpost"),
@@ -37,8 +38,11 @@ const Create = () => {
         Authorization: localStorage.getItem("token"),
       },
     }).then((res) => {
+      setProgress(50);
       if (res.status === 200) {
+        setProgress(70);
         navigate("/profile");
+        setProgress(100);
       }
     });
   };

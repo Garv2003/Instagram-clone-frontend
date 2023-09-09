@@ -67,14 +67,6 @@
   border-radius: 25px 0px 0px 25px;
   color: white;
 }
-/* input[type="text"]{
-  background-color: transparent;
-  width: 80%;
-  border:none;
-  outline: none;
-  border-radius: 25px 0px 0px 25px;
-  color: white;
-} */
 .formposts_button{
   position: relative;
   border-radius: 0 25px 25px 0px;
@@ -85,17 +77,11 @@
   background-color: gray;
   color: white;
 }
-/* input[type="submit"]{
-  position: relative;
-  border-radius: 0 25px 25px 0px;
-  width: 20%;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  background-color: gray;
-  color: white;
-  font-size: 15px;
-} */
 input[type="submit"]:hover{
   background-color: rgb(60, 57, 57);
+}
+.date{
+  color: gray;
+  font-size: 14px;
+  padding: 0px 5px 0px 5px;
 }

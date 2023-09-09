@@ -9,11 +9,13 @@
   flex-direction: column;
   gap: 10px;
   margin-bottom: 20px;
+  text-align: center;
+  align-items: center;
 }
 .not_heading {
 }
 .not_body{
-    height: 570px;
+    height: 500 px;
 }
 .notifications_footer {
   display: flex;

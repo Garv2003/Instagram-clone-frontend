@@ -59,7 +59,7 @@
   cursor: pointer;
 }
 
-.Profileppopup{
+.ProfilePopup{
   position:absolute;
   top: 350px;
   left: 700px;
@@ -72,14 +72,14 @@
   width: 400px;
   height: 220px;
 }   
-.profilepopup_item1{
+.popupprofile_item1{
   margin: 32px 32px 16px 32px;
   font-size: 20px;
 }
-.profilepopup_item{
+.popupprofile_item{
   font-size: 16px;
   cursor: pointer;
-  padding: 4px 8px;
+  padding: 12px 8px;
   min-height: 48px;
   border: 1px solid gray;
   background-color: transparent;

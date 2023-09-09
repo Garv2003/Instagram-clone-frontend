@@ -1,33 +1,30 @@
-import React from "react";
-import "./MessageBody.css";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useRef } from "react";
-import { io } from "socket.io-client";
 import Picker from "emoji-picker-react";
 import axios from "axios";
+import { io } from "socket.io-client";
+import "./MessageBody.css";
 
 const URL = (mypath) => {
   return `http://localhost:3456${mypath}`;
 };
 
 const MessageBody = ({ info }) => {
-  const [typing, setTyping] = useState(false);
+  const [User, setUser] = useState({});
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [arrMessage, setarrMessage] = useState(null);
+  const [Status, setStatus] = useState("offline");
   const socket = useRef();
   const scrollRef = useRef();
 
   useEffect(() => {
     socket.current = io("ws://localhost:4444");
-    socket.current.on('typingResponse', (data) => {
-      console.log(data);
-      setTyping(true);
+    socket.current.on("typingResponse", (data) => {
+      setStatus(data.text);
     });
     socket.current.on("getmessage", (message) => {
       setarrMessage({
@@ -48,7 +45,13 @@ const MessageBody = ({ info }) => {
   useEffect(() => {
     socket.current.emit("adduser", localStorage.getItem("token"));
     socket.current.on("getusers", (us) => {
-      // console.log(us);
+      const user = us.filter((user) => user.userId === info._id);
+      if (user[0]) {
+        setStatus("online");
+      } else {
+        setStatus("offline");
+      }
+      setUser(user[0]);
     });
   }, [info]);
 
@@ -99,13 +102,13 @@ const MessageBody = ({ info }) => {
     scrollRef.current?.scrollIntoView({ behaviour: "smooth" });
   }, [messages]);
 
-  const handleTyping = () => {
-    socket.current.emit("typing",{
+  const handleTyping = (type) => {
+    socket.current.emit("typing", {
       senderId: localStorage.getItem("token"),
       receiverId: info._id,
+      text: type ? "typing..." : "online",
     });
   };
-
   return (
     <div className="messagebody">
       <div className="messagebody_top">
@@ -114,7 +117,11 @@ const MessageBody = ({ info }) => {
             <div className="messagestatus">
               <Link to={`/showprofile/${info._id}`} className="avatar">
                 {info.profileImage ? (
-                  <img className="postprofileimage" src={info.profileImage} />
+                  <img
+                    className="postprofileimage"
+                    src={info.profileImage}
+                    alt="Profile"
+                  />
                 ) : (
                   <Avatar>{info.username[0]}</Avatar>
                 )}
@@ -123,7 +130,7 @@ const MessageBody = ({ info }) => {
             <div>{info.username}</div>
           </div>
           <div>
-            <p className="status">{typing ? "typing":"online"}</p>
+            <p className="status">{Status}</p>
           </div>
         </div>
 
@@ -150,22 +157,17 @@ const MessageBody = ({ info }) => {
           )
         )}
         <div ref={scrollRef}></div>
-        {/* <div className="message__status">
-          <p>Someone is typing...</p>
-        </div> */}
       </div>
-
       <div className="messagebody_footer">
         <textarea
           type="text"
           placeholder="Message..."
           value={newMessage}
-          onKeyDown={handleTyping}
+          onFocus={() => handleTyping(true)}
+          onBlur={() => handleTyping(false)}
+          onKeyDown={() => handleTyping(true)}
           onChange={(e) => setNewMessage(e.target.value)}
         />
-        {/* <span>
-          <Picker/>
-        </span> */}
         <button onClick={handleSendMessage}>
           <SendRoundedIcon />
         </button>

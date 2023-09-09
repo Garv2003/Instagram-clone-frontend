@@ -4,12 +4,12 @@ import axios from "axios";
 import MessageBody from "../../components/MessageBody/MessageBody";
 import MessageSidebar from "../../components/MessageSideBar/MessageSidebar";
 import ChatIcon from "@mui/icons-material/Chat";
-import Navbar from "../../components/Navbar/Navbar";
+import Navbar from "../../layout/Navbar/Navbar"
 const URL = (mypath) => {
   return `http://localhost:3456${mypath}`;
 };
 
-const Mesages = () => {
+const Mesages = ({setProgress}) => {
   const [user, setuser] = useState([]);
   const [info, setinfo] = useState();
 
@@ -18,9 +18,11 @@ const Mesages = () => {
   }, []);
 
   const getuser = () => {
+    setProgress(50);
     axios
       .get(URL("/user/suggestion"))
       .then((res) => {
+        setProgress(100);
         setuser(res.data);
       })
       .catch((err) => {

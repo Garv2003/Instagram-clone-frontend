@@ -29,6 +29,14 @@
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.128);
 }
+.navbutton:active {
+  background-color: rgb(255, 255, 255, 0.02);
+  transform: scale(0.95);
+}
+.navbutton:visited {
+  background-color: rgb(255, 255, 255, 0.02);
+  transform: scale(0.95);
+}
 .navbutton > span {
   font-size: 18px;
   font-weight: bolder;

@@ -1,9 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./ProfileHeader.css";
 import { Avatar } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { useNavigate } from "react-router-dom";
 import Settingpopup from "../Settingpopup/Settingpopup";
 import axios from "axios";
 
@@ -14,105 +13,94 @@ const URL = (mypath) => {
 const ProfileHeader = ({ User, length, followers, following }) => {
   const [user, setuser] = useState(User);
   const navigate = useNavigate();
-  const [open, setopen] = useState(false);
-  const [showpopup, setshowpopup] = useState(false);
-  const [profileImage, setprofileImage] = useState("");
-  const hiddeninput = useRef(null);
-
-  const onphoto = (e) => {
-    if (!showpopup) {
-      setshowpopup(true);
-    } else {
-      setshowpopup(false);
-    }
-  };
+  const [open, setOpen] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [profileImage, setProfileImage] = useState(User.profileImage);
+  const hiddenInput = useRef(null);
 
   useEffect(() => {
     setuser(User);
-    setprofileImage(User.profileImage);
+    setProfileImage(User.profileImage);
   }, [User]);
+
+  const onPhoto = () => {
+    if (!showPopup) {
+      setShowPopup(true);
+    } else {
+      setShowPopup(false);
+    }
+  };
 
   const uploading = async (e) => {
     const token = localStorage.getItem("token");
     const file = e.target.files[0];
-    await axios({
-      method: "Post",
-      url: URL("/post/addprofilephoto"),
-      data: {
+    try {
+      const res = await axios.post(URL("/post/addprofilephoto"), {
         ImageUrl: file,
         id: token,
-      },
-      headers: { "Content-Type": "multipart/form-data" },
-    }).then((res) => {
-      setprofileImage(res.data);
-    });
-  };
-
-  const onavatar = () => {
-    hiddeninput.current.click();
-    setshowpopup(false);
-  };
-
-  const Remove = async () => {
-    await axios
-      .post(URL("/post/deleteporfilephoto"), {
-        id: localStorage.getItem("token"),
-      })
-      .then(() => {
-        setprofileImage("");
-        setshowpopup(false);
       });
+      setProfileImage(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onAvatar = () => {
+    hiddenInput.current.click();
+    setShowPopup(false);
+  };
+
+  const removeProfilePhoto = async () => {
+    try {
+      await axios.post(URL("/post/deleteprofilephoto"), {
+        id: localStorage.getItem("token"),
+      });
+      setProfileImage("");
+      setShowPopup(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div className="profile_header">
       <input
         type="file"
-        ref={hiddeninput}
+        ref={hiddenInput}
         name="ImageUrl"
         onChange={uploading}
         style={{ display: "none" }}
       />
       <div className="profile_header_left">
-        {showpopup ? (
-          // <Profilepopup
-          //   Open={showpopup}
-          //   onClose={() => {
-          //     setshowpopup(false);
-          //   }}
-          //   remove={Remove}
-          //   onavatar={onavatar}
-          // />
-          <div className="Profileppopup">
+        {showPopup && (
+          <div className="ProfilePopup">
             <div className="popupprofile">
-              <div className="profilepopup_item1">Change Profile Photo</div>
+              <div className="popupprofile_item1">Change Profile Photo</div>
             </div>
-            <div className="popupprofile">
-              <button className="profilepopup_item bel" onClick={onavatar}>
-                Upload Photo
-              </button>
+            <div
+              className="popupprofile_item popupprofile bel"
+              onClick={onAvatar}
+            >
+              Upload Photo
             </div>
-            <div className="popupprofile">
-              <button className="profilepopup_item rel" onClick={Remove}>
-                Remove Current Photo
-              </button>
+            <div
+              className="popupprofile_item rel popupprofile"
+              onClick={removeProfilePhoto}
+            >
+              Remove Current Photo
             </div>
-            <div>
-              <button
-                className="profilepopup_item"
-                onClick={() => {
-                  setshowpopup(false);
-                }}
-              >
-                Cancel
-              </button>
-            </div>
+            <button
+              className="popupprofile_item"
+              onClick={() => setShowPopup(false)}
+            >
+              Cancel
+            </button>
           </div>
-        ) : null}
+        )}
         {profileImage ? (
           <img
             className="profile_header_avatar"
-            onClick={onphoto}
+            onClick={onPhoto}
             src={profileImage}
             alt="profile"
           />
@@ -120,7 +108,7 @@ const ProfileHeader = ({ User, length, followers, following }) => {
           <button className="photobtn">
             <Avatar
               className="profile_header_avatar"
-              onClick={onavatar}
+              onClick={onAvatar}
               style={{ width: "150px", height: "150px", margin: "40px" }}
             ></Avatar>
           </button>
@@ -130,35 +118,22 @@ const ProfileHeader = ({ User, length, followers, following }) => {
         <div className="profile_header_icon">
           <div className="profile_icon">
             <span>{User.username}</span>
-            <button
-              className="btn"
-              onClick={() => {
-                navigate("/accounts/edit");
-              }}
-            >
+            <button className="btn" onClick={() => navigate("/accounts/edit")}>
               Edit profile
             </button>
-            <button className="btn">
-              <Link to="/archive/stories/" className="Linkcolor">
-                View Archive
-              </Link>
-            </button>
             <button
-              onClick={() => {
-                if (!open) {
-                  setopen(true);
-                } else {
-                  setopen(false);
-                }
-              }}
-              className="btnsetting"
+              className="btn"
+              onClick={() => navigate("/archive/stories")}
             >
-              {open ? <Settingpopup Onclose={onphoto} /> : null}
+              View Archive
+            </button>
+            <button className="btnsetting" onClick={() => setOpen(!open)}>
+              {open && <Settingpopup onClose={onPhoto} />}
               <SettingsIcon />
             </button>
           </div>
           <div className="profile_icon">
-            <span>{length} post</span>
+            <span>{length} posts</span>
             <span> {followers} followers </span>
             <span> {following} following</span>
           </div>
@@ -168,4 +143,5 @@ const ProfileHeader = ({ User, length, followers, following }) => {
     </div>
   );
 };
+
 export default ProfileHeader;

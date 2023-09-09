@@ -1,42 +1,17 @@
 import React, { useState } from "react";
 import { Avatar } from "@mui/material";
 import { Link } from "react-router-dom";
-import axios from "axios";
-
-const URL = (mypath) => {
-  return `http://localhost:3456${mypath}`;
-};
-
+import { follow, unfollow } from "../../utils/utils";
 const Profilebar = ({ post }) => {
-  const [Fol, setFol] = useState(
+  const [followed, setFollowed] = useState(
     post.followers.includes(localStorage.getItem("token"))
   );
-  const follow = (userid) => {
-    axios
-      .put(URL("/user/follow"), {
-        followId: userid,
-        token: localStorage.getItem("token"),
-      })
-      .then((res) => {
-        setFol(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
-  const unfollow = (userid) => {
-    axios
-      .put(URL("/user/unfollow"), {
-        followId: userid,
-        token: localStorage.getItem("token"),
-      })
-      .then((res) => {
-        setFol(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const toggleFollow = (userid) => {
+    const followAction = followed ? unfollow : follow;
+    followAction(userid).then((res) => {
+      setFollowed(res);
+    });
   };
   return (
     <div key={post._id}>
@@ -45,7 +20,11 @@ const Profilebar = ({ post }) => {
           <div className="username__left">
             <Link to={`/showprofile/${post._id}`} className="avatar">
               {post.profileImage ? (
-                <img className="postprofileimage" src={post.profileImage} alt="profile"/>
+                <img
+                  className="postprofileimage"
+                  src={post.profileImage}
+                  alt="profile"
+                />
               ) : (
                 <Avatar>{post.username[0]}</Avatar>
               )}
@@ -57,15 +36,18 @@ const Profilebar = ({ post }) => {
               <span className="relation">New to Instagram</span>
             </div>
           </div>
-          {Fol ? (
+          {followed ? (
             <button
               className="follow__button"
-              onClick={() => unfollow(post._id)}
+              onClick={() => toggleFollow(post._id)}
             >
               Unfollow
             </button>
           ) : (
-            <button className="follow__button" onClick={() => follow(post._id)}>
+            <button
+              className="follow__button"
+              onClick={() => toggleFollow(post._id)}
+            >
               Follow
             </button>
           )}

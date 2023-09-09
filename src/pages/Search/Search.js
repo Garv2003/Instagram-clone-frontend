@@ -1,31 +1,34 @@
 import React, { useEffect, useState } from "react";
 import "./Search.css";
-import { Avatar } from "@mui/material";
-import { Link } from "react-router-dom";
-import Navbar from "../../components/Navbar/Navbar";
+import Navbar from "../../layout/Navbar/Navbar"
 import SearchIcon from "@mui/icons-material/Search";
+import Profilebar from "../../components/Profilebar/Profilebar";
 import axios from "axios";
 
 const URL = (mypath) => {
   return `http://localhost:3456${mypath}`;
 };
 
-const Search = () => {
-  const [Search, setsearch] = useState("");
-  const [user, setuser] = useState([]);
+const Search = ({setProgress}) => {
+  setProgress(100);
+  const [search, setSearch] = useState("");
+  const [users, setUsers] = useState([]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (search) {
+      axios
+        .get(URL(`/user/search?user=${search}`))
+        .then((res) => {
+          setUsers(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setUsers([]);
+    }
+  }, [search]);
 
-  const getdata = () => {
-    axios
-      .get(URL(`/user/search?user=${Search}`))
-      .then((res) => {
-        setuser(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   return (
     <div className="home">
       <div className="navbar">
@@ -40,53 +43,16 @@ const Search = () => {
             className="search_input1"
             type="text"
             placeholder="search"
-            onChange={(e) => {
-              setsearch(e.target.value);
-              getdata();
-            }}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
           <div className="searchbody">
-            {user.length > 0 ? (
-              user.map((post) => {
-                return (
-                  <div key={post._id}>
-                    {post._id !== localStorage.getItem("token") ? (
-                      <div className="suggestions__username">
-                        <div className="username__left">
-                          <Link
-                            to={`/showprofile/${post._id}`}
-                            className="avatar"
-                          >
-                            {post.profileImage ? (
-                              <img
-                                className="postprofileimage"
-                                src={post.profileImage}
-                                alt="profile"
-                              />
-                            ) : (
-                              <Avatar>{post.username[0].toUpperCase()}</Avatar>
-                            )}
-                          </Link>
-                          <div className="username__info">
-                            <Link
-                              to={`/showprofile/${post._id}`}
-                              className="username cl"
-                            >
-                              {post.username}
-                            </Link>
-                            <span className="relation">{post.name}</span>
-                          </div>
-                        </div>
-                        <button className="follow__button"></button>
-                      </div>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
-                );
+            {users.length > 0 ? (
+              users.map((user) => {
+                return <Profilebar key={user._id} post={user} />;
               })
             ) : (
-              <div>
+              <div className="searchname">
                 <SearchIcon className="search_icon" sx={{ fontSize: 100 }} />
                 <div>No Recent Searches</div>
               </div>

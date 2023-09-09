@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Post from "../../components/Post/Post";
 import "./Reels.css";
-import ProfileFooter from "../../components/ProfileFooter/ProfileFooter";
-import Navbar from "../../components/Navbar/Navbar";
+import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
+import Navbar from "../../layout/Navbar/Navbar"
 import axios from "axios";
 
 const URL = (mypath) => {
   return `http://localhost:3456${mypath}`;
 };
 
-function Reels() {
+function Reels({ setProgress }) {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -17,10 +17,13 @@ function Reels() {
   }, []);
 
   const getdata = async () => {
+    setProgress(0);
     const res = await axios.get(
       URL(`/post/explore/${localStorage.getItem("token")}`)
     );
+    setProgress(50);
     setPosts(res.data);
+    setProgress(100);
   };
 
   return (

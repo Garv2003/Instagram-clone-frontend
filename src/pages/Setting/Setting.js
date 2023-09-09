@@ -1,8 +1,9 @@
 import React from "react";
 import "./Setting.css";
 import { Avatar } from "@mui/material";
-import ProfileFooter from "../../components/ProfileFooter/ProfileFooter";
-const Setting = () => {
+import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
+const Setting = ({setProgress}) => {
+  setProgress(100);
   return (
     <div>
       <div className="setting">

@@ -1,76 +1,78 @@
 import React, { useEffect, useState } from "react";
-import ProfileFooter from "../../components/ProfileFooter/ProfileFooter";
-import { Route, Routes, Link } from "react-router-dom";
-import Navbar from "../../components/Navbar/Navbar";
+import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
+import { Route, Routes, Link, useParams } from "react-router-dom";
+import Navbar from "../../layout/Navbar/Navbar"
 import Savedpost from "../../components/Savedpost/Savedpost";
 import axios from "axios";
 import { Avatar } from "@mui/material";
-import { useParams } from "react-router-dom";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
 const URL = (mypath) => {
   return `http://localhost:3456${mypath}`;
 };
 
-const Profile = () => {
-  const [data, setdata] = useState([]);
-  const [User, setuser] = useState([]);
-  const [followers, setfollowers] = useState(0);
-  const [following, setfollowing] = useState(0);
-  const [fol, setfole] = useState([]);
+const Profile = ({ setProgress }) => {
   const { id } = useParams();
+  const [data, setData] = useState([]);
+  const [user, setUser] = useState({});
+  const [followers, setFollowers] = useState(0);
+  const [following, setFollowing] = useState(0);
+  const [fol, setFol] = useState([]);
 
   useEffect(() => {
-    getmyposts();
-  });
+    setProgress(0);
 
-  const follow = (userid) => {
-    setfole([...fol, userid]);
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(URL(`/user/showprofile/${id}`), {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        });
+        const userData = res.data[0];
+        const postData = res.data[1];
+
+        setUser(userData);
+        setData(postData);
+        setFollowers(userData.followers.length);
+        setFol(userData.followers.includes(localStorage.getItem("token")));
+        setFollowing(userData.following.length);
+        setProgress(100);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
+  }, [id, setProgress]);
+
+  const follow = (userId) => {
     axios
       .put(URL("/user/follow"), {
-        followId: userid,
+        followId: userId,
         token: localStorage.getItem("token"),
       })
       .then((res) => {
-        console.log(res);
+        setFol(true);
+        setFollowers(followers + 1);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 
-  const unfollow = (userid) => {
+  const unfollow = (userId) => {
     axios
       .put(URL("/user/unfollow"), {
-        followId: userid,
+        followId: userId,
         token: localStorage.getItem("token"),
       })
       .then((res) => {
-        console.log(res);
+        setFol(false);
+        setFollowers(followers - 1);
       })
       .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const getmyposts = async () => {
-    await axios
-      .get(URL(`/user/showprofile/${id}`), {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      })
-      .then((res) => {
-        setdata(res.data[1]);
-        setuser(res.data[0]);
-        if (res.data[0].followers !== undefined) {
-          setfollowers(res.data[0].followers.length);
-          setfole(res.data[0].followers);
-          console.log(fol);
-        }
-        if (res.data[0].following !== undefined) {
-          setfollowing(res.data[0].following.length);
-        }
+        console.error(err);
       });
   };
 
@@ -84,10 +86,11 @@ const Profile = () => {
           <div>
             <div className="profile_header">
               <div className="profile_header_left">
-                {User.profileImage ? (
+                {user.profileImage ? (
                   <img
                     className="profile_header_avatar"
-                    src={User.profileImage} alt="profile"
+                    src={user.profileImage}
+                    alt="profile"
                   />
                 ) : (
                   <button className="photobtn">
@@ -105,16 +108,16 @@ const Profile = () => {
               <div className="profile_header_right">
                 <div className="profile_header_icon">
                   <div className="profile_icon">
-                    <span>{User.username}</span>
-                    {fol.includes(localStorage.getItem("token")) ? (
+                    <span>{user.username}</span>
+                    {fol ? (
                       <button
                         className="btn"
-                        onClick={() => unfollow(User._id)}
+                        onClick={() => unfollow(user._id)}
                       >
                         Unfollow
                       </button>
                     ) : (
-                      <button className="btn" onClick={() => follow(User._id)}>
+                      <button className="btn" onClick={() => follow(user._id)}>
                         Follow
                       </button>
                     )}
@@ -132,7 +135,7 @@ const Profile = () => {
                     <span> {followers} followers </span>
                     <span> {following} following</span>
                   </div>
-                  <div className="profile_icon">{User.name}</div>
+                  <div className="profile_icon">{user.name}</div>
                 </div>
               </div>
             </div>
@@ -140,21 +143,21 @@ const Profile = () => {
           <div className="profile_header_footer">
             <div className="profile_header_footericon">
               <button className="profile_header_footericons">
-                <Link className="linkprofile" to="/profile">
+                <Link className="linkprofile" to="/">
                   POSTS
                 </Link>
               </button>
             </div>
             <div className="profile_header_footericon">
               <button className="profile_header_footericons">
-                <Link className="linkprofile" to="/profile/saved">
+                <Link className="linkprofile" to="/saved">
                   Reels
                 </Link>
               </button>
             </div>
             <div className="profile_header_footericon">
               <button className="profile_header_footericons">
-                <Link className="linkprofile" to="/profile/tagged">
+                <Link className="linkprofile" to="/tagged">
                   TAGGED
                 </Link>
               </button>
@@ -163,19 +166,13 @@ const Profile = () => {
           <div className="profile_section">
             <div className="explore_header">
               <Routes>
-                <Route path="/" element={<Savedpost data={data}/>}></Route>
-              </Routes>
-              <Routes>
-                <Route path="/reels"></Route>
-              </Routes>
-              <Routes>
-                <Route path="/tagged"></Route>
+                <Route path="/" element={<Savedpost data={data} />} />
+                <Route path="/reels" element={<div>Reels</div>} />
+                <Route path="/tagged" element={<div>Tagged</div>} />
               </Routes>
             </div>
           </div>
-          <div className="">
-            <ProfileFooter />
-          </div>
+          <ProfileFooter />
         </div>
       </div>
     </div>

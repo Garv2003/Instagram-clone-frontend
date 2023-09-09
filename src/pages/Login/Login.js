@@ -5,11 +5,12 @@ import axios from "axios";
 const URL = (mypath) => {
   return `http://localhost:3456${mypath}`;
 };
-function Login({ Onlogin }) {
+function Login({setProgress}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const handleLogin = async (e) => {
     e.preventDefault();
+    setProgress(10);
     try {
       const response = await axios.post(URL("/auth/login"), {
         username,
@@ -17,6 +18,7 @@ function Login({ Onlogin }) {
       });
       console.log(response.data);
       // localStorage.setItem("token", response.data.token);
+      setProgress(100);
       localStorage.setItem("token", response.data.user._id);
       window.location.assign("/profile");
     } catch (error) {

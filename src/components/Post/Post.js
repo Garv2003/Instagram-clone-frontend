@@ -9,113 +9,66 @@ import TelegramIcon from "@mui/icons-material/Telegram";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import axios from "axios";
-
-const URL = (mypath) => {
-  return `http://localhost:3456${mypath}`;
-};
+const {
+  follow,
+  unfollow,
+  likePost,
+  unlikePost,
+  bookmarkPost,
+  unbookmark,
+  formatInstagramDate,
+  addCommentToPost,
+} = require("../../utils/utils");
 
 const Post = ({ post }) => {
-  const [info, setinfo] = useState("");
-  const [like, setlike] = useState(
+  const [comment, setComment] = useState("");
+  const [like, setLike] = useState(
     post.likes.includes(localStorage.getItem("token"))
   );
-  const [likecount, setlikecount] = useState(post.likes.length);
-  const [commentlength, setcommentlength] = useState(post.comments.length);
-  const [fol, setfol] = useState(
+  const [likecount, setLikeCount] = useState(post.likes.length);
+  const [commentlength, setCommentLength] = useState(post.comments.length);
+  const [followed, setFollowed] = useState(
     post.User_id.followers.includes(localStorage.getItem("token"))
   );
-  const [bookmark, setbookmark] = useState(
+  const [bookmark, setBookmark] = useState(
     post.bookmarks.includes(localStorage.getItem("token"))
-    // false
   );
+  const formattedDate = formatInstagramDate(post.date);
 
-  const follow = (userid) => {
-    axios
-      .put(URL("/user/follow"), {
-        followId: userid,
-        token: localStorage.getItem("token"),
-      })
-      .then(() => {
-        setfol(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const toggleFollow = (userid) => {
+    const followAction = followed ? unfollow : follow;
+    followAction(userid).then((res) => {
+      setFollowed(res);
+    });
   };
 
-  const unfollow = (userid) => {
-    axios
-      .put(URL("/user/unfollow"), {
-        followId: userid,
-        token: localStorage.getItem("token"),
-      })
-      .then(() => {
-        setfol(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const toggleLike = (id) => {
+    const likeAction = like ? unlikePost : likePost;
+    likeAction(id).then((res) => {
+      setLike(res);
+      if (res) {
+        setLikeCount(likecount + 1);
+      } else {
+        setLikeCount(likecount - 1);
+      }
+    });
   };
-  const addinfo = (e) => {
+
+  const toggleBookmark = (id) => {
+    const bookmarkAction = bookmark ? unbookmark : bookmarkPost;
+    bookmarkAction(id).then((res) => {
+      setBookmark(res);
+    });
+  };
+
+  const addComment = async (e) => {
     e.preventDefault();
-    onsubmit(post._id, info);
-    setinfo("");
-  };
-
-  async function Like(id) {
-    await axios
-      .put(URL("/post/like"), {
-        postid: id,
-        id: localStorage.getItem("token"),
-      })
-      .then(() => {
-        setlike(true);
-        setlikecount(likecount + 1);
-      });
-  }
-  async function Unlike(id) {
-    await axios
-      .put(URL("/post/unlike"), {
-        postid: id,
-        id: localStorage.getItem("token"),
-      })
-      .then(() => {
-        setlike(false);
-        setlikecount(likecount - 1);
-      });
-  }
-
-  async function Bookmark(id) {
-    await axios
-      .put(URL("/post/bookmark"), {
-        postid: id,
-        id: localStorage.getItem("token"),
-      })
-      .then(() => {
-        setbookmark(true);
-      });
-  }
-  async function Unbookmark(id) {
-    await axios
-      .put(URL("/post/unbookmark"), {
-        postid: id,
-        id: localStorage.getItem("token"),
-      })
-      .then(() => {
-        setbookmark(false);
-      });
-  }
-
-  const onsubmit = async (id, text) => {
-    await axios
-      .put(URL("/post/addcomment"), {
-        id: id,
-        text: text,
-      })
-      .then(() => {
-        setcommentlength(commentlength + 1);
-      });
+    addCommentToPost(post._id, comment).then((res) => {
+      if (res) {
+        setCommentLength(commentlength + 1);
+        setComment("");
+      }
+    });
   };
 
   return (
@@ -123,7 +76,11 @@ const Post = ({ post }) => {
       <div className="Postp_header">
         <div className="postp_header_pro">
           {post.User_id.profileImage ? (
-            <img className="postprofileimage" src={post.User_id.profileImage} alt="profile"/>
+            <img
+              className="postprofileimage"
+              src={post.User_id.profileImage}
+              alt="profile"
+            />
           ) : (
             <Avatar style={{ marginRight: "10px" }}>
               {post.User_id.username.charAt(0).toUpperCase()}
@@ -132,23 +89,23 @@ const Post = ({ post }) => {
           <Link to={`/showprofile/${post.User_id._id}`} className="cl">
             {post.User_id.username}
           </Link>
-          <Link className="cl" to={`/showprofile/${post.User_id._id}`}>
+          <Link className="cl date" to={`/showprofile/${post.User_id._id}`}>
             {" "}
-            •12h•{" "}
+            •{formattedDate}•{" "}
           </Link>
           <div>
             {" "}
-            {fol ? (
+            {followed ? (
               <button
                 className="follow__button"
-                onClick={() => unfollow(post.User_id._id)}
+                onClick={() => toggleFollow(post.User_id._id)}
               >
                 Unfollow
               </button>
             ) : (
               <button
                 className="follow__button"
-                onClick={() => follow(post.User_id._id)}
+                onClick={() => toggleFollow(post.User_id._id)}
               >
                 Follow
               </button>
@@ -168,8 +125,8 @@ const Post = ({ post }) => {
                 style={{ color: "red" }}
                 className="postIcon"
                 sx={{ fontSize: 45 }}
-                onClick={(e) => {
-                  Unlike(post._id);
+                onClick={() => {
+                  toggleLike(post._id);
                 }}
               />
             ) : (
@@ -177,12 +134,15 @@ const Post = ({ post }) => {
                 className="postIcon"
                 sx={{ fontSize: 45 }}
                 onClick={() => {
-                  Like(post._id);
+                  toggleLike(post._id);
                 }}
               />
             )}
             <Link to={`/showpost/${post._id}`}>
-              <ChatBubbleOutlineIcon sx={{ fontSize: 45 }} className="postIcon cl" />
+              <ChatBubbleOutlineIcon
+                sx={{ fontSize: 45 }}
+                className="postIcon cl"
+              />
             </Link>
             <TelegramIcon sx={{ fontSize: 45 }} className="postIcon" />
           </div>
@@ -193,7 +153,7 @@ const Post = ({ post }) => {
                 className="postIcon"
                 sx={{ fontSize: 45 }}
                 onClick={() => {
-                  Unbookmark(post._id);
+                  toggleBookmark(post._id);
                 }}
               />
             ) : (
@@ -201,7 +161,7 @@ const Post = ({ post }) => {
                 className="postIcon"
                 sx={{ fontSize: 45 }}
                 onClick={() => {
-                  Bookmark(post._id);
+                  toggleBookmark(post._id);
                 }}
               />
             )}
@@ -213,7 +173,7 @@ const Post = ({ post }) => {
         <Link className="cl" to={`/showpost/${post._id}`}>
           View all {commentlength} comments
         </Link>
-        <form className="formposts" onSubmit={addinfo}>
+        <form className="formposts" onSubmit={addComment}>
           <div className="field">
             <input
               id="username"
@@ -221,12 +181,12 @@ const Post = ({ post }) => {
               className="formposts_input"
               placeholder="Add a comment...."
               onChange={(e) => {
-                setinfo(e.target.value);
+                setComment(e.target.value);
               }}
-              value={info}
+              value={comment}
             />
             <label className="login-label" htmlFor="username">
-              Add a commet...
+              Add a comment...
             </label>
             <input className="formposts_button" type="submit" value="Post" />
           </div>

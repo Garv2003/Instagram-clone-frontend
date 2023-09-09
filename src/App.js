@@ -14,30 +14,45 @@ import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/Signup/Signup";
 import Profile from "./pages/Profile/Profile";
-
-import {
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { useState } from "react";
+import { Route, Routes, Navigate } from "react-router-dom";
+import LoadingBar from "react-top-loading-bar";
 
 function App() {
+  const [progress, setProgress] = useState(0);
   return (
     <>
+      <LoadingBar
+        color="#27c4f5 linear-gradient(to right,#27c4f5,#a307ba,#fd8d32,#70c050,#27c4f5)"
+        progress={progress}
+        height={3}
+        // onLoaderFinished={() => console.log("finished")}
+      />
       <Routes>
-        <Route exact path="/login" element={<Login />}></Route>
-        <Route path="/signup" element={<SignUp />}></Route>
+        <Route
+          exact
+          path="/login"
+          element={<Login setProgress={setProgress} />}
+        ></Route>
+        <Route
+          path="/signup"
+          element={<SignUp setProgress={setProgress} />}
+        ></Route>
         <Route
           path="/"
           element={
-            localStorage.getItem("token") ? <Home /> : <Navigate to="/login" />
+            localStorage.getItem("token") ? (
+              <Home setProgress={setProgress} />
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         ></Route>
         <Route
           path="/profile/*"
           element={
             localStorage.getItem("token") ? (
-              <Profile />
+              <Profile setProgress={setProgress} />
             ) : (
               <Navigate to="/login" />
             )
@@ -47,7 +62,7 @@ function App() {
           path="/explore"
           element={
             localStorage.getItem("token") ? (
-              <Explore />
+              <Explore setProgress={setProgress} />
             ) : (
               <Navigate to="/login" />
             )
@@ -56,14 +71,18 @@ function App() {
         <Route
           path="/reels"
           element={
-            localStorage.getItem("token") ? <Reels /> : <Navigate to="/login" />
+            localStorage.getItem("token") ? (
+              <Reels setProgress={setProgress} />
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         ></Route>
         <Route
           path="/showpost/:id"
           element={
             localStorage.getItem("token") ? (
-              <Showpost />
+              <Showpost setProgress={setProgress} />
             ) : (
               <Navigate to="/login" />
             )
@@ -73,7 +92,7 @@ function App() {
           path="/create"
           element={
             localStorage.getItem("token") ? (
-              <Create />
+              <Create setProgress={setProgress} />
             ) : (
               <Navigate to="/login" />
             )
@@ -83,7 +102,7 @@ function App() {
           path="/message"
           element={
             localStorage.getItem("token") ? (
-              <Messages />
+              <Messages setProgress={setProgress} />
             ) : (
               <Navigate to="/login" />
             )
@@ -93,7 +112,7 @@ function App() {
           path="/archive/stories/"
           element={
             localStorage.getItem("token") ? (
-              <Archive />
+              <Archive setProgress={setProgress} />
             ) : (
               <Navigate to="/login" />
             )
@@ -103,7 +122,7 @@ function App() {
           path="/accounts/edit"
           element={
             localStorage.getItem("token") ? (
-              <Setting />
+              <Setting setProgress={setProgress} />
             ) : (
               <Navigate to="/login" />
             )
@@ -114,7 +133,7 @@ function App() {
           path="/notifications"
           element={
             localStorage.getItem("token") ? (
-              <Notifications />
+              <Notifications setProgress={setProgress} />
             ) : (
               <Navigate to="/login" />
             )
@@ -124,7 +143,7 @@ function App() {
           path="/search"
           element={
             localStorage.getItem("token") ? (
-              <Search />
+              <Search setProgress={setProgress} />
             ) : (
               <Navigate to="/login" />
             )
@@ -134,7 +153,7 @@ function App() {
           path="/showprofile/:id"
           element={
             localStorage.getItem("token") ? (
-              <Showprofile />
+              <Showprofile setProgress={setProgress} />
             ) : (
               <Navigate to="/login" />
             )

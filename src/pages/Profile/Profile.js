@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import ProfileHeader from "../../components/ProfileHeader/ProfileHeader";
-import ProfileFooter from "../../components/ProfileFooter/ProfileFooter";
+import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
 import { Link, Route, Routes } from "react-router-dom";
-import Navbar from "../../components/Navbar/Navbar";
+import Navbar from "../../layout/Navbar/Navbar"
 import Savedpost from "../../components/Savedpost/Savedpost";
 import axios from "axios";
 
@@ -11,18 +11,19 @@ const URL = (mypath) => {
   return `http://localhost:3456${mypath}`;
 };
 
-const Profile = () => {
+const Profile = ({setProgress}) => {
   const [data, setdata] = useState([]);
   const [user, setuser] = useState([]);
   const [savedpost, setsavedpost] = useState([]);
   const [followers, setfollowers] = useState(0);
   const [following, setfollowing] = useState(0);
-  
+
   useEffect(() => {
     getmyposts();
   }, []);
 
   const getmyposts = async () => {
+    setProgress(0);
     await axios
       .get(URL("/post/profile"), {
         headers: {
@@ -30,16 +31,15 @@ const Profile = () => {
         },
       })
       .then((res) => {
+        setProgress(50);
         setdata(res.data[1]);
         setuser(res.data[0]);
         setsavedpost(res.data[0].savedpost);
-        if (res.data[0].followers !== undefined) {
-          setfollowers(res.data[0].followers.length);
-        }
-        if (res.data[0].following !== undefined) {
-          setfollowing(res.data[0].following.length);
-        }
+        setProgress(75);
+        setfollowers(res.data[0].followers.length);
+        setfollowing(res.data[0].following.length);
       });
+    setProgress(100);
   };
 
   return (
@@ -75,7 +75,7 @@ const Profile = () => {
             <div className="profile_header_footericon">
               <button className="profile_header_footericons">
                 <Link className="linkprofile" to="/profile/tagged">
-                  TAGGED
+                  REELS
                 </Link>
               </button>
             </div>
