@@ -3,44 +3,42 @@ import "./Profile.css";
 import ProfileHeader from "../../components/ProfileHeader/ProfileHeader";
 import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
 import { Link, Route, Routes } from "react-router-dom";
-import Navbar from "../../layout/Navbar/Navbar"
+import Navbar from "../../layout/Navbar/Navbar";
 import Savedpost from "../../components/Savedpost/Savedpost";
 import axios from "axios";
 
-const URL = (mypath) => {
-  return `http://localhost:3456${mypath}`;
-};
+const apiEndpoint = (path) => `http://localhost:3456${path}`;
 
-const Profile = ({setProgress}) => {
-  const [data, setdata] = useState([]);
-  const [user, setuser] = useState([]);
-  const [savedpost, setsavedpost] = useState([]);
-  const [followers, setfollowers] = useState(0);
-  const [following, setfollowing] = useState(0);
+const Profile = ({ setProgress }) => {
+  const [data, setData] = useState([]);
+  const [user, setUser] = useState([]);
+  const [savedpost, setSavedpost] = useState([]);
+  const [followers, setFollowers] = useState(0);
+  const [following, setFollowing] = useState(0);
 
   useEffect(() => {
-    getmyposts();
-  }, []);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(apiEndpoint("/post/profile"), {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        });
+        setProgress(0);
+        const responseData = response.data;
+        setData(responseData[1]);
+        setUser(responseData[0]);
+        setSavedpost(responseData[0].savedpost);
+        setFollowers(responseData[0].followers.length);
+        setFollowing(responseData[0].following.length);
+        setProgress(100);
+      } catch (error) {
+        // Handle error appropriately
+      }
+    };
 
-  const getmyposts = async () => {
-    setProgress(0);
-    await axios
-      .get(URL("/post/profile"), {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      })
-      .then((res) => {
-        setProgress(50);
-        setdata(res.data[1]);
-        setuser(res.data[0]);
-        setsavedpost(res.data[0].savedpost);
-        setProgress(75);
-        setfollowers(res.data[0].followers.length);
-        setfollowing(res.data[0].following.length);
-      });
-    setProgress(100);
-  };
+    fetchData();
+  }, [setProgress]);
 
   return (
     <div className="home">
@@ -83,19 +81,9 @@ const Profile = ({setProgress}) => {
           <div className="profile_section">
             <div className="explore_header">
               <Routes>
-                <Route path="/" element={<Savedpost data={data} />}></Route>
-              </Routes>
-              <Routes>
-                <Route
-                  path="/saved"
-                  element={<Savedpost data={savedpost} />}
-                ></Route>
-              </Routes>
-              <Routes>
-                <Route
-                  path="/tagged"
-                  element={<Savedpost data={data} />}
-                ></Route>
+                <Route path="/" element={<Savedpost data={data} />} />
+                <Route path="/saved" element={<Savedpost data={savedpost} />} />
+                <Route path="/tagged" element={<Savedpost data={data} />} />
               </Routes>
             </div>
           </div>

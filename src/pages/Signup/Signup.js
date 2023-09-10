@@ -1,19 +1,35 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import './Signup.module.css'
-function Register({ setProgress}) {
-  setProgress(100);
+import "../Login/Login.css"
+import { ToastContainer, toast } from "react-toastify";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import "react-toastify/dist/ReactToastify.css";
+
+function Register({ setProgress }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
+  const [confirmpassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const URL = (mypath) => {
     return `http://localhost:3456${mypath}`;
   };
+  useEffect(() => {
+    setProgress(100);
+  }, []);
+
   const navigate = useNavigate();
   const handleRegister = async (e) => {
     e.preventDefault();
+    if (!username || !password || !name || !email) {
+      toast.error("Please fill all the fields");
+      return;
+    } else if (password !== confirmpassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
     const data = { username, name, password, email };
     console.log(data);
     setPassword("");
@@ -22,9 +38,9 @@ function Register({ setProgress}) {
     setname("");
     try {
       const response = await axios.post(URL("/auth/register"), {
-       data
+        data,
       });
-      console.log(response.data);
+      toast.success("Registered Successfully");
       navigate("/login");
     } catch (error) {
       console.error(error);
@@ -33,6 +49,7 @@ function Register({ setProgress}) {
 
   return (
     <div className="containerlogin">
+      <ToastContainer />
       <div className="box1">
         <div className="headinglogin"></div>
         <form className="login-form" onSubmit={handleRegister}>
@@ -45,7 +62,6 @@ function Register({ setProgress}) {
               onChange={(e) => setname(e.target.value)}
               placeholder="Full Name"
             />
-            <label for="full name" className="login-label">Full Name</label>
           </div>
           <div className="field">
             <input
@@ -56,7 +72,6 @@ function Register({ setProgress}) {
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Username"
             />
-            <label for="username" className="login-label">Username</label>
           </div>
           <div className="field">
             <input
@@ -67,18 +82,49 @@ function Register({ setProgress}) {
               onChange={(e) => setemail(e.target.value)}
               placeholder="Email"
             />
-            <label for="username" className="login-label">Email</label>
           </div>
           <div className="field">
             <input
               id="password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="password"
               className="login-input"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <label for="password" className="login-label">Password</label>
+            <div
+              className="eye"
+              onClick={() => {
+                setShowPassword(!showPassword);
+              }}
+            >
+              <VisibilityIcon
+                sx={{ color: showPassword ? "black" : "gray", fontSize: 20 }}
+              />
+            </div>
+          </div>
+          <div className="field">
+            <input
+              id="confirm password"
+              type={showPassword ? "text" : "password"}
+              placeholder="confirm password"
+              className="login-input"
+              value={confirmpassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <div
+              className="eye"
+              onClick={() => {
+                setShowPassword(!showPassword);
+              }}
+            >
+              <VisibilityIcon
+                sx={{ color: showPassword ? "black" : "gray", fontSize: 20 }}
+              />
+            </div>
+            {/* <label for="password" className="login-label">
+              Confirm Password
+            </label> */}
           </div>
           <button className="login-button" title="login">
             Sign Up

@@ -19,8 +19,8 @@ const Notifications = ({setProgress}) => {
     setProgress(50);
     axios.get(URL("/user/suggestion")).then((res) => {
       setuser(res.data);
-      setProgress(100);
     });
+    setProgress(100);
   };
   return (
     <div className="home">

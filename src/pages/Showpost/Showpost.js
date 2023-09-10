@@ -8,6 +8,7 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import "./Showpost.css";
 import {
@@ -50,13 +51,13 @@ const Showpost = ({ setProgress }) => {
   const [followed, setFollowed] = useState(false);
 
   useEffect(() => {
-    setProgress(0);
     getPost();
   }, []);
 
   const getPost = async () => {
     try {
       const response = await axios.get(`${API_URL}/post/showpost/${id}`);
+      setProgress(0);
       const postData = response.data;
       setPost(postData);
 
@@ -74,8 +75,6 @@ const Showpost = ({ setProgress }) => {
       setLikeCount(likes.length);
       setBookmark(bookmarks.includes(localStorage.getItem("token")));
       setFollowed(followers.includes(localStorage.getItem("token")));
-
-      // Set state variables for user data
       setComment("");
     } catch (error) {
       console.error("Error fetching post:", error);
@@ -259,20 +258,15 @@ const Showpost = ({ setProgress }) => {
         <div className="profile_footer1">
           View all {commentlength} comments
           <form className="formposts" onSubmit={addCommentHandler}>
-            <div className="field">
-              <input
-                id="username"
-                type="text"
-                className="formposts_input"
-                placeholder="Add a comment...."
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-              />
-              <label className="login-label" htmlFor="username">
-                Add a comment...
-              </label>
-              <input className="formposts_button" type="submit" value="Post" />
-            </div>
+            <input
+              id="username"
+              type="text"
+              className="formposts_input"
+              placeholder="Add a comment...."
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            />
+            <input className="formposts_button" type="submit" value="Post" />
           </form>
         </div>
       </div>

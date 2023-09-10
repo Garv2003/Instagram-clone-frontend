@@ -188,22 +188,17 @@ const Post = ({ post }) => {
           View all {commentlength} comments
         </Link>
         <form className="formposts" onSubmit={addComment}>
-          <div className="field">
-            <input
-              id="username"
-              type="text"
-              className="formposts_input"
-              placeholder="Add a comment...."
-              onChange={(e) => {
-                setComment(e.target.value);
-              }}
-              value={comment}
-            />
-            <label className="login-label" htmlFor="username">
-              Add a comment...
-            </label>
-            <input className="formposts_button" type="submit" value="Post" />
-          </div>
+          <input
+            id="username"
+            type="text"
+            className="formposts_input"
+            placeholder="Add a comment...."
+            onChange={(e) => {
+              setComment(e.target.value);
+            }}
+            value={comment}
+          />
+          <input className="formposts_button" type="submit" value="Post" />
         </form>
       </div>
     </div>

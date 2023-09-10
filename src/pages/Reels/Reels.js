@@ -17,11 +17,10 @@ function Reels({ setProgress }) {
   }, []);
 
   const getdata = async () => {
-    setProgress(0);
     const res = await axios.get(
       URL(`/post/explore/${localStorage.getItem("token")}`)
     );
-    setProgress(50);
+    setProgress(0);
     setPosts(res.data);
     setProgress(100);
   };

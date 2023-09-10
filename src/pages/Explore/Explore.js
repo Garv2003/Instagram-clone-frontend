@@ -9,7 +9,6 @@ const URL = (mypath) => {
   return `http://localhost:3456${mypath}`;
 };
 const Explore = ({ setProgress }) => {
-  setProgress(0);
   const [exoposts, setExoposts] = useState([]);
 
   useEffect(() => {
@@ -17,7 +16,6 @@ const Explore = ({ setProgress }) => {
   }, []);
 
   const getdata = async () => {
-    setProgress(50);
     const res = await axios.get(
       URL(`/post/explore/${localStorage.getItem("token")}`),
       {
@@ -27,6 +25,7 @@ const Explore = ({ setProgress }) => {
         },
       }
     );
+    setProgress(0);
     setExoposts(res.data);
     setProgress(100);
   };

@@ -55,30 +55,40 @@
 .formposts>span{  
   display: inline;
 }
-.formposts_input{
+.formposts{
   position: relative;
-  display: inline-block;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 40px;
+  border-radius: 25px;
+} 
+.formposts_input{
   font-size: 15px;
   box-sizing: border-box;
   background-color: transparent;
   width: 80%;
+  height: 100%;
   border:none;
   outline: none;
   border-radius: 25px 0px 0px 25px;
+  padding: 0px 10px 0px 10px;
   color: white;
 }
 .formposts_button{
-  position: relative;
   border-radius: 0 25px 25px 0px;
   width: 20%;
+  height: 100%;
   border: none;
   outline: none;
   cursor: pointer;
-  background-color: gray;
+  background-color: transparent;
   color: white;
 }
 input[type="submit"]:hover{
-  background-color: rgb(60, 57, 57);
+  color:  #0d45a5;
 }
 .date{
   color: gray;

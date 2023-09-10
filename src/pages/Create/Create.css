@@ -1,17 +1,17 @@
 .container {
-  height: 800px;
-  justify-content: center;
-}
-.container1 {
   width: 35%;
-  margin: auto;
-  margin-top: 70px;
-  color: white;
-  border: 1px solid gray;
-  border-radius: 15px;
+  height: 600px;
+  position: absolute;
+  top: 50%;
+  left: 55%;
+  transform: translate(-50%, -55%);
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid gray;
+  border-radius: 50px;
 }
 .tic {
   width: 100%;
@@ -20,9 +20,7 @@
   border-bottom: 1px solid gray;
 }
 .dl-2 {
-  padding: 50px;
   display: flex;
-  position: relative;
   flex-direction: column;
   justify-content: center;
   gap: 10px;
@@ -30,43 +28,38 @@
 .dl-2input {
   padding-left: 10px;
   padding-right: 70px;
-  background-color:transparent;
+  background-color: transparent;
   color: white;
   border: 2px solid black;
   border-radius: 20px;
 }
 .submitbtn {
   color: white;
-  width: 200px;
-  height: 30px;
+  width: 150px;
+  height: 50px;
   font-size: 16px;
   margin: auto;
   font-family: sans-serif;
+  background: #084cdf;
   border-radius: 10px;
-  border: 1px solid rgb(62, 61, 61);
+  border: 0;
   cursor: pointer;
-  background-color: transparent;
 }
 .submitbtn:hover {
-  background-color: rgb(32, 31, 31);
+  background-color: #0d45a5;
 }
-.addphotoicon {
-  margin:auto
-}
-.input12{
+.input12 {
   width: 200px;
   background-color: transparent;
 }
-input[type=file] {
+input[type="file"] {
   width: 250px;
   max-width: 100%;
   color: #444;
   padding: 0px;
-  /* background: #fff; */
   border-radius: 10px;
-  /* border: 1px solid #555; */
 }
-input[type=file]::file-selector-button {
+input[type="file"]::file-selector-button {
   margin-right: 20px;
   border: none;
   background: #084cdf;
@@ -74,13 +67,12 @@ input[type=file]::file-selector-button {
   border-radius: 10px;
   color: #fff;
   cursor: pointer;
-  transition: background .2s ease-in-out;
   margin-bottom: 20px;
 }
 
-input[type=file]::file-selector-button:hover {
+input[type="file"]::file-selector-button:hover {
   background: #0d45a5;
 }
-.lab{
+.lab {
   margin-right: 10px;
 }

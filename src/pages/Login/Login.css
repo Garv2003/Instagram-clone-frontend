@@ -1,4 +1,4 @@
-.containerlogin{
+.containerlogin {
   max-width: 1000px;
   margin: 0 auto;
   display: flex;
@@ -9,7 +9,7 @@
   font-size: 14px;
 }
 
-.box1{
+.box1 {
   max-width: 350px;
   width: 100%;
   display: flex;
@@ -24,7 +24,7 @@
   flex-grow: 1;
 }
 
-.headinglogin{
+.headinglogin {
   margin: 22px auto 12px;
   background-image: url("https://www.instagram.com/static/bundles/es6/sprite_core_b20f2a3cd7e4.png/b20f2a3cd7e4.png");
   background-position: -98px 0;
@@ -34,21 +34,27 @@
 }
 .field {
   margin: 10px 0;
-  position: relative;
+  /* position: relative; */
   font-size: 14px;
-  width: 100%;
+  width:16rem;
   text-overflow: ellipsis;
-}
-.login-input{
-  padding: 9px 0px 7px 9px;
-  font-size: 12px;
-  width: 16rem;
-  outline: none;
   background: #fafafa;
   border-radius: 3px;
   border: 1px solid #efefef;
+  display: flex ;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  padding: 0px 10px 0px 0px;
 }
-.login-label {
+.login-input {
+  padding: 9px 0px 7px 9px;
+  font-size: 12px;
+  width: 95%;
+  outline: none;
+  border: 0;
+}
+/* .login-label {
   position: absolute;
   pointer-events: none;
   left: 10px;
@@ -59,8 +65,8 @@
   font-size: 14px;
   color: #999;
   padding-top: 6px;
-}
-input::placeholder {
+} */
+/* input::placeholder {
   color: white;
   visibility: hidden;
 }
@@ -74,7 +80,7 @@ input:not(:placeholder-shown) + label {
 input:not(:placeholder-shown) {
   padding-top: 14px;
   padding-bottom: 2px;
-}
+} */
 .login-button {
   text-align: center;
   width: 100%;
@@ -96,7 +102,7 @@ input:not(:placeholder-shown) {
 .line {
   height: 1px;
   width: 40%;
-  background-color:gray;
+  background-color: gray;
 }
 .other {
   display: flex;
@@ -126,7 +132,7 @@ input:not(:placeholder-shown) {
   color: #3897f0;
   font-weight: 600;
 }
-.hother{
+.hother {
   width: 70%;
   text-align: center;
   font-size: 15px;

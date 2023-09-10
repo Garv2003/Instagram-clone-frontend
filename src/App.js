@@ -19,11 +19,8 @@ import "./App.css";
 
 const App = () => {
   const [progress, setProgress] = useState(0);
-
-  // Custom route wrapper for authenticated routes
   const ProtectedRoute = ({ element, ...rest }) => {
     const isAuthenticated = localStorage.getItem("token");
-
     return isAuthenticated ? element : <Navigate to="/login" />;
   };
 
@@ -35,21 +32,89 @@ const App = () => {
         height={3}
       />
       <Routes>
-        <Route exact path="/login" element={<Login setProgress={setProgress} />} />
+        <Route
+          exact
+          path="/login"
+          element={<Login setProgress={setProgress} />}
+        />
         <Route path="/signup" element={<SignUp setProgress={setProgress} />} />
-        <Route path="/" element={<ProtectedRoute element={<Home setProgress={setProgress} />} />} />
-        <Route path="/profile/*" element={<ProtectedRoute element={<Profile setProgress={setProgress} />} />} />
-        <Route path="/explore" element={<ProtectedRoute element={<Explore setProgress={setProgress} />} />} />
-        <Route path="/reels" element={<ProtectedRoute element={<Reels setProgress={setProgress} />} />} />
-        <Route path="/showpost/:id" element={<ProtectedRoute element={<Showpost setProgress={setProgress} />} />} />
-        <Route path="/create" element={<ProtectedRoute element={<Create setProgress={setProgress} />} />} />
-        <Route path="/message" element={<ProtectedRoute element={<Messages setProgress={setProgress} />} />} />
-        <Route path="/archive/stories/" element={<ProtectedRoute element={<Archive setProgress={setProgress} />} />} />
-        <Route path="/accounts/edit" element={<ProtectedRoute element={<Setting setProgress={setProgress} />} />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute element={<Home setProgress={setProgress} />} />
+          }
+        />
+        <Route
+          path="/profile/*"
+          element={
+            <ProtectedRoute element={<Profile setProgress={setProgress} />} />
+          }
+        />
+        <Route
+          path="/explore"
+          element={
+            <ProtectedRoute element={<Explore setProgress={setProgress} />} />
+          }
+        />
+        <Route
+          path="/reels"
+          element={
+            <ProtectedRoute element={<Reels setProgress={setProgress} />} />
+          }
+        />
+        <Route
+          path="/showpost/:id"
+          element={
+            <ProtectedRoute element={<Showpost setProgress={setProgress} />} />
+          }
+        />
+        <Route
+          path="/create"
+          element={
+            <ProtectedRoute element={<Create setProgress={setProgress} />} />
+          }
+        />
+        <Route
+          path="/message"
+          element={
+            <ProtectedRoute element={<Messages setProgress={setProgress} />} />
+          }
+        />
+        <Route
+          path="/archive/stories/"
+          element={
+            <ProtectedRoute element={<Archive setProgress={setProgress} />} />
+          }
+        />
+        <Route
+          path="/accounts/edit"
+          element={
+            <ProtectedRoute element={<Setting setProgress={setProgress} />} />
+          }
+        />
         <Route path="/updatepost" />
-        <Route path="/notifications" element={<ProtectedRoute element={<Notifications setProgress={setProgress} />} />} />
-        <Route path="/search" element={<ProtectedRoute element={<Search setProgress={setProgress} />} />} />
-        <Route path="/showprofile/:id" element={<ProtectedRoute element={<Showprofile setProgress={setProgress} />} />} />
+        <Route
+          path="/notifications"
+          element={
+            <ProtectedRoute
+              element={<Notifications setProgress={setProgress} />}
+            />
+          }
+        />
+        <Route
+          path="/search"
+          element={
+            <ProtectedRoute element={<Search setProgress={setProgress} />} />
+          }
+        />
+        <Route
+          path="/showprofile/:id"
+          element={
+            <ProtectedRoute
+              element={<Showprofile setProgress={setProgress} />}
+            />
+          }
+        />
       </Routes>
     </>
   );
