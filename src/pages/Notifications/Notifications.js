@@ -4,24 +4,15 @@ import "./Notifications.css";
 import Navbar from "../../layout/Navbar/Navbar"
 import axios from "axios";
 import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
+import UserContext from "../../Context/User/UserContext";
 
-const URL = (mypath) => {
-  return `http://localhost:3456${mypath}`;
-};
 const Notifications = ({setProgress}) => {
-  const [user, setuser] = useState([]);
-
+  const { user, setuser } = React.useContext(UserContext);
+  
   useEffect(() => {
-    getsuggestion();
+    setProgress(100);
   }, []);
 
-  const getsuggestion = () => {
-    setProgress(50);
-    axios.get(URL("/user/suggestion")).then((res) => {
-      setuser(res.data);
-    });
-    setProgress(100);
-  };
   return (
     <div className="home">
       <div className="navbar">
