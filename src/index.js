@@ -6,12 +6,15 @@ import { BrowserRouter as Router } from "react-router-dom";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 import { PostProvider } from "./Context/Post/PostContext";
 import { UserProvider } from "./Context/User/UserContext";
+import { ExploreProvider } from "./Context/Explore/ExploreContext";
 
 root.render(
   <Router>
     <PostProvider>
       <UserProvider>
-        <App />
+        <ExploreProvider>
+          <App />
+        </ExploreProvider>
       </UserProvider>
     </PostProvider>
   </Router>

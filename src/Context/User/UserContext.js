@@ -3,18 +3,14 @@ import { createContext, useEffect, useState } from "react";
 const UserContext = createContext(null);
 
 const UserProvider = ({ children }) => {
-  const [user, setuser] = useState([]);
+  const [Id, setId] = useState([]);
 
   useEffect(() => {
-    getsuggestion();
+    setId(localStorage.getItem("token"));
   }, []);
-  const getsuggestion = () => {
-    axios.get("http://localhost:3456/user/suggestion").then((res) => {
-      setuser(res.data);
-    });
-  };
+
   return (
-    <UserContext.Provider value={{ user, setuser }}>
+    <UserContext.Provider value={{ Id, setId }}>
       {children}
     </UserContext.Provider>
   );

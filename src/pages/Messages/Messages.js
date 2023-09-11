@@ -1,18 +1,35 @@
 import React, { useEffect, useState } from "react";
 import "./Messages.css";
+import axios from "axios";
 import MessageBody from "../../components/MessageBody/MessageBody";
 import MessageSidebar from "../../components/MessageSideBar/MessageSidebar";
 import ChatIcon from "@mui/icons-material/Chat";
 import Navbar from "../../layout/Navbar/Navbar";
-import UserContext from "../../Context/User/UserContext";
+
+const URL = (mypath) => {
+  return `http://localhost:3456${mypath}`;
+};
 
 const Messages = ({ setProgress }) => {
-  const { user, setuser } = React.useContext(UserContext);
+  const [user, setUser] = useState([]);
   const [info, setInfo] = useState(null);
 
   useEffect(() => {
-    setProgress(100);
+    getMessagesData();
   }, []);
+
+  const getMessagesData = () => {
+    setProgress(0); 
+    axios
+      .get(URL("/user/suggestion"))
+      .then((res) => {
+        setUser(res.data);
+      })
+      .catch((err) => {
+        console.error("Error fetching user data:", err);
+      });
+      setProgress(100);
+  };
 
   const handleData = (data) => {
     setInfo(data);

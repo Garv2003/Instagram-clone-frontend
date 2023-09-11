@@ -4,18 +4,37 @@ import "./Home.css";
 import Post from "../../components/Post/Post";
 import Suggestions from "../../layout/Suggestions/Suggestions";
 import axios from "axios";
-import { useContext } from "react";
-import PostContext from "../../Context/Post/PostContext";
-import UserContext from "../../Context/User/UserContext";
+
+const URL = (mypath) => {
+  return `http://localhost:3456${mypath}`;
+};
 
 const Home = ({ setProgress }) => {
-  const {user,setuser} = useContext(UserContext);
-  const { posts, setPosts } = useContext(PostContext);
+  const [posts, setPosts] = useState([]);
+  const [user, setuser] = useState([]);
 
   useEffect(() => {
+    setProgress(0);
+    getsuggestion();
+    setProgress(50);
+    getdata();
     setProgress(100);
   }, []);
 
+  const getsuggestion = () => {
+    axios.get(URL("/user/suggestion")).then((res) => {
+      setuser(res.data);
+    });
+  };
+  const getdata = async () => {
+    const res = await axios.get(URL(`/post/${localStorage.getItem("token")}`), {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    setPosts(res.data);
+  };
   return (
     <div className="home">
       <div className="navbar">

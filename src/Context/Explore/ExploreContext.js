@@ -2,32 +2,34 @@ import axios from "axios";
 import { createContext, useEffect } from "react";
 import { useState } from "react";
 
-const PostContext = createContext(null);
+const ExploreContext = createContext(null);
 
-const PostProvider = ({ children }) => {
-  const [posts, setPosts] = useState([]);
+const ExploreProvider = ({ children }) => {
+  const [exoposts, setExoposts] = useState([]);
 
   useEffect(() => {
     getdata();
   }, []);
+
   const getdata = async () => {
     const res = await axios.get(
-      (`http://localhost:3456/post/${localStorage.getItem("token")}`),
+      `http://localhost:3456/post/explore/${localStorage.getItem("token")}`,
       {
-        headers: {
+        header: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       }
     );
-    setPosts(res.data);
+    setExoposts(res.data);
   };
+
   return (
-    <PostContext.Provider value={{ posts, setPosts }}>
+    <ExploreContext.Provider value={{ exoposts, setExoposts }}>
       {children}
-    </PostContext.Provider>
+    </ExploreContext.Provider>
   );
 };
 
-export { PostProvider };
-export default PostContext;
+export { ExploreProvider };
+export default ExploreContext;
