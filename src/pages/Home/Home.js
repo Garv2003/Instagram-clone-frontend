@@ -1,17 +1,46 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../../layout/Navbar/Navbar";
 import "./Home.css";
+import axios from "axios";
 import Post from "../../components/Post/Post";
 import Suggestions from "../../layout/Suggestions/Suggestions";
-import UserContext from "../../Context/User/UserContext";
-import PostContext from "../../Context/Post/PostContext";
+
+const URL = (mypath) => {
+  return `http://localhost:3456${mypath}`;
+};
 
 const Home = ({ setProgress }) => {
-  setProgress(0);
-  const { posts } = React.useContext(PostContext);
-  const { user } = React.useContext(UserContext);
-  setProgress(100);
+  const [user, setuser] = useState([]);
+  const [posts, setPosts] = useState([]);
   
+  useEffect(() => {
+    getdata();
+    getsuggestion();
+  }, []);
+  const getdata = async () => {
+    const res = await axios.get(
+      "http://localhost:3456/post",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
+      }
+    );
+    setPosts(res.data);
+  };
+  const getsuggestion = () => {
+    axios
+      .get(URL("/user/suggestion"), {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        setuser(res.data);
+      });
+  };
   return (
     <div className="home">
       <div className="navbar">

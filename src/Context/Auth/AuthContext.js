@@ -1,42 +1,42 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 
-const apiEndpoint = (path) => `http://localhost:3456${path}`;
+const apiEndpoint = "http://localhost:3456";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [info, setInfo] = useState({});
   const [Id, setId] = useState("");
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(apiEndpoint("/auth/user"), {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        });
-        const responseData = response.data;
-        setInfo(responseData);
-        setId(responseData._id);
+        const token = localStorage.getItem("token");
+        if (token && window.location.pathname !== "/login" && window.location.pathname !== "/signup") {
+          const response = await axios.get(`${apiEndpoint}/auth/user`, {
+            headers: {
+              Authorization: token,
+            },
+          });
+          const responseData = response.data;
+          setInfo(responseData);
+          setId(responseData._id);
+        }
       } catch (error) {
-        console.log(error);
+        console.error("Error fetching user data:", error);
+      } finally {
+        setLoading(false);
       }
     };
-    if(localStorage.getItem("token") && window.location.pathname !== "/login" && window.location.pathname !== "/signup"){
-      fetchData();
-    }
-  }, []); 
 
-  // useEffect(() => {
-  //   // Log the updated info here
-  //   console.log(info);
-  // }, [info]); // This effect will run whenever 'info' changes.
+    fetchData();
+  }, [localStorage.getItem("token")]);
 
-  console.log("AuthContext info:", info);
   return (
-    <AuthContext.Provider value={{ info, setInfo ,Id }}>
+    <AuthContext.Provider value={{ info, setInfo, Id, loading }}>
       {children}
     </AuthContext.Provider>
   );
-}
+};

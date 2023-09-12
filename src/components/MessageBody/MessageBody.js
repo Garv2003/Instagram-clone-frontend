@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef ,useContext} from "react";
 import { Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
@@ -11,13 +11,14 @@ import InputEmoji from "react-input-emoji";
 import axios from "axios";
 import { io } from "socket.io-client";
 import "./MessageBody.css";
-
+import { AuthContext } from "../../Context/Auth/AuthContext";
 const URL = (mypath) => {
   return `http://localhost:3456${mypath}`;
 };
 
 const MessageBody = ({ info }) => {
   const [User, setUser] = useState({});
+  const {Id} = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [arrMessage, setarrMessage] = useState(null);
@@ -48,7 +49,7 @@ const MessageBody = ({ info }) => {
   }, [arrMessage, info._id]);
 
   useEffect(() => {
-    socket.current.emit("adduser", localStorage.getItem("token"));
+    socket.current.emit("adduser", Id);
     socket.current.on("getusers", (us) => {
       const user = us.filter((user) => user.userId === info._id);
       if (user[0]) {
@@ -62,7 +63,7 @@ const MessageBody = ({ info }) => {
 
   const handleSendMessage = async () => {
     const message = {
-      senderId: localStorage.getItem("token"),
+      senderId: Id,
       receiverId: info._id,
       text: newMessage,
       createdAt: Date.now(),
@@ -73,7 +74,7 @@ const MessageBody = ({ info }) => {
       setNewMessage("");
       await axios
         .post(URL("/message/addmessage"), {
-          from: localStorage.getItem("token"),
+          from: Id,
           to: info._id,
           message: newMessage,
         })
@@ -90,7 +91,7 @@ const MessageBody = ({ info }) => {
     const getmessages = async () => {
       await axios
         .post(URL("/message/getmessage"), {
-          from: localStorage.getItem("token"),
+          from:Id,
           to: info._id,
         })
         .then((res) => {
@@ -109,7 +110,7 @@ const MessageBody = ({ info }) => {
 
   const handleTyping = (type) => {
     socket.current.emit("typing", {
-      senderId: localStorage.getItem("token"),
+      senderId: Id,
       receiverId: info._id,
       text: type ? "typing..." : "online",
     });
@@ -145,7 +146,7 @@ const MessageBody = ({ info }) => {
       </div>
       <div className="message__container">
         {messages.map((message, i) =>
-          message.senderId === localStorage.getItem("token") ? (
+          message.senderId === Id ? (
             <div className="message__chats" key={i}>
               <p className="sender__name">You</p>
               <div className="message__sender">

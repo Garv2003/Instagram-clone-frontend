@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState ,useContext} from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -29,7 +29,7 @@ const API_URL = "http://localhost:3456";
 const Showpost = ({ setProgress }) => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { Info ,Id} = useContext(AuthContext);
+  const { Id } = useContext(AuthContext);
   const [post, setPost] = useState({
     User_id: {
       _id: "",
@@ -57,7 +57,7 @@ const Showpost = ({ setProgress }) => {
 
   const getPost = async () => {
     try {
-      const response = await axios.get(`${API_URL}/post/showpost/${id}`,{
+      const response = await axios.get(`${API_URL}/post/showpost/${id}`, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -76,10 +76,10 @@ const Showpost = ({ setProgress }) => {
       } = postData;
 
       setCommentLength(comments.length);
-      setLike(likes.includes(localStorage.getItem("token")));
+      setLike(likes.includes(Id));
       setLikeCount(likes.length);
-      setBookmark(bookmarks.includes(localStorage.getItem("token")));
-      setFollowed(followers.includes(localStorage.getItem("token")));
+      setBookmark(bookmarks.includes(Id));
+      setFollowed(followers.includes(Id));
       setComment("");
     } catch (error) {
       console.error("Error fetching post:", error);

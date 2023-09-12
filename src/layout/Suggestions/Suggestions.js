@@ -6,10 +6,6 @@ import "./Suggestions.css";
 function Suggestions(props) {
   const { user } = props;
 
-  const filteredUsers = user.filter(
-    (post) => post._id !== localStorage.getItem("token")
-  );
-
   return (
     <div className="suggestions">
       <div className="suggestions__title">
@@ -20,7 +16,7 @@ function Suggestions(props) {
       </div>
       <div className="suggestions__usernames">
         <div className="usersuggestions">
-          {filteredUsers.map((post) => (
+          {user.map((post) => (
             <Profilebar post={post} key={post._id} />
           ))}
         </div>

@@ -2,8 +2,10 @@ import React from "react";
 import "./MessageSidebar.css";
 import { Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
+import { AuthContext } from "../../Context/Auth/AuthContext";
 
 const MessageSidebar = ({ user, handleData }) => {
+  const { Id } = React.useContext(AuthContext);
   return (
     <>
       <div className="message_header">
@@ -12,7 +14,7 @@ const MessageSidebar = ({ user, handleData }) => {
             {user.map((post) => {
               return (
                 <div key={post._id}>
-                  {post._id === localStorage.getItem("token") ? (
+                  {post._id === Id? (
                     <div>{post.username}</div>
                   ) : (
                     <></>
@@ -31,7 +33,7 @@ const MessageSidebar = ({ user, handleData }) => {
         {user.map((post) => {
           return (
             <div key={post._id}>
-              {post._id !== localStorage.getItem("token") ? (
+              {post._id !== Id ? (
                 <div className="suggestions__username">
                   <div className="username__left">
                     <Link to={`/showprofile/${post._id}`} className="avatar">

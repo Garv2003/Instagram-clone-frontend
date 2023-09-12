@@ -1,19 +1,33 @@
 import React, { useEffect, useState } from "react";
 import Profilebar from "../../components/Profilebar/Profilebar";
 import "./Notifications.css";
-import Navbar from "../../layout/Navbar/Navbar"
+import Navbar from "../../layout/Navbar/Navbar";
 import axios from "axios";
-import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
-import UserContext from "../../Context/User/UserContext";
+import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
+
 const URL = (mypath) => {
   return `http://localhost:3456${mypath}`;
 };
-const Notifications = ({setProgress}) => {
-  const { user, setuser } = React.useContext(UserContext);
- 
+
+const Notifications = ({ setProgress }) => {
+  const [user, setuser] = useState([]);
+
   useEffect(() => {
-    setProgress(100);
+    getsuggestion();
   }, []);
+  
+  const getsuggestion = () => {
+    axios
+      .get(URL("/user/suggestion"), {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        setuser(res.data);
+      });
+  };
 
   return (
     <div className="home">
@@ -29,7 +43,7 @@ const Notifications = ({setProgress}) => {
               When someone likes or comments on one of your posts, you'll see it
               here.
             </div>
-            <CircleNotificationsIcon  sx={{ fontSize: 100 }}/>
+            <CircleNotificationsIcon sx={{ fontSize: 100 }} />
           </div>
           <div className="not_body">
             <div className="suggestions__title">

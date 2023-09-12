@@ -5,12 +5,29 @@ import MessageBody from "../../components/MessageBody/MessageBody";
 import MessageSidebar from "../../components/MessageSideBar/MessageSidebar";
 import ChatIcon from "@mui/icons-material/Chat";
 import Navbar from "../../layout/Navbar/Navbar";
-import UserContext from "../../Context/User/UserContext";
 
 const Messages = ({ setProgress }) => {
-  const [info, setInfo] = useState(null);  
-  const { user } = React.useContext(UserContext);
+  const [info, setInfo] = useState(null);
+  const [user, setuser] = useState([]);
+
+  useEffect(() => {
+    getsuggestion();
+  }, []);
   
+  const getsuggestion = () => {
+    axios
+
+      .get(("http://localhost:3456/user/suggestion"), {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        setuser(res.data);
+      });
+  };
+
   const handleData = (data) => {
     setInfo(data);
   };

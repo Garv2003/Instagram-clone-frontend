@@ -3,10 +3,21 @@ import Post from "../../components/Post/Post";
 import "./Reels.css";
 import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
 import Navbar from "../../layout/Navbar/Navbar";
-import PostContext from "../../Context/Post/PostContext";
-
+import axios from "axios";
 function Reels({ setProgress }) {
-  const { posts } = React.useContext(PostContext);
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    getdata();
+  }, []);
+  const getdata = async () => {
+    const res = await axios.get("http://localhost:3456/post", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    });
+    setPosts(res.data);
+  };
 
   return (
     <div className="home">

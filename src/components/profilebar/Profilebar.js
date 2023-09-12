@@ -1,20 +1,23 @@
-import React, { useState } from "react";
+import React, { useState ,useContext} from "react";
 import { Avatar } from "@mui/material";
 import { Link } from "react-router-dom";
 import { follow, unfollow } from "../../utils/utils";
+import { AuthContext } from "../../Context/Auth/AuthContext";
+
 const Profilebar = ({ post }) => {
+  const { Info, Id } = useContext(AuthContext);
   const [followed, setFollowed] = useState(
-    post.followers.includes(localStorage.getItem("token"))
+    post.followers.includes(Id)
   );
 
   const toggleFollow = (userid) => {
     const followAction = followed ? unfollow : follow;
     followAction(userid).then((res) => {
       if(res){
-        post.followers.push(localStorage.getItem("token"));
+        post.followers.push(Id);
       }
       else{
-        const index = post.followers.indexOf(localStorage.getItem("token"));
+        const index = post.followers.indexOf(Id);
         if (index > -1) {
           post.followers.splice(index, 1);
         }
@@ -24,7 +27,7 @@ const Profilebar = ({ post }) => {
   };
   return (
     <div key={post._id}>
-      {post._id !== localStorage.getItem("token") ? (
+      {post._id !== Id? (
         <div className="suggestions__username">
           <div className="username__left">
             <Link to={`/showprofile/${post._id}`} className="avatar">

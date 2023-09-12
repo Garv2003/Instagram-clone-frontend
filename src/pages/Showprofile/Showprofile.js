@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from "react";
 import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
 import { Route, Routes, Link, useParams } from "react-router-dom";
-import Navbar from "../../layout/Navbar/Navbar"
+import Navbar from "../../layout/Navbar/Navbar";
 import Savedpost from "../../components/Savedpost/Savedpost";
 import axios from "axios";
 import { Avatar } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-
+import { AuthContext } from "../../Context/Auth/AuthContext";
 const URL = (mypath) => {
   return `http://localhost:3456${mypath}`;
 };
+import { follow, unfollow } from "../../utils/utils";
 
 const Profile = ({ setProgress }) => {
   const { id } = useParams();
+  const { Id } = React.useContext(AuthContext);
   const [data, setData] = useState([]);
   const [user, setUser] = useState({});
   const [followers, setFollowers] = useState(0);
   const [following, setFollowing] = useState(0);
-  const [fol, setFol] = useState([]);
+  const [followed, setFollowed] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,7 +35,7 @@ const Profile = ({ setProgress }) => {
         setUser(userData);
         setData(postData);
         setFollowers(userData.followers.length);
-        setFol(userData.followers.includes(localStorage.getItem("token")));
+        setFollowed(userData.followers.includes(Id));
         setFollowing(userData.following.length);
         setProgress(100);
       } catch (err) {
@@ -44,34 +46,17 @@ const Profile = ({ setProgress }) => {
     fetchData();
   }, [id, setProgress]);
 
-  const follow = (userId) => {
-    axios
-      .put(URL("/user/follow"), {
-        followId: userId,
-        token: localStorage.getItem("token"),
-      })
-      .then((res) => {
-        setFol(true);
-        setFollowers(followers + 1);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
-  const unfollow = (userId) => {
-    axios
-      .put(URL("/user/unfollow"), {
-        followId: userId,
-        token: localStorage.getItem("token"),
-      })
-      .then((res) => {
-        setFol(false);
-        setFollowers(followers - 1);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+  const toggleFollow = (userid) => {
+    const followAction = followed ? unfollow : follow;
+    followAction(userid).then((res) => {
+      if (res) {
+        user.followers.push(Id);
+        setFollowed(res);
+      } else {
+        user.followers.pop(Id);
+        setFollowed(res);
+      }
+    });
   };
 
   return (
@@ -107,15 +92,15 @@ const Profile = ({ setProgress }) => {
                 <div className="profile_header_icon">
                   <div className="profile_icon">
                     <span>{user.username}</span>
-                    {fol ? (
+                    {followed ? (
                       <button
                         className="btn"
-                        onClick={() => unfollow(user._id)}
+                        onClick={() => toggleFollow(user._id)}
                       >
                         Unfollow
                       </button>
                     ) : (
-                      <button className="btn" onClick={() => follow(user._id)}>
+                      <button className="btn" onClick={() => toggleFollow(user._id)}>
                         Follow
                       </button>
                     )}
