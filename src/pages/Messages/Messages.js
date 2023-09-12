@@ -5,32 +5,12 @@ import MessageBody from "../../components/MessageBody/MessageBody";
 import MessageSidebar from "../../components/MessageSideBar/MessageSidebar";
 import ChatIcon from "@mui/icons-material/Chat";
 import Navbar from "../../layout/Navbar/Navbar";
-
-const URL = (mypath) => {
-  return `http://localhost:3456${mypath}`;
-};
+import UserContext from "../../Context/User/UserContext";
 
 const Messages = ({ setProgress }) => {
-  const [user, setUser] = useState([]);
-  const [info, setInfo] = useState(null);
-
-  useEffect(() => {
-    getMessagesData();
-  }, []);
-
-  const getMessagesData = () => {
-    setProgress(0); 
-    axios
-      .get(URL("/user/suggestion"))
-      .then((res) => {
-        setUser(res.data);
-      })
-      .catch((err) => {
-        console.error("Error fetching user data:", err);
-      });
-      setProgress(100);
-  };
-
+  const [info, setInfo] = useState(null);  
+  const { user } = React.useContext(UserContext);
+  
   const handleData = (data) => {
     setInfo(data);
   };

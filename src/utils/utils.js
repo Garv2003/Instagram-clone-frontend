@@ -5,8 +5,10 @@ const API_URL = "http://localhost:3456";
 export const deletePost = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      await axios.delete(`${API_URL}/post/delete/${id}`, {
-        data: { token: localStorage.getItem("token") },
+      await axios.delete(`${API_URL}/post/deletepost/${id}`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
       });
       resolve(true);
     } catch (error) {
@@ -19,10 +21,17 @@ export const deletePost = (id) => {
 export const follow = (userid) => {
   return new Promise(async (resolve, reject) => {
     try {
-      axios.put(`${API_URL}/user/follow`, {
-        followId: userid,
-        token: localStorage.getItem("token"),
-      });
+      axios.put(
+        `${API_URL}/user/follow`,
+        {
+          followId: userid,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
       resolve(true);
     } catch (error) {
       console.error("Error following user:", error);
@@ -34,10 +43,17 @@ export const follow = (userid) => {
 export const unfollow = (userid) => {
   return new Promise(async (resolve, reject) => {
     try {
-      axios.put(`${API_URL}/user/unfollow`, {
-        followId: userid,
-        token: localStorage.getItem("token"),
-      });
+      axios.put(
+        `${API_URL}/user/unfollow`,
+        {
+          followId: userid,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
       resolve(false);
     } catch (err) {
       console.log(err);
@@ -49,10 +65,17 @@ export const unfollow = (userid) => {
 export const likePost = async (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      await axios.put(`${API_URL}/post/like`, {
-        postid: id,
-        id: localStorage.getItem("token"),
-      });
+      await axios.put(
+        `${API_URL}/post/like`,
+        {
+          postid: id,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
       resolve(true);
     } catch (error) {
       console.error("Error liking post:", error);
@@ -64,10 +87,17 @@ export const likePost = async (id) => {
 export const unlikePost = async (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      await axios.put(`${API_URL}/post/unlike`, {
-        postid: id,
-        id: localStorage.getItem("token"),
-      });
+      await axios.put(
+        `${API_URL}/post/unlike`,
+        {
+          postid: id,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
       resolve(false);
     } catch (error) {
       console.error("Error unliking post:", error);
@@ -79,10 +109,17 @@ export const unlikePost = async (id) => {
 export const bookmarkPost = async (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      await axios.put(`${API_URL}/post/bookmark`, {
-        postid: id,
-        id: localStorage.getItem("token"),
-      });
+      await axios.put(
+        `${API_URL}/post/bookmark`,
+        {
+          postid: id,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
       resolve(true);
     } catch (error) {
       console.error("Error bookmarking post:", error);
@@ -94,10 +131,17 @@ export const bookmarkPost = async (id) => {
 export const unbookmark = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      await axios.put(`${API_URL}/post/unbookmark`, {
-        postid: id,
-        id: localStorage.getItem("token"),
-      });
+      await axios.put(
+        `${API_URL}/post/unbookmark`,
+        {
+          postid: id,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
       resolve(false);
     } catch (error) {
       console.error("Error unbookmarking post:", error);
@@ -109,12 +153,19 @@ export const unbookmark = (id) => {
 export const addCommentToPost = async (id, comment) => {
   return new Promise(async (resolve, reject) => {
     try {
-        console.log(id,comment);
-      await axios.post(`${API_URL}/post/addcomment`, {
-        postid: id,
-        text: comment,
-        user_id: localStorage.getItem("token"),
-      });
+      console.log(id, comment);
+      await axios.post(
+        `${API_URL}/post/addcomment`,
+        {
+          postid: id,
+          text: comment,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
       resolve(true);
     } catch (error) {
       console.error("Error adding comment:", error);

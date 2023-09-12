@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useContext} from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -11,6 +11,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import "./Showpost.css";
+import { AuthContext } from "../../Context/Auth/AuthContext";
 import {
   deletePost,
   unbookmark,
@@ -28,7 +29,7 @@ const API_URL = "http://localhost:3456";
 const Showpost = ({ setProgress }) => {
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const { Info ,Id} = useContext(AuthContext);
   const [post, setPost] = useState({
     User_id: {
       _id: "",
@@ -56,7 +57,11 @@ const Showpost = ({ setProgress }) => {
 
   const getPost = async () => {
     try {
-      const response = await axios.get(`${API_URL}/post/showpost/${id}`);
+      const response = await axios.get(`${API_URL}/post/showpost/${id}`,{
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
       setProgress(0);
       const postData = response.data;
       setPost(postData);
@@ -131,7 +136,7 @@ const Showpost = ({ setProgress }) => {
       <div className="showpost1">
         <img className="im" src={post.ImageUrl} alt="Post" />
         <div className="showbuttons">
-          {post.User_id._id === localStorage.getItem("token") && (
+          {post.User_id._id === Id && (
             <button className="showbtn" onClick={handleDelete}>
               Delete
             </button>

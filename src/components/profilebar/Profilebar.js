@@ -10,6 +10,15 @@ const Profilebar = ({ post }) => {
   const toggleFollow = (userid) => {
     const followAction = followed ? unfollow : follow;
     followAction(userid).then((res) => {
+      if(res){
+        post.followers.push(localStorage.getItem("token"));
+      }
+      else{
+        const index = post.followers.indexOf(localStorage.getItem("token"));
+        if (index > -1) {
+          post.followers.splice(index, 1);
+        }
+      }
       setFollowed(res);
     });
   };

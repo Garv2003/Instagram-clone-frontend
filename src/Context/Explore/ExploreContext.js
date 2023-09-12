@@ -8,12 +8,12 @@ const ExploreProvider = ({ children }) => {
   const [exoposts, setExoposts] = useState([]);
 
   useEffect(() => {
-    getdata();
+    // getdata();
   }, []);
 
   const getdata = async () => {
     const res = await axios.get(
-      `http://localhost:3456/post/explore/${localStorage.getItem("token")}`,
+      `http://localhost:3456/post/${localStorage.getItem("token")}`,
       {
         header: {
           "Content-Type": "application/json",

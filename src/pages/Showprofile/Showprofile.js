@@ -20,8 +20,6 @@ const Profile = ({ setProgress }) => {
   const [fol, setFol] = useState([]);
 
   useEffect(() => {
-    setProgress(0);
-
     const fetchData = async () => {
       try {
         const res = await axios.get(URL(`/user/showprofile/${id}`), {

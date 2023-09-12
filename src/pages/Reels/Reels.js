@@ -2,28 +2,11 @@ import React, { useEffect, useState } from "react";
 import Post from "../../components/Post/Post";
 import "./Reels.css";
 import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
-import Navbar from "../../layout/Navbar/Navbar"
-import axios from "axios";
-
-const URL = (mypath) => {
-  return `http://localhost:3456${mypath}`;
-};
+import Navbar from "../../layout/Navbar/Navbar";
+import PostContext from "../../Context/Post/PostContext";
 
 function Reels({ setProgress }) {
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    getdata();
-  }, []);
-
-  const getdata = async () => {
-    const res = await axios.get(
-      URL(`/post/explore/${localStorage.getItem("token")}`)
-    );
-    setProgress(0);
-    setPosts(res.data);
-    setProgress(100);
-  };
+  const { posts } = React.useContext(PostContext);
 
   return (
     <div className="home">
@@ -35,11 +18,7 @@ function Reels({ setProgress }) {
           <div className="reels_header">
             {posts.map((post) => (
               <div key={post._id}>
-                {post.User_id._id !== localStorage.getItem("token") ? (
-                  <Post post={post} />
-                ) : (
-                  <div></div>
-                )}
+                <Post post={post} />
               </div>
             ))}
             <div className="explore_footer">

@@ -61,7 +61,7 @@ function Login({ setProgress }) {
 
       setProgress(100);
       setTimeout(() => {
-        localStorage.setItem("token", response.data.user._id);
+        localStorage.setItem("token", response.data.token);
         window.location.assign("/profile");
       }, 500);
     } catch (error) {

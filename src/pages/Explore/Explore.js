@@ -1,34 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import "./Explore.css";
 import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
 import Savedpost from "../../components/Savedpost/Savedpost";
 import Navbar from "../../layout/Navbar/Navbar";
-import axios from "axios";
+import PostContext from "../../Context/Post/PostContext";
 
-const URL = (mypath) => {
-  return `http://localhost:3456${mypath}`;
-};
 const Explore = ({ setProgress }) => {
-  const [exoposts, setExoposts] = useState([]);
-
-  useEffect(() => {
-    getdata();
-  }, []);
-
-  const getdata = async () => {
-    const res = await axios.get(
-      URL(`/post/explore/${localStorage.getItem("token")}`),
-      {
-        header: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-    setProgress(0);
-    setExoposts(res.data);
-    setProgress(100);
-  };
+  const { posts } = useContext(PostContext);
 
   return (
     <div className="home">
@@ -38,7 +16,7 @@ const Explore = ({ setProgress }) => {
       <div className="posts">
         <div className="explore">
           <div className="explore_header">
-            <Savedpost data={exoposts} />
+            <Savedpost data={posts} />
           </div>
           <div className="explore_footer">
             <ProfileFooter />

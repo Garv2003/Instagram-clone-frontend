@@ -6,12 +6,14 @@ import { Link, Route, Routes } from "react-router-dom";
 import Navbar from "../../layout/Navbar/Navbar";
 import Savedpost from "../../components/Savedpost/Savedpost";
 import axios from "axios";
-
+import { useContext } from "react";
+import { AuthContext } from "../../Context/Auth/AuthContext";
 const apiEndpoint = (path) => `http://localhost:3456${path}`;
 
 const Profile = ({ setProgress }) => {
   const [data, setData] = useState([]);
   const [user, setUser] = useState([]);
+  const { Info } = useContext(AuthContext);
   const [savedpost, setSavedpost] = useState([]);
   const [followers, setFollowers] = useState(0);
   const [following, setFollowing] = useState(0);
@@ -33,7 +35,7 @@ const Profile = ({ setProgress }) => {
         setFollowing(responseData[0].following.length);
         setProgress(100);
       } catch (error) {
-        // Handle error appropriately
+        console.log(error);
       }
     };
 

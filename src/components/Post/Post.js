@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext   } from "react";
 import "./Post.css";
 import { Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
@@ -9,6 +9,7 @@ import TelegramIcon from "@mui/icons-material/Telegram";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import { AuthContext } from "../../Context/Auth/AuthContext";
 const {
   follow,
   unfollow,
@@ -22,23 +23,30 @@ const {
 
 const Post = ({ post }) => {
   const [comment, setComment] = useState("");
+  const { Info, Id } = useContext(AuthContext);
   const [like, setLike] = useState(
-    post.likes.includes(localStorage.getItem("token"))
+    post.likes.includes(Id)
   );
   const [likecount, setLikeCount] = useState(post.likes.length);
   const [commentlength, setCommentLength] = useState(post.comments.length);
   const [followed, setFollowed] = useState(
-    post.User_id.followers.includes(localStorage.getItem("token"))
+    post.User_id.followers.includes(Id)
   );
   const [bookmark, setBookmark] = useState(
-    post.bookmarks.includes(localStorage.getItem("token"))
+    post.bookmarks.includes(Id)
   );
   const formattedDate = formatInstagramDate(post.date);
 
   const toggleFollow = (userid) => {
     const followAction = followed ? unfollow : follow;
     followAction(userid).then((res) => {
-      setFollowed(res);
+      if (res) {
+        post.User_id.followers.push(Id);
+        setFollowed(res);
+      } else {
+        post.User_id.followers.pop(Id);
+        setFollowed(res);
+      }
     });
   };
 
@@ -47,8 +55,10 @@ const Post = ({ post }) => {
     likeAction(id).then((res) => {
       setLike(res);
       if (res) {
+        post.likes.push(Id);
         setLikeCount(likecount + 1);
       } else {
+        post.likes.pop(Id);
         setLikeCount(likecount - 1);
       }
     });
@@ -57,6 +67,9 @@ const Post = ({ post }) => {
   const toggleBookmark = (id) => {
     const bookmarkAction = bookmark ? unbookmark : bookmarkPost;
     bookmarkAction(id).then((res) => {
+      res
+        ? post.bookmarks.push(Id)
+        : post.bookmarks.pop(Id);
       setBookmark(res);
     });
   };
@@ -65,6 +78,7 @@ const Post = ({ post }) => {
     e.preventDefault();
     addCommentToPost(post._id, comment).then((res) => {
       if (res) {
+        post.comments.push(res);
         setCommentLength(commentlength + 1);
         setComment("");
       }
