@@ -11,7 +11,7 @@ const Explore = ({ setProgress }) => {
   }, []);
   const getdata = async () => {
     const res = await axios.get(
-      "http://localhost:3456/post",
+      "http://localhost:3456/post/explore",
       {
         headers: {
           "Content-Type": "application/json",

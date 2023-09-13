@@ -1,7 +1,7 @@
 import React, { useState, useContext   } from "react";
 import "./Post.css";
 import { Link } from "react-router-dom";
-import { Avatar } from "@mui/material";
+import { AccountCircle } from "@mui/icons-material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
@@ -96,9 +96,9 @@ const Post = ({ post }) => {
               alt="profile"
             />
           ) : (
-            <Avatar style={{ marginRight: "10px" }}>
+            <AccountCircle style={{ fontSize:35, marginRight:5}}>
               {post.User_id.username.charAt(0).toUpperCase()}
-            </Avatar>
+            </AccountCircle>
           )}
           <Link
             to={

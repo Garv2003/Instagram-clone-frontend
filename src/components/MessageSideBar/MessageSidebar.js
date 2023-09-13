@@ -1,7 +1,7 @@
 import React from "react";
 import "./MessageSidebar.css";
 import { Link } from "react-router-dom";
-import { Avatar } from "@mui/material";
+import { AccountCircle } from "@mui/icons-material";
 import { AuthContext } from "../../Context/Auth/AuthContext";
 
 const MessageSidebar = ({ user, handleData }) => {
@@ -36,7 +36,7 @@ const MessageSidebar = ({ user, handleData }) => {
               {post._id !== Id ? (
                 <div className="suggestions__username">
                   <div className="username__left">
-                    <Link to={`/showprofile/${post._id}`} className="avatar">
+                    <Link to={`/showprofile/${post._id}`} className="avatar cl">
                       {post.profileImage ? (
                         <img
                           className="postprofileimage"
@@ -44,7 +44,7 @@ const MessageSidebar = ({ user, handleData }) => {
                           alt="profile"
                         />
                       ) : (
-                        <Avatar>{post.username[0]}</Avatar>
+                        <AccountCircle sx={{fontSize:35}}/>
                       )}
                     </Link>
                     <div className="username__info">

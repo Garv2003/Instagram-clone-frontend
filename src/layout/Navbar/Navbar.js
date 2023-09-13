@@ -6,9 +6,9 @@ import { Home, Search, Explore, Slideshow, Chat, FavoriteBorder, AddCircleOutlin
 
 const NavigationButton = ({ icon, text, to }) => {
   return (
-    <Link to={to} className="navbutton">
+    <Link to={to} className="navbutton cl">
       {icon}
-      <span className="cl">{text}</span>
+      <span>{text}</span>
     </Link>
   );
 };

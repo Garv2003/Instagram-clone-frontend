@@ -10,7 +10,7 @@ function Reels({ setProgress }) {
     getdata();
   }, []);
   const getdata = async () => {
-    const res = await axios.get("http://localhost:3456/post", {
+    const res = await axios.get("http://localhost:3456/post/explore", {
       headers: {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("token"),

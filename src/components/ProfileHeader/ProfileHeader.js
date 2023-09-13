@@ -32,13 +32,23 @@ const ProfileHeader = ({ User, length, followers, following }) => {
   };
 
   const uploading = async (e) => {
+    console.log(e.target.files[0]);
+    console.log("uploading");
     const token = localStorage.getItem("token");
     const file = e.target.files[0];
     try {
-      const res = await axios.post(URL("/post/addprofilephoto"), {
-        ImageUrl: file,
-        id: token,
-      });
+      const res = await axios.post(
+        URL("/post/addprofilephoto"),
+        {
+          ImageUrl: file,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: token,
+          },
+        }
+      );
       setProfileImage(res.data);
     } catch (error) {
       console.log(error);
@@ -48,12 +58,16 @@ const ProfileHeader = ({ User, length, followers, following }) => {
   const onAvatar = () => {
     hiddenInput.current.click();
     setShowPopup(false);
+
   };
 
   const removeProfilePhoto = async () => {
+    console.log("remove");
     try {
-      await axios.post(URL("/post/deleteprofilephoto"), {
-        id: localStorage.getItem("token"),
+      await axios.delete(URL("/post/deleteprofilephoto"), {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
       });
       setProfileImage("");
       setShowPopup(false);

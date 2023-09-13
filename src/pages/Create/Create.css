@@ -76,3 +76,20 @@ input[type="file"]::file-selector-button:hover {
 .lab {
   margin-right: 10px;
 }
+
+.loader{
+  position: relative;
+  top: 40%;
+  left: 35%;
+  transform: translate(-40%, -35%);
+  width: 80px;
+}
+.loader>img{
+  width: 400px;
+}
+.hidden{
+  display: none;
+}
+.show{
+  display: block;
+}

@@ -20,7 +20,6 @@ a{
   display: flex;
   flex-direction: row;
   align-items: center;
-  color: white;
   background: 0;
   border: 0;
   margin: 5px 10px 5px 10px;
@@ -36,9 +35,8 @@ a{
   background-color: rgb(255, 255, 255, 0.02);
   transform: scale(0.95);
 }
-.navbutton:visited {
-  background-color: rgb(255, 255, 255, 0.02);
-  transform: scale(0.95);
+.navbutton:visited{
+  outline: none;
 }
 .navbutton > span {
   font-size: 18px;
