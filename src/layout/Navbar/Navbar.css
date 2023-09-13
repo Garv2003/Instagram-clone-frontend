@@ -35,9 +35,6 @@ a{
   background-color: rgb(255, 255, 255, 0.02);
   transform: scale(0.95);
 }
-.navbutton:visited{
-  outline: none;
-}
 .navbutton > span {
   font-size: 18px;
   font-weight: bolder;
@@ -51,4 +48,10 @@ a{
   width: 194px;
   position: fixed;
   bottom: 3px;
+}
+.navbutton_more >button> span {
+  font-size: 18px;
+  font-weight: bolder;
+  margin-left: 10px;
+  color: white;
 }

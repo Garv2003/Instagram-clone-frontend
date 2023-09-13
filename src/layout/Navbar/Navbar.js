@@ -41,7 +41,7 @@ const Navbar = () => {
           onClick={() => setOpen(!open)}
           className="navbutton"
         >
-          <Menu />
+          <Menu sx={{color:"white"}}/>
           <span>More</span>
         </button>
       </div>
