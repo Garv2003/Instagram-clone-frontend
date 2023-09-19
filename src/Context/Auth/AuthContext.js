@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     fetchData();
-  }, [localStorage.getItem("token")]);
+  }, [localStorage.getItem("token")]);  
 
   return (
     <AuthContext.Provider value={{ info, setInfo, Id, loading }}>

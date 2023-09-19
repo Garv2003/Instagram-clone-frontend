@@ -5,11 +5,14 @@ import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 import { AuthProvider } from "./Context/Auth/AuthContext";
+import { PostProvider } from "./Context/Post/PostContext";
 
 root.render(
   <Router>
     <AuthProvider>
-      <App />
+      {/* <PostProvider> */}
+        <App />
+      {/* </PostProvider> */}
     </AuthProvider>
   </Router>
 );

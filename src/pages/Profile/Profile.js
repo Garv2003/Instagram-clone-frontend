@@ -8,12 +8,16 @@ import Savedpost from "../../components/Savedpost/Savedpost";
 import axios from "axios";
 import { useContext } from "react";
 import { AuthContext } from "../../Context/Auth/AuthContext";
+import NoPost from "../../components/NoPost/NoPost";
+import NoSavedPost from "../../components/NoSavedPost/NoSavedPost";
+import NoReel from "../../components/NoReels/NoReel";
+
 const apiEndpoint = (path) => `http://localhost:3456${path}`;
 
 const Profile = ({ setProgress }) => {
   const [data, setData] = useState([]);
   const [user, setUser] = useState([]);
-  const { Info } = useContext(AuthContext);
+  const { info } = useContext(AuthContext);
   const [savedpost, setSavedpost] = useState([]);
   const [followers, setFollowers] = useState(0);
   const [following, setFollowing] = useState(0);
@@ -40,6 +44,7 @@ const Profile = ({ setProgress }) => {
     };
 
     fetchData();
+    document.title = `${info.name} (@${info.username}) • Instagram photos and videos`;
   }, [setProgress]);
 
   return (
@@ -81,13 +86,22 @@ const Profile = ({ setProgress }) => {
             </div>
           </div>
           <div className="profile_section">
-            <div className="explore_header">
-              <Routes>
-                <Route path="/" element={<Savedpost data={data} />} />
-                <Route path="/saved" element={<Savedpost data={savedpost} />} />
-                <Route path="/tagged" element={<Savedpost data={data} />} />
-              </Routes>
-            </div>
+            <Routes>
+              <Route
+                path="/"
+                element={data.length ? <Savedpost data={data} /> : <NoPost />}
+              />
+              <Route
+                path="/saved"
+                element={
+                  data.length ? <Savedpost data={savedpost} /> : <NoSavedPost />
+                }
+              />
+              <Route
+                path="/tagged"
+                element={data.length ? <Savedpost data={data} /> : <NoReel />}
+              />
+            </Routes>
           </div>
           <ProfileFooter />
         </div>

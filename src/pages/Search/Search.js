@@ -13,7 +13,7 @@ const Search = ({setProgress}) => {
   setProgress(100);
   const [search, setSearch] = useState("");
   const [users, setUsers] = useState([]);
-
+  document.title = "Instagram Search";
   useEffect(() => {
     if (search) {
       axios

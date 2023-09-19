@@ -11,6 +11,7 @@ const Messages = ({ setProgress }) => {
   const [user, setuser] = useState([]);
 
   useEffect(() => {
+    document.title = "Inbox • Chats";
     getsuggestion();
   }, []);
   

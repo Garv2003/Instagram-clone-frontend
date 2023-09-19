@@ -8,6 +8,7 @@ const Explore = ({ setProgress }) => {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     getdata();
+    document.title = "Instagram Explore";
   }, []);
   const getdata = async () => {
     const res = await axios.get(

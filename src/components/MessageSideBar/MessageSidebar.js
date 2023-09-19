@@ -36,7 +36,7 @@ const MessageSidebar = ({ user, handleData }) => {
               {post._id !== Id ? (
                 <div className="suggestions__username">
                   <div className="username__left">
-                    <Link to={`/showprofile/${post._id}`} className="avatar cl">
+                    <Link to={`/sp/${post._id}`} className="avatar cl">
                       {post.profileImage ? (
                         <img
                           className="postprofileimage"

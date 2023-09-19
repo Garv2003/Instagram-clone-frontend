@@ -6,17 +6,30 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import ModeNightOutlinedIcon from "@mui/icons-material/ModeNightOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import AssignmentLateOutlinedIcon from "@mui/icons-material/AssignmentLateOutlined";
-const Popup = ({ Open, onClose }) => {
-  if (!Open) {
-    return null;
-  }
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+const Popup = ({ Open, onClose }) => {
+  const navigate = useNavigate();
   const handlelogout=()=>{
     localStorage.removeItem("token")
-    window.location.assign("/login")
+    toast.success("Logout Success", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    navigate("/login")
   }
 
   return (
+    <>
+    <div className="overlaypo" onClick={onClose}/>
     <div className="Popup" onClick={onClose}>
       <div >
         <div className="popup1">
@@ -36,10 +49,10 @@ const Popup = ({ Open, onClose }) => {
             <ModeNightOutlinedIcon />
             Switch appearance
           </button>
-          <Link className="popup_items">
+          {/* <Link className="popup_items">
             <AssignmentLateOutlinedIcon />
             Report a Problem
-          </Link>
+          </Link> */}
         </div>
         <div className="popup2">
           <div className="popup_items">Switch accounts</div>
@@ -47,6 +60,7 @@ const Popup = ({ Open, onClose }) => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

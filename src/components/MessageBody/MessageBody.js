@@ -6,8 +6,6 @@ import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import Picker from "emoji-picker-react";
-import EmojiPicker from "emoji-picker-react";
-import InputEmoji from "react-input-emoji";
 import axios from "axios";
 import { io } from "socket.io-client";
 import "./MessageBody.css";
@@ -154,7 +152,7 @@ const MessageBody = ({ info }) => {
               </div>
             </div>
           ) : (
-            <div className="message__chats" key={message.id}>
+            <div className="message__chats" key={i}>
               <p>{info.username}</p>
               <div className="message__recipient">
                 <p>{message.text}</p>
@@ -195,7 +193,6 @@ const MessageBody = ({ info }) => {
           onKeyDown={() => handleTyping(true)}
           onChange={(e) => {
             setNewMessage(e.target.value);
-            console.log(e.target.value);
           }}
         />
         <button onClick={handleSendMessage}>

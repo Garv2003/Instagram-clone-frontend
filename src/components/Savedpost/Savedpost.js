@@ -5,7 +5,7 @@ import CommentIcon from "@mui/icons-material/Comment";
 
 const Profile = ({data}) => {
   return (
-    <>
+    <div className="explore_header">
       {data.map((post) => {
         return (
         <div className="pl-22" key={post._id}>
@@ -13,7 +13,7 @@ const Profile = ({data}) => {
             <div>
               <img className="profileimage" src={post.ImageUrl} alt="" />
               <div />
-              <Link to={`/showpost/${post._id}`}>
+              <Link to={`/p/${post._id}`}>
                 <div className="gallery-item-info">
                   <ul>
                     <li className="gallery-item-likes cl">
@@ -34,7 +34,7 @@ const Profile = ({data}) => {
         </div>
         );
       })}
-    </>
+    </div>
   );
 };
 

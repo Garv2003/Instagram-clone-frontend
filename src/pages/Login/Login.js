@@ -80,69 +80,71 @@ function Login({ setProgress }) {
   };
 
   return (
-    <div className="containerlogin">
+    <>
       <ToastContainer />
-      <div className="box1">
-        <div className="headinglogin"></div>
-        <form className="login-form" onSubmit={handleLogin}>
-          <div className="field">
-            <input
-              id="username"
-              type="text"
-              className="login-input"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Phone number, username, or email"
-            />
-          </div>
-          <div className="field">
-            <input
-              id="password"
-              value={password}
-              className="login-input"
-              onChange={(e) => setPassword(e.target.value)}
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
-            />
-            <div
-              className="eye"
-              onClick={() => {
-                setShowPassword(!showPassword);
-              }}
-            >
-              <VisibilityIcon
-                sx={{ color: showPassword ? "black" : "gray", fontSize: 20 }}
+      <div className="containerlogin">
+        <div className="box1">
+          <div className="headinglogin"></div>
+          <form className="login-form" onSubmit={handleLogin}>
+            <div className="field">
+              <input
+                id="username"
+                type="text"
+                className="login-input"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Phone number, username, or email"
               />
             </div>
-          </div>
-          <button className="login-button" type="submit" title="Login">
-            Log In
-          </button>
-          <div className="separator">
-            <div className="line"></div>
-            <p>OR</p>
-            <div className="line"></div>
-          </div>
-          <div className="other">
-            <button className="fb-login-btn" type="button">
-              <i className="fa fa-facebook-official fb-icon"></i>
-              <span className="">Log in with Facebook</span>
+            <div className="field">
+              <input
+                id="password"
+                value={password}
+                className="login-input"
+                onChange={(e) => setPassword(e.target.value)}
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+              />
+              <div
+                className="eye"
+                onClick={() => {
+                  setShowPassword(!showPassword);
+                }}
+              >
+                <VisibilityIcon
+                  sx={{ color: showPassword ? "black" : "gray", fontSize: 20 }}
+                />
+              </div>
+            </div>
+            <button className="login-button" type="submit" title="Login">
+              Log In
             </button>
-            <Link className="forgot-password" to="">
-              Forgot password?
+            <div className="separator">
+              <div className="line"></div>
+              <p>OR</p>
+              <div className="line"></div>
+            </div>
+            <div className="other">
+              <button className="fb-login-btn" type="button">
+                <i className="fa fa-facebook-official fb-icon"></i>
+                <span className="">Log in with Facebook</span>
+              </button>
+              <Link className="forgot-password" to="">
+                Forgot password?
+              </Link>
+            </div>
+          </form>
+        </div>
+        <div className="box1">
+          <p>
+            Don't have an account?{" "}
+            <Link className="signup" to="/signup">
+              Sign Up
             </Link>
-          </div>
-        </form>
+          </p>
+        </div>
       </div>
-      <div className="box1">
-        <p>
-          Don't have an account?{" "}
-          <Link className="signup" to="/signup">
-            Sign Up
-          </Link>
-        </p>
-      </div>
-    </div>
+    </>
   );
 }
 

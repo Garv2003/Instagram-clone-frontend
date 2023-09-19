@@ -1,4 +1,4 @@
-import React, { useState, useContext   } from "react";
+import React, { useState, useContext } from "react";
 import "./Post.css";
 import { Link } from "react-router-dom";
 import { AccountCircle } from "@mui/icons-material";
@@ -10,6 +10,10 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { AuthContext } from "../../Context/Auth/AuthContext";
+import Picker from "emoji-picker-react";
+import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
+import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
+
 const {
   follow,
   unfollow,
@@ -23,18 +27,13 @@ const {
 
 const Post = ({ post }) => {
   const [comment, setComment] = useState("");
-  const { Info, Id } = useContext(AuthContext);
-  const [like, setLike] = useState(
-    post.likes.includes(Id)
-  );
+  const { info, Id } = useContext(AuthContext);
+  const [like, setLike] = useState(post.likes.includes(Id));
   const [likecount, setLikeCount] = useState(post.likes.length);
   const [commentlength, setCommentLength] = useState(post.comments.length);
-  const [followed, setFollowed] = useState(
-    post.User_id.followers.includes(Id)
-  );
-  const [bookmark, setBookmark] = useState(
-    post.bookmarks.includes(Id)
-  );
+  const [followed, setFollowed] = useState(post.User_id.followers.includes(Id));
+  const [bookmark, setBookmark] = useState(post.bookmarks.includes(Id));
+  const [EmojiBox, setEmojiBox] = useState(false);
   const formattedDate = formatInstagramDate(post.date);
 
   const toggleFollow = (userid) => {
@@ -67,15 +66,14 @@ const Post = ({ post }) => {
   const toggleBookmark = (id) => {
     const bookmarkAction = bookmark ? unbookmark : bookmarkPost;
     bookmarkAction(id).then((res) => {
-      res
-        ? post.bookmarks.push(Id)
-        : post.bookmarks.pop(Id);
+      res ? post.bookmarks.push(Id) : post.bookmarks.pop(Id);
       setBookmark(res);
     });
   };
 
   const addComment = async (e) => {
     e.preventDefault();
+    if (comment.length === 0) return;
     addCommentToPost(post._id, comment).then((res) => {
       if (res) {
         post.comments.push(res);
@@ -96,7 +94,7 @@ const Post = ({ post }) => {
               alt="profile"
             />
           ) : (
-            <AccountCircle style={{ fontSize:35, marginRight:5}}>
+            <AccountCircle style={{ fontSize: 35, marginRight: 5 }}>
               {post.User_id.username.charAt(0).toUpperCase()}
             </AccountCircle>
           )}
@@ -104,7 +102,7 @@ const Post = ({ post }) => {
             to={
               post.User_id._id === localStorage.getItem("token")
                 ? "/profile"
-                : `/showprofile/${post.User_id._id}`
+                : `/sp/${post.User_id._id}`
             }
             className="cl"
           >
@@ -115,7 +113,7 @@ const Post = ({ post }) => {
             to={
               post.User_id._id === localStorage.getItem("token")
                 ? "/profile"
-                : `/showprofile/${post.User_id._id}`
+                : `/sp/${post.User_id._id}`
             }
           >
             {" "}
@@ -166,7 +164,7 @@ const Post = ({ post }) => {
                 }}
               />
             )}
-            <Link to={`/showpost/${post._id}`}>
+            <Link to={`/p/${post._id}`}>
               <ChatBubbleOutlineIcon
                 sx={{ fontSize: 45 }}
                 className="postIcon cl"
@@ -198,10 +196,27 @@ const Post = ({ post }) => {
         <div>{likecount} likes</div>
       </div>
       <div className="profile_footer1">
-        <Link className="cl" to={`/showpost/${post._id}`}>
+        <Link className="cl" to={`/p/${post._id}`}>
           View all {commentlength} comments
         </Link>
-        <form className="formposts" onSubmit={addComment}>
+        <div className="formposts">
+          <button className="emoji__button"
+            onClick={() => setEmojiBox(!EmojiBox)}
+            style={{ backgroundColor: "black", border: 0 }}
+          >
+            <EmojiEmotionsIcon sx={{ color: "white" }} />
+          </button>
+          <div className="emoji">
+            {EmojiBox && (
+              <Picker
+                onEmojiClick={(event) => {
+                  setComment(comment + event.emoji);
+                  // setEmojiBox(false)
+                }}
+                pickerStyle={{ width: "100%" }}
+              />
+            )}
+          </div>
           <input
             id="username"
             type="text"
@@ -211,9 +226,16 @@ const Post = ({ post }) => {
               setComment(e.target.value);
             }}
             value={comment}
+            onFocus={() => setEmojiBox(false)}
           />
-          <input className="formposts_button" type="submit" value="Post" />
-        </form>
+          <input
+            disabled={comment.length == 0}
+            className="formposts_button"
+            type="submit"
+            value="Post"
+            onClick={addComment}
+          />
+        </div>
       </div>
     </div>
   );

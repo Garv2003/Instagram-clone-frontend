@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -23,6 +23,10 @@ import {
   addCommentToPost,
   formatInstagramDate,
 } from "../../utils/utils";
+import CommentBar from "../../components/CommentBar/CommentBar";
+import Picker from "emoji-picker-react";
+import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
+import EditIcon from "@mui/icons-material/Edit";
 
 const API_URL = "http://localhost:3456";
 
@@ -30,6 +34,8 @@ const Showpost = ({ setProgress }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { Id } = useContext(AuthContext);
+  const scrollRef = useRef();
+
   const [post, setPost] = useState({
     User_id: {
       _id: "",
@@ -50,9 +56,16 @@ const Showpost = ({ setProgress }) => {
   const [likecount, setLikeCount] = useState(0);
   const [bookmark, setBookmark] = useState(false);
   const [followed, setFollowed] = useState(false);
+  const [Commentarr, setCommentarr] = useState([]);
+  const [EmojiBox, setEmojiBox] = useState(false);
+  const [EditAndReply, setEditAndReply] = useState(false);
+  const inputref = useRef(null);
 
   useEffect(() => {
     getPost();
+    if (comment.length === 0) {
+      setEditAndReply(false);
+    }
   }, []);
 
   const getPost = async () => {
@@ -80,6 +93,7 @@ const Showpost = ({ setProgress }) => {
       setLikeCount(likes.length);
       setBookmark(bookmarks.includes(Id));
       setFollowed(followers.includes(Id));
+      setCommentarr(comments);
       setComment("");
     } catch (error) {
       console.error("Error fetching post:", error);
@@ -97,8 +111,12 @@ const Showpost = ({ setProgress }) => {
 
   const addCommentHandler = async (e) => {
     e.preventDefault();
+    if (comment.length === 0 && comment.trim().length === 0) {
+      return;
+    }
     const res = await addCommentToPost(post._id, comment);
-    if (res) {
+    if (res.message === "true") {
+      setCommentarr([...Commentarr, res.comment]);
       setCommentLength(commentlength + 1);
       setComment("");
     }
@@ -128,151 +146,263 @@ const Showpost = ({ setProgress }) => {
   };
 
   const handleUpdate = () => {
-    // Implement the update post functionality here
+    axios
+      .post(`http://localhost:3456/post/updatepost/${post._id}`, {
+        ImageUrl: post.ImageUrl,
+        title: post.title,
+        description: post.description,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
+
+  const handleBack = () => {
+    navigate(-1);
+  };
+
+  const handleReply = (id) => {
+    setComment("");
+    inputref.current.focus();
+    setEditAndReply(true);
+    console.log(id);
+    // try {
+    //   axios.get(`http://localhost:3456/post/comment/${id}`).then((res) => {
+    //     setReptlId(id);
+    //     setComment(`@${res.data.username} `);
+    //   });
+    // } catch (err) {
+    //   console.log(err);
+    // }
+  };
+
+  const handleDeleteComment = (id) => {
+    try {
+      axios
+        .delete(`http://localhost:3456/post/deletecomment/${id}`, {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        })
+        .then((res) => {
+          setCommentarr(Commentarr.filter((comment) => comment._id !== id));
+          setCommentLength(commentlength - 1);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleEditComment = (id, text) => {
+    setEditAndReply(true);
+    setComment(text);
+    inputref.current.focus();
+
+    // try {
+    //   axios
+    //     .patch(
+    //       `http://localhost:3456/post/editcomment/${id}`,
+    //       {
+    //         comment: comment,
+    //       },
+    //       {
+    //         headers: {
+    //           Authorization: localStorage.getItem("token"),
+    //         },
+    //       }
+    //     )
+    //     .then((res) => {
+    //       setCommentarr(Commentarr.filter((comment) => comment._id !== id));
+    //       setCommentLength(commentlength - 1);
+    //     });
+    // } catch (err) {
+    //   console.log(err);
+    // }
+  };
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [Commentarr]);
 
   return (
     <div className="showpost">
-      <div className="showpost1">
-        <img className="im" src={post.ImageUrl} alt="Post" />
-        <div className="showbuttons">
-          {post.User_id._id === Id && (
-            <button className="showbtn" onClick={handleDelete}>
-              Delete
-            </button>
-          )}
-          <button className="showbtn" onClick={handleUpdate}>
-            Edit
-          </button>
-          <button className="showbtn">About this account</button>
-        </div>
+      <div className="arrow">
+        <ArrowBackIcon onClick={handleBack} sx={{ fontSize: "50px" }} />
       </div>
-      <div className="showpost2">
-        <div className="Postp_header">
-          <div className="postp_header_pro">
-            {post.User_id.profileImage ? (
-              <img
-                className="postprofileimage"
-                src={post.User_id.profileImage}
-                alt="profile"
-              />
-            ) : (
-              <Avatar style={{ marginRight: "10px" }}>
-                {post.User_id.username.charAt(0).toUpperCase()}
-              </Avatar>
+      <div className="showpostbox">
+        <div className="showpost1">
+          <img className="im" src={post.ImageUrl} alt="Post" />
+          <div className="showbuttons">
+            {post.User_id._id === Id && (
+              <button className="showbtn" onClick={handleDelete}>
+                Delete
+              </button>
             )}
-            <Link
-              to={
-                post.User_id._id === localStorage.getItem("token")
-                  ? "/profile"
-                  : `/showprofile/${post.User_id._id}`
-              }
-              className="cl"
-            >
-              {post.User_id.username}
+            <button className="showbtn" onClick={handleUpdate}>
+              Edit
+            </button>
+            <Link className="cl" to={`/sp/${post.User_id._id}`}>
+              <button className="showbtn">About this account</button>
             </Link>
-            {post.User_id._id !== localStorage.getItem("token") && (
-              <div>
-                {followed ? (
-                  <button
-                    className="follow__button"
-                    onClick={() => toggleFollow(post.User_id._id)}
-                  >
-                    Unfollow
-                  </button>
-                ) : (
-                  <button
-                    className="follow__button"
-                    onClick={() => toggleFollow(post.User_id._id)}
-                  >
-                    Follow
-                  </button>
-                )}
-              </div>
-            )}
           </div>
-          <MoreHorizIcon />
         </div>
-        <div className="commentsection">
-          {post.comments.map((comment, index) => (
-            <div className="comment" key={index}>
-              {console.log(comment)}
-              {comment.postedby.profileImage ? (
+        <div className="showpost2">
+          <div className="Postp_header">
+            <div className="postp_header_pro">
+              {post.User_id.profileImage ? (
                 <img
                   className="postprofileimage"
-                  src={comment.postedby.profileImage}
+                  src={post.User_id.profileImage}
                   alt="profile"
                 />
               ) : (
                 <Avatar style={{ marginRight: "10px" }}>
-                  {comment.postedby.username.charAt(0).toUpperCase()}
+                  {post.User_id.username.charAt(0).toUpperCase()}
                 </Avatar>
               )}
-              <Link className="cl" to={`/showprofile/${comment.postedby._id}`}>
-                {comment.postedby.username}
+              <Link
+                to={
+                  post.User_id._id === Id
+                    ? "/profile"
+                    : `/sp/${post.User_id._id}`
+                }
+                className="cl"
+              >
+                {post.User_id.username}
               </Link>
-              {comment.text}
-            </div>
-          ))}
-        </div>
-        <div className="postp_footer">
-          <div className="posticons">
-            <div className="post_iconsMain">
-              {like ? (
-                <FavoriteIcon
-                  style={{ color: "red" }}
-                  className="postIcon"
-                  sx={{ fontSize: 45 }}
-                  onClick={toggleLikeHandler}
-                />
-              ) : (
-                <FavoriteBorderIcon
-                  className="postIcon"
-                  sx={{ fontSize: 45 }}
-                  onClick={toggleLikeHandler}
-                />
+              {post.User_id._id !== Id && (
+                <div>
+                  {followed ? (
+                    <button
+                      className="follow__button"
+                      onClick={() => toggleFollow(post.User_id._id)}
+                    >
+                      Unfollow
+                    </button>
+                  ) : (
+                    <button
+                      className="follow__button"
+                      onClick={() => toggleFollow(post.User_id._id)}
+                    >
+                      Follow
+                    </button>
+                  )}
+                </div>
               )}
-              <ChatBubbleOutlineIcon
-                sx={{ fontSize: 45 }}
-                className="postIcon cl"
+            </div>
+            <MoreHorizIcon />
+          </div>
+          <div className="commentsection">
+            {Commentarr.length === 0 ? (
+              <div className="comment_heading">
+                <h2>No comments Yet.</h2>
+                <div>Start the conversation.</div>
+              </div>
+            ) : (
+              Commentarr.map((comment, index) => (
+                <CommentBar
+                  comment={comment}
+                  key={index}
+                  handleReply={handleReply}
+                  handleDeleteComment={handleDeleteComment}
+                  handleEditComment={handleEditComment}
+                />
+              ))
+            )}
+            <div ref={scrollRef}></div>
+          </div>
+          <div className="postp_footer">
+            <div className="posticons">
+              <div className="post_iconsMain">
+                {like ? (
+                  <FavoriteIcon
+                    style={{ color: "red" }}
+                    className="postIcon"
+                    sx={{ fontSize: 45 }}
+                    onClick={toggleLikeHandler}
+                  />
+                ) : (
+                  <FavoriteBorderIcon
+                    className="postIcon"
+                    sx={{ fontSize: 45 }}
+                    onClick={toggleLikeHandler}
+                  />
+                )}
+                <ChatBubbleOutlineIcon
+                  sx={{ fontSize: 45 }}
+                  className="postIcon cl"
+                />
+                <TelegramIcon sx={{ fontSize: 45 }} className="postIcon" />
+              </div>
+              <div className="post_iconsb">
+                {bookmark ? (
+                  <BookmarkIcon
+                    style={{ color: "white" }}
+                    className="postIcon"
+                    sx={{ fontSize: 45 }}
+                    onClick={toggleBookmarkHandler}
+                  />
+                ) : (
+                  <BookmarkBorderIcon
+                    className="postIcon"
+                    sx={{ fontSize: 45 }}
+                    onClick={toggleBookmarkHandler}
+                  />
+                )}
+              </div>
+            </div>
+            <div>
+              {likecount ? `${likecount} likes` : "Be the first to like this"}
+            </div>
+            <Link className="cl" to={`/sp/${post.User_id._id}`}>
+              {formatInstagramDate(post.date)}
+            </Link>
+          </div>
+          <div className="profile_footer1">
+            View all {commentlength} comments
+            <div className="formposts">
+              <button
+                className="emoji__button"
+                onClick={() => setEmojiBox(!EmojiBox)}
+                style={{ backgroundColor: "black", border: 0 }}
+              >
+                <EmojiEmotionsIcon sx={{ color: "white" }} />
+              </button>
+              <div className="emoji">
+                {EmojiBox && (
+                  <Picker
+                    onEmojiClick={(event) => {
+                      setComment(comment + event.emoji);
+                    }}
+                    pickerStyle={{ width: "100%" }}
+                  />
+                )}
+              </div>
+              <input
+                id="username"
+                type="text"
+                className="formposts_input"
+                placeholder={
+                  EditAndReply ? "Add Reply...." : "Add a comment...."
+                }
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                onFocus={() => setEmojiBox(false)}
+                onBlur={() => {
+                  setEmojiBox(false);
+                }}
+                ref={inputref}
               />
-              <TelegramIcon sx={{ fontSize: 45 }} className="postIcon" />
-            </div>
-            <div className="post_iconsb">
-              {bookmark ? (
-                <BookmarkIcon
-                  style={{ color: "white" }}
-                  className="postIcon"
-                  sx={{ fontSize: 45 }}
-                  onClick={toggleBookmarkHandler}
-                />
-              ) : (
-                <BookmarkBorderIcon
-                  className="postIcon"
-                  sx={{ fontSize: 45 }}
-                  onClick={toggleBookmarkHandler}
-                />
-              )}
+              <input
+                className="formposts_button"
+                onClick={addCommentHandler}
+                value="Post"
+              />
             </div>
           </div>
-          <div>{likecount} likes</div>
-          <Link className="cl" to={`/showprofile/${post.User_id._id}`}>
-            {formatInstagramDate(post.date)}
-          </Link>
-        </div>
-        <div className="profile_footer1">
-          View all {commentlength} comments
-          <form className="formposts" onSubmit={addCommentHandler}>
-            <input
-              id="username"
-              type="text"
-              className="formposts_input"
-              placeholder="Add a comment...."
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-            />
-            <input className="formposts_button" type="submit" value="Post" />
-          </form>
         </div>
       </div>
     </div>

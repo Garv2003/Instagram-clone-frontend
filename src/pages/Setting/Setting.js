@@ -2,7 +2,8 @@ import React from "react";
 import "./Setting.css";
 import { Avatar } from "@mui/material";
 import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
-const Setting = ({setProgress}) => {
+const Setting = ({ setProgress }) => {
+  document.title = "Edit Profile • Instagram";
   setProgress(100);
   return (
     <div>
@@ -42,20 +43,16 @@ const Setting = ({setProgress}) => {
           <div className="body2">
             <div className="body2_heading">Edit profile</div>
             <div className="profileinfo">
-            <div><Avatar/></div>
-            <div>
               <div>
-                username
+                <Avatar />
               </div>
-              <div>Change profile photo</div>
+              <div>
+                <div>username</div>
+                <div>Change profile photo</div>
+              </div>
             </div>
-            </div>
-            <div>
-              name
-            </div>
-            <div>
-              phonenumber
-            </div>
+            <div>name</div>
+            <div>phonenumber</div>
             <div>Bio</div>
           </div>
         </div>

@@ -153,8 +153,7 @@ export const unbookmark = (id) => {
 export const addCommentToPost = async (id, comment) => {
   return new Promise(async (resolve, reject) => {
     try {
-      console.log(id, comment);
-      await axios.post(
+      const res=await axios.post(
         `${API_URL}/post/addcomment`,
         {
           postid: id,
@@ -166,7 +165,7 @@ export const addCommentToPost = async (id, comment) => {
           },
         }
       );
-      resolve(true);
+      resolve(res.data);
     } catch (error) {
       console.error("Error adding comment:", error);
       reject(error);

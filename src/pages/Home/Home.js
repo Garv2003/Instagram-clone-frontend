@@ -6,6 +6,7 @@ import Post from "../../components/Post/Post";
 import Suggestions from "../../layout/Suggestions/Suggestions";
 import InfiniteScroll from "react-infinite-scroll-component";
 import PostLoader from "../../components/PostLoader/PostLoader";
+
 const URL = (mypath) => {
   return `http://localhost:3456${mypath}`;
 };
@@ -17,11 +18,13 @@ const Home = ({ setProgress }) => {
   const [skip, setSkip] = useState(0);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     setProgress(10);
     fetchData();
     getsuggestion();
     setProgress(100);
+    document.title = "Instagram Home";
   }, []);
   const fetchData = async () => {
     const res = await axios.get(
@@ -60,9 +63,13 @@ const Home = ({ setProgress }) => {
       <div className="posts">
         <div className="timeline">
           <div className="timeline__left">
-            {loading && <div style={{textAlign:"center"}}><PostLoader /></div>}
+            {loading && (
+              <div style={{ textAlign: "center" }}>
+                <PostLoader />
+              </div>
+            )}
             <InfiniteScroll
-            style={{ overflow: "hidden" }}
+              style={{ overflow: "hidden" }}
               dataLength={posts.length}
               next={fetchData}
               hasMore={posts.length < total}
@@ -72,13 +79,13 @@ const Home = ({ setProgress }) => {
                 </div>
               }
               endMessage={
-                <p style={{ textAlign: "center" }}>
+                <p style={{ textAlign: "center", marginBottom: "20px" }}>
                   <b>Yay! You have seen it all</b>
                 </p>
               }
             >
-              {posts.map((post) => (
-                <Post post={post} />
+              {posts.map((post, i) => (
+                <Post post={post} key={i} />
               ))}
             </InfiniteScroll>
           </div>

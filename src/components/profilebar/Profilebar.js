@@ -27,7 +27,7 @@ const Profilebar = ({ post }) => {
       {post._id !== Id ? (
         <div className="suggestions__username">
           <div className="username__left">
-            <Link to={`/showprofile/${post._id}`} className="avatar cl">
+            <Link to={`/sp/${post._id}`} className="avatar cl">
               {post.profileImage ? (
                 <img
                   className="postprofileimage"
@@ -39,7 +39,7 @@ const Profilebar = ({ post }) => {
               )}
             </Link>
             <div className="username__info">
-              <Link to={`/showprofile/${post._id}`} className="username cl">
+              <Link to={`/sp/${post._id}`} className="username cl">
                 {post.username}
               </Link>
               <span className="relation">New to Instagram</span>

@@ -63,7 +63,7 @@ const App = () => {
           }
         />
         <Route
-          path="/showpost/:id"
+          path="/p/:id/*"
           element={
             <ProtectedRoute element={<Showpost setProgress={setProgress} />} />
           }
@@ -108,7 +108,7 @@ const App = () => {
           }
         />
         <Route
-          path="/showprofile/:id"
+          path="/sp/:id/*"
           element={
             <ProtectedRoute
               element={<Showprofile setProgress={setProgress} />}

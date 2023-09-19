@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Settingpopup from "../Settingpopup/Settingpopup";
 import axios from "axios";
+import PostLoader from "../PostLoader/PostLoader";
 
 const URL = (mypath) => {
   return `http://localhost:3456${mypath}`;
@@ -16,6 +17,7 @@ const ProfileHeader = ({ User, length, followers, following }) => {
   const [open, setOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [profileImage, setProfileImage] = useState(User.profileImage);
+  const [loading, setLoading] = useState(false);
   const hiddenInput = useRef(null);
 
   useEffect(() => {
@@ -32,10 +34,9 @@ const ProfileHeader = ({ User, length, followers, following }) => {
   };
 
   const uploading = async (e) => {
-    console.log(e.target.files[0]);
-    console.log("uploading");
     const token = localStorage.getItem("token");
     const file = e.target.files[0];
+    setLoading(true);
     try {
       const res = await axios.post(
         URL("/post/addprofilephoto"),
@@ -50,6 +51,7 @@ const ProfileHeader = ({ User, length, followers, following }) => {
         }
       );
       setProfileImage(res.data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -58,17 +60,17 @@ const ProfileHeader = ({ User, length, followers, following }) => {
   const onAvatar = () => {
     hiddenInput.current.click();
     setShowPopup(false);
-
   };
 
   const removeProfilePhoto = async () => {
-    console.log("remove");
+    setLoading(true);
     try {
       await axios.delete(URL("/post/deleteprofilephoto"), {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
       });
+      setLoading(false);
       setProfileImage("");
       setShowPopup(false);
     } catch (error) {
@@ -85,48 +87,58 @@ const ProfileHeader = ({ User, length, followers, following }) => {
         onChange={uploading}
         style={{ display: "none" }}
       />
+
       <div className="profile_header_left">
-        {showPopup && (
-          <div className="ProfilePopup">
-            <div className="popupprofile">
-              <div className="popupprofile_item1">Change Profile Photo</div>
-            </div>
-            <div
-              className="popupprofile_item popupprofile bel"
-              onClick={onAvatar}
-            >
-              Upload Photo
-            </div>
-            <div
-              className="popupprofile_item rel popupprofile"
-              onClick={removeProfilePhoto}
-            >
-              Remove Current Photo
-            </div>
-            <button
-              className="popupprofile_item"
-              onClick={() => setShowPopup(false)}
-            >
-              Cancel
-            </button>
+        <div className={`ProfilePopup ${showPopup ? "active" : ""}`}>
+          <div className="popupprofile">
+            <div className="popupprofile_item1">Change Profile Photo</div>
           </div>
-        )}
-        {profileImage ? (
-          <img
-            className="profile_header_avatar"
-            onClick={onPhoto}
-            src={profileImage}
-            alt="profile"
-          />
-        ) : (
-          <button className="photobtn">
-            <Avatar
-              className="profile_header_avatar"
-              onClick={onAvatar}
-              style={{ width: "150px", height: "150px", margin: "40px" }}
-            ></Avatar>
+          <div
+            className="popupprofile_item popupprofile bel"
+            onClick={onAvatar}
+          >
+            Upload Photo
+          </div>
+          <div
+            className="popupprofile_item rel popupprofile"
+            onClick={removeProfilePhoto}
+          >
+            Remove Current Photo
+          </div>
+          <button
+            className="popupprofile_item"
+            onClick={() => setShowPopup(false)}
+          >
+            Cancel
           </button>
-        )}
+        </div>
+        <div
+          className={`overlay ${showPopup ? "open" : ""}`}
+          onClick={() => setShowPopup(!showPopup)}
+        ></div>
+        <div className="profileloader">
+          {profileImage ? (
+            <img
+              className="profile_header_avatar"
+              onClick={onPhoto}
+              src={profileImage}
+              alt="profile"
+            />
+          ) : (
+            <button className="photobtn">
+              <Avatar
+                className="profile_header_avatar"
+                onClick={onAvatar}
+                style={{ width: "150px", height: "150px", margin: "40px" }}
+              ></Avatar>
+            </button>
+          )}
+          {loading && (
+            <div className="proloader">
+              <PostLoader />
+            </div>
+          )}
+        </div>
       </div>
       <div className="profile_header_right">
         <div className="profile_header_icon">
@@ -142,7 +154,7 @@ const ProfileHeader = ({ User, length, followers, following }) => {
               View Archive
             </button>
             <button className="btnsetting" onClick={() => setOpen(!open)}>
-              {open && <Settingpopup onClose={onPhoto} />}
+              <Settingpopup onClose={onPhoto} open={open} />
               <SettingsIcon />
             </button>
           </div>

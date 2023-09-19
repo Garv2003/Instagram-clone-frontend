@@ -5,44 +5,38 @@ import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import Navbar from "../../layout/Navbar/Navbar";
 import logo from "../../assets/load-37.gif";
 import "./Create.css";
+const shortid = require("shortid");
 
 const Create = ({ setProgress }) => {
-  const [formData, setFormData] = useState({
-    Title: "",
-    ImageUrl: "",
-    Description: "",
-  });
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [file, setFile] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    setFormData({
-      ...formData,
-      [name]: name === "ImageUrl" ? files[0] : value,
-    });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // setProgress(10);
       setLoading(true);
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("type", file.type);
+      formData.append("file", file);
+      formData.append("post_short_id", shortid.generate());
+
       const response = await axios.post(
         "http://localhost:3456/post/addpost",
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
             Authorization: localStorage.getItem("token"),
           },
         }
       );
       if (response.status === 200) {
-        // setProgress(70);
         setLoading(false);
+        console.log(response);
         navigate("/profile");
-        // setProgress(100);
       }
     } catch (error) {
       console.error("Error creating post:", error);
@@ -75,8 +69,8 @@ const Create = ({ setProgress }) => {
                     className="login-input"
                     placeholder="Title"
                     name="Title"
-                    value={formData.Title}
-                    onChange={handleChange}
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
                   />
                   <label className="login-label" htmlFor="Title">
                     Title
@@ -89,8 +83,8 @@ const Create = ({ setProgress }) => {
                     className="login-input"
                     placeholder="Description"
                     name="Description"
-                    value={formData.Description}
-                    onChange={handleChange}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                   />
                   <label className="login-label" htmlFor="Description">
                     Description
@@ -100,14 +94,12 @@ const Create = ({ setProgress }) => {
                   <input
                     className="input12"
                     type="file"
-                    name="ImageUrl"
-                    onChange={handleChange}
+                    accept="image/*,video/*"
+                    name="file"
+                    onChange={(e) => setFile(e.target.files[0])}
                   />
                 </div>
-                <button
-                  className="submitbtn"
-                  type="submit"
-                >
+                <button className="submitbtn" type="submit">
                   Create Post
                 </button>
               </form>

@@ -8,6 +8,7 @@ function Reels({ setProgress }) {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     getdata();
+    document.title = "Instagram Reels";
   }, []);
   const getdata = async () => {
     const res = await axios.get("http://localhost:3456/post/explore", {

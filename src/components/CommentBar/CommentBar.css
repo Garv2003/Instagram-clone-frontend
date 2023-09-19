@@ -1,0 +1,49 @@
+.comment_header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.comment_header1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.comment_header11 {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 5px 0 2.5px 10px;
+  gap: 10px;
+}
+.comment_header2 {
+  display: flex;
+  flex-direction: row;
+  color: gray;
+}
+.replybtn {
+  background-color: transparent;
+  color: gray;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+}
+.replybtn:hover {
+  color: white;
+}
+.comment_reply{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 5px 0 2.5px 10px;
+}
+.dustbin{
+    background-color: transparent;
+    color: white;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+}
+.dustbin:hover{
+    color:gray;
+}

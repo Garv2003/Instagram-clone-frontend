@@ -1,32 +1,81 @@
-.settingpopup{
-    position: absolute;
-    top: 40px;
-    right: 150px;
-    width: 270px;
-    background-color: rgb(35, 33, 33);
-    display: flex;
-    flex-direction: column;
-    border-radius: 20px;
+.settingpopup_items {
+  width: 100%;
+  background-color: transparent;
+  padding: 15px;
+  gap: 2px;
+  color: white;
+  border: 0px;
+  text-decoration: none;
+  border-radius: 10px;
+  cursor: pointer;
 }
-.settingpopup1{
-    padding: 10px;
-    padding-bottom: 5px;
-    display: flex;
-    flex-direction: column;
-    border-radius: 20px;
+.settingpopup_items:hover {
+  background-color: rgba(255, 255, 255, 0.128);
 }
-.settingpopup_items{
-    background-color: transparent;
-    padding: 16px;
-    display: flex;
-    flex-direction: row;
-    gap:2px;
-    color: white;
-    border: 0px;
-    text-decoration: none;
-    border-radius:10px;
-    cursor: pointer;
+.overlayst {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  animation: fadeIn 0.3s ease-in-out forwards;
 }
-.settingpopup_items:hover{
-    background-color: rgba(255, 255, 255, 0.128);
+.popup {
+  position: absolute;
+  top: 35%;
+  left: 45%;
+  transform: translate(-35%, -45%);
+  z-index: 2;
+  width: 20%;
+  background-color: rgb(35, 33, 33);
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  padding: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  align-items: center;
+  transform: translateY(-50px);
+  animation: slideIn 0.3s ease-in-out forwards;
+}
+
+.popup.open {
+  transform: translateY(0);
+}
+
+.overlay.close {
+  animation: fadeOut 0.3s ease-in-out forwards;
+}
+
+.popup.close {
+  animation: slideOut 0.3s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideIn {
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOut {
+  to {
+    transform: translateY(-50px);
+  }
 }
