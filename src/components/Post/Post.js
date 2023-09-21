@@ -13,63 +13,33 @@ import { AuthContext } from "../../Context/Auth/AuthContext";
 import Picker from "emoji-picker-react";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
-
-const {
-  follow,
-  unfollow,
-  likePost,
-  unlikePost,
-  bookmarkPost,
-  unbookmark,
-  formatInstagramDate,
-  addCommentToPost,
-} = require("../../utils/utils");
+import UseBookMark from "../../Hooks/UseBookMark";
+import UseLike from "../../Hooks/UseLike";
+import UseFollow from "../../Hooks/UseFollow";
+import UseComment from "../../Hooks/UseComment";
+const { formatInstagramDate } = require("../../utils/utils");
 
 const Post = ({ post }) => {
-  const [comment, setComment] = useState("");
-  const { info, Id } = useContext(AuthContext);
-  const [like, setLike] = useState(post.likes.includes(Id));
-  const [likecount, setLikeCount] = useState(post.likes.length);
-  const [commentlength, setCommentLength] = useState(post.comments.length);
-  const [followed, setFollowed] = useState(post.User_id.followers.includes(Id));
-  const [bookmark, setBookmark] = useState(post.bookmarks.includes(Id));
+  const {
+    comment,
+    setComment,
+    commentlength,
+    setCommentLength,
+    addCommentToPost,
+  } = UseComment(post.comments.length);
+  const { Id } = useContext(AuthContext);
+  const { bookmark, bookmarkPostAction } = UseBookMark(
+    post.bookmarks.includes(Id)
+  );
+  const { like, likes, handleLikeAction } = UseLike(
+    post.likes.includes(Id),
+    post.likes.length
+  );
+  const { follow, handleFollowAction } = UseFollow(
+    post.User_id.followers.includes(Id)
+  );
   const [EmojiBox, setEmojiBox] = useState(false);
   const formattedDate = formatInstagramDate(post.date);
-
-  const toggleFollow = (userid) => {
-    const followAction = followed ? unfollow : follow;
-    followAction(userid).then((res) => {
-      if (res) {
-        post.User_id.followers.push(Id);
-        setFollowed(res);
-      } else {
-        post.User_id.followers.pop(Id);
-        setFollowed(res);
-      }
-    });
-  };
-
-  const toggleLike = (id) => {
-    const likeAction = like ? unlikePost : likePost;
-    likeAction(id).then((res) => {
-      setLike(res);
-      if (res) {
-        post.likes.push(Id);
-        setLikeCount(likecount + 1);
-      } else {
-        post.likes.pop(Id);
-        setLikeCount(likecount - 1);
-      }
-    });
-  };
-
-  const toggleBookmark = (id) => {
-    const bookmarkAction = bookmark ? unbookmark : bookmarkPost;
-    bookmarkAction(id).then((res) => {
-      res ? post.bookmarks.push(Id) : post.bookmarks.pop(Id);
-      setBookmark(res);
-    });
-  };
 
   const addComment = async (e) => {
     e.preventDefault();
@@ -121,24 +91,24 @@ const Post = ({ post }) => {
           </Link>
           <div>
             {" "}
-            {followed ? (
+            {follow ? (
               <button
                 className="follow__button"
-                onClick={() => toggleFollow(post.User_id._id)}
+                onClick={() => handleFollowAction(post.User_id._id, false)}
               >
                 Unfollow
               </button>
             ) : (
               <button
                 className="follow__button"
-                onClick={() => toggleFollow(post.User_id._id)}
+                onClick={() => handleFollowAction(post.User_id._id, true)}
               >
                 Follow
               </button>
             )}
           </div>
         </div>
-        <MoreHorizIcon></MoreHorizIcon>
+        <MoreHorizIcon />
       </div>
       <div className="postp_image">
         <img src={post.ImageUrl} alt="PostImage" />
@@ -152,7 +122,7 @@ const Post = ({ post }) => {
                 className="postIcon"
                 sx={{ fontSize: 45 }}
                 onClick={() => {
-                  toggleLike(post._id);
+                  handleLikeAction(post._id, false);
                 }}
               />
             ) : (
@@ -160,7 +130,7 @@ const Post = ({ post }) => {
                 className="postIcon"
                 sx={{ fontSize: 45 }}
                 onClick={() => {
-                  toggleLike(post._id);
+                  handleLikeAction(post._id, true);
                 }}
               />
             )}
@@ -179,7 +149,7 @@ const Post = ({ post }) => {
                 className="postIcon"
                 sx={{ fontSize: 45 }}
                 onClick={() => {
-                  toggleBookmark(post._id);
+                  bookmarkPostAction(post._id, false);
                 }}
               />
             ) : (
@@ -187,20 +157,21 @@ const Post = ({ post }) => {
                 className="postIcon"
                 sx={{ fontSize: 45 }}
                 onClick={() => {
-                  toggleBookmark(post._id);
+                  bookmarkPostAction(post._id, true);
                 }}
               />
             )}
           </div>
         </div>
-        <div>{likecount} likes</div>
+        <div>{likes} likes</div>
       </div>
       <div className="profile_footer1">
         <Link className="cl" to={`/p/${post._id}`}>
           View all {commentlength} comments
         </Link>
         <div className="formposts">
-          <button className="emoji__button"
+          <button
+            className="emoji__button"
             onClick={() => setEmojiBox(!EmojiBox)}
             style={{ backgroundColor: "black", border: 0 }}
           >

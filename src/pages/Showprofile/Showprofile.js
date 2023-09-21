@@ -7,10 +7,15 @@ import axios from "axios";
 import { Avatar } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { AuthContext } from "../../Context/Auth/AuthContext";
+import NoPost from "../../components/NoPost/NoPost";
+import NoSavedPost from "../../components/NoSavedPost/NoSavedPost";
+import NoReel from "../../components/NoReels/NoReel";
+
+import UseFollow from "../../Hooks/UseFollow";
+
 const URL = (mypath) => {
   return `http://localhost:3456${mypath}`;
 };
-import { follow, unfollow } from "../../utils/utils";
 
 const Profile = ({ setProgress }) => {
   const { id } = useParams();
@@ -19,7 +24,7 @@ const Profile = ({ setProgress }) => {
   const [user, setUser] = useState({});
   const [followers, setFollowers] = useState(0);
   const [following, setFollowing] = useState(0);
-  const [followed, setFollowed] = useState([]);
+  const { follow, setFollow, handleFollow, handleUnFollow } = UseFollow(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,7 +40,7 @@ const Profile = ({ setProgress }) => {
         setUser(userData);
         setData(postData);
         setFollowers(userData.followers.length);
-        setFollowed(userData.followers.includes(Id));
+        setFollow(userData.followers.includes(Id));
         setFollowing(userData.following.length);
         setProgress(100);
       } catch (err) {
@@ -45,19 +50,6 @@ const Profile = ({ setProgress }) => {
 
     fetchData();
   }, [id, setProgress]);
-
-  const toggleFollow = (userid) => {
-    const followAction = followed ? unfollow : follow;
-    followAction(userid).then((res) => {
-      if (res) {
-        user.followers.push(Id);
-        setFollowed(res);
-      } else {
-        user.followers.pop(Id);
-        setFollowed(res);
-      }
-    });
-  };
 
   return (
     <div className="home">
@@ -92,15 +84,18 @@ const Profile = ({ setProgress }) => {
                 <div className="profile_header_icon">
                   <div className="profile_icon">
                     <span>{user.username}</span>
-                    {followed ? (
+                    {follow ? (
                       <button
                         className="btn"
-                        onClick={() => toggleFollow(user._id)}
+                        onClick={() => handleUnFollow(user._id)}
                       >
                         Unfollow
                       </button>
                     ) : (
-                      <button className="btn" onClick={() => toggleFollow(user._id)}>
+                      <button
+                        className="btn"
+                        onClick={() => handleFollow(user._id)}
+                      >
                         Follow
                       </button>
                     )}
@@ -133,30 +128,31 @@ const Profile = ({ setProgress }) => {
             </div>
             <div className="profile_header_footericon">
               <button className="profile_header_footericons">
-                <Link className="linkprofile" to="/saved">
+                <Link className="linkprofile" to="reels">
                   Reels
                 </Link>
               </button>
             </div>
             <div className="profile_header_footericon">
               <button className="profile_header_footericons">
-                <Link className="linkprofile" to="/tagged">
+                <Link className="linkprofile" to="tagged">
                   TAGGED
                 </Link>
               </button>
             </div>
           </div>
           <div className="profile_section">
-            <div className="explore_header">
-              <Routes>
-                <Route path="/" element={<Savedpost data={data} />} />
-                <Route path="/reels" element={<div>Reels</div>} />
-                <Route path="/tagged" element={<div>Tagged</div>} />
-              </Routes>
-            </div>
+            <Routes>
+              <Route
+                path="/"
+                element={data.length ? <Savedpost data={data} /> : <NoPost />}
+              />
+              <Route path="/reels" element={ <NoReel />} />
+              <Route path="/tagged" element={<Savedpost data={data}/>} /> 
+            </Routes>
           </div>
-          <ProfileFooter />
         </div>
+        <ProfileFooter />
       </div>
     </div>
   );

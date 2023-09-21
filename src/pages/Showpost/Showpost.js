@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState, useContext, useRef } from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -12,27 +12,20 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import "./Showpost.css";
 import { AuthContext } from "../../Context/Auth/AuthContext";
-import {
-  deletePost,
-  unbookmark,
-  bookmarkPost,
-  follow,
-  unfollow,
-  likePost,
-  unlikePost,
-  addCommentToPost,
-  formatInstagramDate,
-} from "../../utils/utils";
+import { formatInstagramDate } from "../../utils/utils";
 import CommentBar from "../../components/CommentBar/CommentBar";
 import Picker from "emoji-picker-react";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
-import EditIcon from "@mui/icons-material/Edit";
+import UseFollow from "../../Hooks/UseFollow";
+import UseLike from "../../Hooks/UseLike";
+import UseBookMark from "../../Hooks/UseBookMark";
+import UseComment from "../../Hooks/UseComment";
+import UseShowPost from "../../Hooks/UseShowPost";
 
 const API_URL = "http://localhost:3456";
 
 const Showpost = ({ setProgress }) => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const { Id } = useContext(AuthContext);
   const scrollRef = useRef();
 
@@ -50,15 +43,21 @@ const Showpost = ({ setProgress }) => {
     date: "",
   });
 
-  const [comment, setComment] = useState("");
-  const [commentlength, setCommentLength] = useState(0);
-  const [like, setLike] = useState(false);
-  const [likecount, setLikeCount] = useState(0);
-  const [bookmark, setBookmark] = useState(false);
-  const [followed, setFollowed] = useState(false);
-  const [Commentarr, setCommentarr] = useState([]);
+  const {
+    comment,
+    setComment,
+    commentlength,
+    setCommentLength,
+    Commentarr,
+    setCommentarr,
+    addCommentToPost,
+  } = UseComment();
   const [EmojiBox, setEmojiBox] = useState(false);
   const [EditAndReply, setEditAndReply] = useState(false);
+  const { follow, setFollow, handleFollowAction } = UseFollow(false);
+  const { like, setLike, likes, setLikes, handleLikeAction } = UseLike(false);
+  const { bookmark, setBookmark, bookmarkPostAction } = UseBookMark();
+  const { handleBack, handleUpdate, handleDeletePost } = UseShowPost();
   const inputref = useRef(null);
 
   useEffect(() => {
@@ -90,9 +89,9 @@ const Showpost = ({ setProgress }) => {
 
       setCommentLength(comments.length);
       setLike(likes.includes(Id));
-      setLikeCount(likes.length);
+      setLikes(likes.length);
       setBookmark(bookmarks.includes(Id));
-      setFollowed(followers.includes(Id));
+      setFollow(followers.includes(Id));
       setCommentarr(comments);
       setComment("");
     } catch (error) {
@@ -100,68 +99,6 @@ const Showpost = ({ setProgress }) => {
     } finally {
       setProgress(100);
     }
-  };
-
-  const toggleFollow = (userid) => {
-    const followAction = followed ? unfollow : follow;
-    followAction(userid).then((res) => {
-      setFollowed(res);
-    });
-  };
-
-  const addCommentHandler = async (e) => {
-    e.preventDefault();
-    if (comment.length === 0 && comment.trim().length === 0) {
-      return;
-    }
-    const res = await addCommentToPost(post._id, comment);
-    if (res.message === "true") {
-      setCommentarr([...Commentarr, res.comment]);
-      setCommentLength(commentlength + 1);
-      setComment("");
-    }
-  };
-
-  const toggleLikeHandler = () => {
-    const likeAction = like ? unlikePost : likePost;
-    likeAction(post._id).then((res) => {
-      setLike(res);
-      setLikeCount((prevCount) => (res ? prevCount + 1 : prevCount - 1));
-    });
-  };
-
-  const toggleBookmarkHandler = () => {
-    const bookmarkAction = bookmark ? unbookmark : bookmarkPost;
-    bookmarkAction(post._id).then((res) => {
-      setBookmark(res);
-    });
-  };
-
-  const handleDelete = () => {
-    deletePost(post._id).then((res) => {
-      if (res) {
-        navigate("/profile");
-      }
-    });
-  };
-
-  const handleUpdate = () => {
-    axios
-      .post(`http://localhost:3456/post/updatepost/${post._id}`, {
-        ImageUrl: post.ImageUrl,
-        title: post.title,
-        description: post.description,
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const handleBack = () => {
-    navigate(-1);
   };
 
   const handleReply = (id) => {
@@ -179,16 +116,21 @@ const Showpost = ({ setProgress }) => {
     // }
   };
 
-  const handleDeleteComment = (id) => {
+  const handleDeleteComment = (commentid) => {
     try {
       axios
-        .delete(`http://localhost:3456/post/deletecomment/${id}`, {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        })
+        .delete(
+          `http://localhost:3456/post/deletecomment/?commentid=${commentid}&postid=${id}`,
+          {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        )
         .then((res) => {
-          setCommentarr(Commentarr.filter((comment) => comment._id !== id));
+          setCommentarr(
+            Commentarr.filter((comment) => comment._id !== commentid)
+          );
           setCommentLength(commentlength - 1);
         });
     } catch (err) {
@@ -227,6 +169,19 @@ const Showpost = ({ setProgress }) => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [Commentarr]);
 
+  const addCommentHandler = async (e) => {
+    e.preventDefault();
+    if (comment.length === 0 && comment.trim().length === 0) {
+      return;
+    }
+    const res = await addCommentToPost(post._id, comment);
+    if (res.message === "true") {
+      setCommentarr([...Commentarr, res.comment]);
+      setCommentLength(commentlength + 1);
+      setComment("");
+    }
+  };
+
   return (
     <div className="showpost">
       <div className="arrow">
@@ -237,11 +192,14 @@ const Showpost = ({ setProgress }) => {
           <img className="im" src={post.ImageUrl} alt="Post" />
           <div className="showbuttons">
             {post.User_id._id === Id && (
-              <button className="showbtn" onClick={handleDelete}>
+              <button
+                className="showbtn"
+                onClick={() => handleDeletePost(post._id)}
+              >
                 Delete
               </button>
             )}
-            <button className="showbtn" onClick={handleUpdate}>
+            <button className="showbtn" onClick={() => handleUpdate(post._id)}>
               Edit
             </button>
             <Link className="cl" to={`/sp/${post.User_id._id}`}>
@@ -275,17 +233,19 @@ const Showpost = ({ setProgress }) => {
               </Link>
               {post.User_id._id !== Id && (
                 <div>
-                  {followed ? (
+                  {follow ? (
                     <button
                       className="follow__button"
-                      onClick={() => toggleFollow(post.User_id._id)}
+                      onClick={() =>
+                        handleFollowAction(post.User_id._id, false)
+                      }
                     >
                       Unfollow
                     </button>
                   ) : (
                     <button
                       className="follow__button"
-                      onClick={() => toggleFollow(post.User_id._id)}
+                      onClick={() => handleFollowAction(post.User_id._id, true)}
                     >
                       Follow
                     </button>
@@ -322,13 +282,13 @@ const Showpost = ({ setProgress }) => {
                     style={{ color: "red" }}
                     className="postIcon"
                     sx={{ fontSize: 45 }}
-                    onClick={toggleLikeHandler}
+                    onClick={() => handleLikeAction(post._id, false)}
                   />
                 ) : (
                   <FavoriteBorderIcon
                     className="postIcon"
                     sx={{ fontSize: 45 }}
-                    onClick={toggleLikeHandler}
+                    onClick={() => handleLikeAction(post._id, true)}
                   />
                 )}
                 <ChatBubbleOutlineIcon
@@ -343,20 +303,18 @@ const Showpost = ({ setProgress }) => {
                     style={{ color: "white" }}
                     className="postIcon"
                     sx={{ fontSize: 45 }}
-                    onClick={toggleBookmarkHandler}
+                    onClick={() => bookmarkPostAction(post._id, false)}
                   />
                 ) : (
                   <BookmarkBorderIcon
                     className="postIcon"
                     sx={{ fontSize: 45 }}
-                    onClick={toggleBookmarkHandler}
+                    onClick={() => bookmarkPostAction(post._id, true)}
                   />
                 )}
               </div>
             </div>
-            <div>
-              {likecount ? `${likecount} likes` : "Be the first to like this"}
-            </div>
+            <div>{likes ? `${likes} likes` : "Be the first to like this"}</div>
             <Link className="cl" to={`/sp/${post.User_id._id}`}>
               {formatInstagramDate(post.date)}
             </Link>
@@ -400,6 +358,7 @@ const Showpost = ({ setProgress }) => {
                 className="formposts_button"
                 onClick={addCommentHandler}
                 value="Post"
+                type="submit"
               />
             </div>
           </div>

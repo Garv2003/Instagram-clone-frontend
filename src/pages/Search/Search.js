@@ -1,34 +1,12 @@
-import React, { useEffect, useState } from "react";
 import "./Search.css";
 import Navbar from "../../layout/Navbar/Navbar"
 import SearchIcon from "@mui/icons-material/Search";
 import Profilebar from "../../components/Profilebar/Profilebar";
-import axios from "axios";
-
-const URL = (mypath) => {
-  return `http://localhost:3456${mypath}`;
-};
-
+import UseSearch from "../../Hooks/UseSearch";
 const Search = ({setProgress}) => {
   setProgress(100);
-  const [search, setSearch] = useState("");
-  const [users, setUsers] = useState([]);
   document.title = "Instagram Search";
-  useEffect(() => {
-    if (search) {
-      axios
-        .get(URL(`/user/search?user=${search}`))
-        .then((res) => {
-          setUsers(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      setUsers([]);
-    }
-  }, [search]);
-
+  const { search, setSearch, users } = UseSearch();
   return (
     <div className="home">
       <div className="navbar">

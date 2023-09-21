@@ -1,27 +1,15 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { follow, unfollow } from "../../utils/utils";
 import { AuthContext } from "../../Context/Auth/AuthContext";
 import { AccountCircle } from "@mui/icons-material";
+import UseFollow from "../../Hooks/UseFollow";
 
 const Profilebar = ({ post }) => {
   const { Info, Id } = useContext(AuthContext);
-  const [followed, setFollowed] = useState(post.followers.includes(Id));
+  const { follow, setFollow, handleFollowAction } = UseFollow(
+    post.followers.includes(Id)
+  );
 
-  const toggleFollow = (userid) => {
-    const followAction = followed ? unfollow : follow;
-    followAction(userid).then((res) => {
-      if (res) {
-        post.followers.push(Id);
-      } else {
-        const index = post.followers.indexOf(Id);
-        if (index > -1) {
-          post.followers.splice(index, 1);
-        }
-      }
-      setFollowed(res);
-    });
-  };
   return (
     <div key={post._id}>
       {post._id !== Id ? (
@@ -35,7 +23,7 @@ const Profilebar = ({ post }) => {
                   alt="profile"
                 />
               ) : (
-                <AccountCircle sx={{fontSize:35}}/>
+                <AccountCircle sx={{ fontSize: 35 }} />
               )}
             </Link>
             <div className="username__info">
@@ -45,17 +33,17 @@ const Profilebar = ({ post }) => {
               <span className="relation">New to Instagram</span>
             </div>
           </div>
-          {followed ? (
+          {follow ? (
             <button
               className="follow__button"
-              onClick={() => toggleFollow(post._id)}
+              onClick={() => handleFollowAction(post._id, false)}
             >
               Unfollow
             </button>
           ) : (
             <button
               className="follow__button"
-              onClick={() => toggleFollow(post._id)}
+              onClick={() => handleFollowAction(post._id, true)}
             >
               Follow
             </button>
