@@ -22,7 +22,8 @@ const MessageBody = ({ info }) => {
   const [arrMessage, setarrMessage] = useState(null);
   const [Status, setStatus] = useState("offline");
   const [EmojiBox, setEmojiBox] = useState(false);
-  const socket = useRef(socketUrl);
+  // const socket = useRef(socketUrl);
+  const socket = useRef("ws://socket-v70z.onrender.com");
   const scrollRef = useRef();
 
   useEffect(() => {
