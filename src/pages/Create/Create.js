@@ -25,8 +25,9 @@ const Create = ({ setProgress }) => {
       </div>
       <div className="posts">
         {loading ? (
-          <div className="loader">
+          <div className="loader" style={{textAlign:"center"}}>
             <img src={logo} alt="Loading" />
+            <h1>Creating Post....</h1>
           </div>
         ) : (
           <div className="container">

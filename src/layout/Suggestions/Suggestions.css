@@ -30,6 +30,7 @@
   display: flex;
   flex-direction: column;
   margin-left: 7px;
+  margin-top: 7px;
 }
 
 .relation {

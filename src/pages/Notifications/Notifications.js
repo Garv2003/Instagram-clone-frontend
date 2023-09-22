@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Profilebar from "../../components/Profilebar/Profilebar";
+import ProfileBar from "../../components/ProfileBar/ProfileBar";
 import "./Notifications.css";
 import Navbar from "../../layout/Navbar/Navbar";
 import axios from "axios";
@@ -50,7 +50,7 @@ const Notifications = ({ setProgress }) => {
             </div>
             <div className="suggestions__usernames">
               {user.map((post) => (
-                <Profilebar key={post._id} post={post} />
+                <ProfileBar key={post._id} post={post} />
               ))}
             </div>
           </div>

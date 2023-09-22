@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Profilebar from "../../components/Profilebar/Profilebar";
+import Profilebar from "../../components/ProfileBar/ProfileBar";
 import "./Suggestions.css";
 import { AuthContext } from "../../Context/Auth/AuthContext";
 function Suggestions(props) {

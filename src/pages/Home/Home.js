@@ -6,7 +6,7 @@ import Post from "../../components/Post/Post";
 import Suggestions from "../../layout/Suggestions/Suggestions";
 import InfiniteScroll from "react-infinite-scroll-component";
 import PostLoader from "../../components/PostLoader/PostLoader";
-
+import { AuthContext } from "../../Context/Auth/AuthContext";
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const Home = ({ setProgress }) => {
@@ -16,6 +16,7 @@ const Home = ({ setProgress }) => {
   const [skip, setSkip] = useState(0);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
+  const { Id } = React.useContext(AuthContext);
 
   useEffect(() => {
     setProgress(10);
@@ -24,6 +25,7 @@ const Home = ({ setProgress }) => {
     setProgress(100);
     document.title = "Instagram Home";
   }, []);
+
   const fetchData = async () => {
     const res = await axios.get(
       `${API_URL}/post?skip=${skip}&limit=${LIMIT}`,
@@ -50,7 +52,7 @@ const Home = ({ setProgress }) => {
         },
       })
       .then((res) => {
-        setuser(res.data);
+       setuser(res.data);
       });
   };
   return (

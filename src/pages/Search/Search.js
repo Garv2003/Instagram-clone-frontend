@@ -1,12 +1,14 @@
 import "./Search.css";
-import Navbar from "../../layout/Navbar/Navbar"
+import Navbar from "../../layout/Navbar/Navbar";
 import SearchIcon from "@mui/icons-material/Search";
-import Profilebar from "../../components/Profilebar/Profilebar";
+import ProfileBar from "../../components/ProfileBar/ProfileBar";
 import UseSearch from "../../Hooks/UseSearch";
-const Search = ({setProgress}) => {
-  setProgress(100);
+import PostLoader from "../../components/PostLoader/PostLoader";
+
+const Search = ({ setProgress }) => {
+  // setProgress(100);
   document.title = "Instagram Search";
-  const { search, setSearch, users } = UseSearch();
+  const { search, setSearch, users, loading } = UseSearch();
   return (
     <div className="home">
       <div className="navbar">
@@ -25,10 +27,14 @@ const Search = ({setProgress}) => {
             onChange={(e) => setSearch(e.target.value)}
           />
           <div className="searchbody">
-            {users.length > 0 ? (
+            {search && users.length > 0 ? (
               users.map((user) => {
-                return <Profilebar key={user._id} post={user} />;
+                return <ProfileBar key={user._id} post={user} />;
               })
+            ) : loading ? (
+              <div style={{ textAlign: "center" }}>
+                <PostLoader />
+              </div>
             ) : (
               <div className="searchname">
                 <SearchIcon className="search_icon" sx={{ fontSize: 100 }} />
