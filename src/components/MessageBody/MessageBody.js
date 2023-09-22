@@ -11,7 +11,7 @@ import { io } from "socket.io-client";
 import "./MessageBody.css";
 import { AuthContext } from "../../Context/Auth/AuthContext";
 
-const API_URL =process.env.REACT_APP_BACKEND_URL;
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 const socketUrl = process.env.REACT_APP_SOCKET_URL;
 // "ws://localhost:4444"
 const MessageBody = ({ info }) => {
@@ -23,11 +23,17 @@ const MessageBody = ({ info }) => {
   const [Status, setStatus] = useState("offline");
   const [EmojiBox, setEmojiBox] = useState(false);
   // const socket = useRef(socketUrl);
-  const socket = useRef("ws://socket-v70z.onrender.com");
+  const socket = useRef();
   const scrollRef = useRef();
 
   useEffect(() => {
-    socket.current = io();
+    socket.current = io(socketUrl, {
+      withCredentials: true,
+      extraHeaders: {
+        "my-custom-header": "abcd",
+      },
+    });
+
     socket.current.on("typingResponse", (data) => {
       setStatus(data.text);
     });
