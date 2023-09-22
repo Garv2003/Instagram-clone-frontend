@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const API_URL = "http://localhost:3456";
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 export default function UseShowPost() {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ export default function UseShowPost() {
 
   const handleUpdate = () => {
     axios
-      .post(`http://localhost:3456/post/updatepost/${post._id}`, {
+      .post(`${API_URL}/post/updatepost/${post._id}`, {
         ImageUrl: post.ImageUrl,
         title: post.title,
         description: post.description,

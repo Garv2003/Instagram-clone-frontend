@@ -13,9 +13,7 @@ import NoReel from "../../components/NoReels/NoReel";
 
 import UseFollow from "../../Hooks/UseFollow";
 
-const URL = (mypath) => {
-  return `http://localhost:3456${mypath}`;
-};
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const Profile = ({ setProgress }) => {
   const { id } = useParams();
@@ -29,7 +27,7 @@ const Profile = ({ setProgress }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(URL(`/user/showprofile/${id}`), {
+        const res = await axios.get((`${API_URL}/user/showprofile/${id}`), {
           headers: {
             Authorization: localStorage.getItem("token"),
           },

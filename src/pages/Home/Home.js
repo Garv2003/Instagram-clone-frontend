@@ -7,9 +7,7 @@ import Suggestions from "../../layout/Suggestions/Suggestions";
 import InfiniteScroll from "react-infinite-scroll-component";
 import PostLoader from "../../components/PostLoader/PostLoader";
 
-const URL = (mypath) => {
-  return `http://localhost:3456${mypath}`;
-};
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const Home = ({ setProgress }) => {
   const [user, setuser] = useState([]);
@@ -28,7 +26,7 @@ const Home = ({ setProgress }) => {
   }, []);
   const fetchData = async () => {
     const res = await axios.get(
-      `http://localhost:3456/post?skip=${skip}&limit=${LIMIT}`,
+      `${API_URL}/post?skip=${skip}&limit=${LIMIT}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -45,7 +43,7 @@ const Home = ({ setProgress }) => {
   };
   const getsuggestion = () => {
     axios
-      .get(URL("/user/suggestion"), {
+      .get((`${API_URL}/user/suggestion`), {
         headers: {
           "Content-Type": "application/json",
           Authorization: localStorage.getItem("token"),

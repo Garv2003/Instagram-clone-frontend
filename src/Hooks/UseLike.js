@@ -2,7 +2,7 @@ import react from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_URL = "http://localhost:3456";
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 export default function UseLike(INITIAL_VALUE, INITIAL_COUNT) {
   const [like, setLike] = useState(INITIAL_VALUE);

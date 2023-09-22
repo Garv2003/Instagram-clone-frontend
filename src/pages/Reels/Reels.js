@@ -6,12 +6,14 @@ import Navbar from "../../layout/Navbar/Navbar";
 import axios from "axios";
 function Reels({ setProgress }) {
   const [posts, setPosts] = useState([]);
+  const API_URL = process.env.REACT_APP_BACKEND_URL;
+
   useEffect(() => {
     getdata();
     document.title = "Instagram Reels";
   }, []);
   const getdata = async () => {
-    const res = await axios.get("http://localhost:3456/post/explore", {
+    const res = await axios.get(`${API_URL}/post/explore`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("token"),

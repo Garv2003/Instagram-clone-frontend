@@ -5,9 +5,7 @@ import Navbar from "../../layout/Navbar/Navbar";
 import axios from "axios";
 import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
 
-const URL = (mypath) => {
-  return `http://localhost:3456${mypath}`;
-};
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const Notifications = ({ setProgress }) => {
   const [user, setuser] = useState([]);
@@ -19,7 +17,7 @@ const Notifications = ({ setProgress }) => {
   
   const getsuggestion = () => {
     axios
-      .get(URL("/user/suggestion"), {
+      .get(`${API_URL}/user/suggestion`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: localStorage.getItem("token"),

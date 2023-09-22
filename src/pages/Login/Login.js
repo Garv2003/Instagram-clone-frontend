@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3456";
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 function Login({ setProgress }) {
   const [username, setUsername] = useState("");

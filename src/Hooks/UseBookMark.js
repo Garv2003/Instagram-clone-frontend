@@ -2,7 +2,8 @@ import react from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_URL = "http://localhost:3456";
+const API_URL = process.env.REACT_APP_BACKEND_URL;
+
 export default function UseBookMark(INITIAL_VALUE) {
   const [bookmark, setBookmark] = useState(INITIAL_VALUE);
   const bookmarkPostAction = async (id, action) => {

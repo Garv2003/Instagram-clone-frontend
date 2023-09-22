@@ -12,7 +12,7 @@ import NoPost from "../../components/NoPost/NoPost";
 import NoSavedPost from "../../components/NoSavedPost/NoSavedPost";
 import NoReel from "../../components/NoReels/NoReel";
 
-const apiEndpoint = (path) => `http://localhost:3456${path}`;
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const Profile = ({ setProgress }) => {
   const [data, setData] = useState([]);
@@ -25,7 +25,7 @@ const Profile = ({ setProgress }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(apiEndpoint("/post/profile"), {
+        const response = await axios.get(`${API_URL}/post/profile`, {
           headers: {
             Authorization: localStorage.getItem("token"),
           },

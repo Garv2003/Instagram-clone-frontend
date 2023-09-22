@@ -13,9 +13,9 @@ function Register({ setProgress }) {
   const [email, setemail] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const URL = (mypath) => {
-    return `http://localhost:3456${mypath}`;
-  };
+
+  const API_URL = process.env.REACT_APP_BACKEND_URL;
+
   useEffect(() => {
     setProgress(100);
   }, []);
@@ -37,7 +37,7 @@ function Register({ setProgress }) {
     setemail("");
     setname("");
     try {
-      const response = await axios.post(URL("/auth/register"), {
+      const response = await axios.post(`${API_URL}/auth/register`, {
         data,
       });
       toast.success("Registered Successfully");

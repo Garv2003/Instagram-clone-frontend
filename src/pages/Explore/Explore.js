@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Explore.css";
 import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
 import Savedpost from "../../components/Savedpost/Savedpost";
@@ -6,20 +6,18 @@ import Navbar from "../../layout/Navbar/Navbar";
 import axios from "axios";
 const Explore = ({ setProgress }) => {
   const [posts, setPosts] = useState([]);
+  const API_URL = process.env.REACT_APP_BACKEND_URL;
   useEffect(() => {
     getdata();
     document.title = "Instagram Explore";
   }, []);
   const getdata = async () => {
-    const res = await axios.get(
-      "http://localhost:3456/post/explore",
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-      }
-    );
+    const res = await axios.get(`${API_URL}/post/explore`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    });
     setPosts(res.data);
   };
 

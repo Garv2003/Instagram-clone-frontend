@@ -3,7 +3,7 @@ import axios from "axios";
 const shortid = require("shortid");
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "http://localhost:3456";
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 export default function UseCreate() {
   const [title, setTitle] = useState("");

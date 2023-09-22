@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef ,useContext} from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
@@ -10,23 +10,23 @@ import axios from "axios";
 import { io } from "socket.io-client";
 import "./MessageBody.css";
 import { AuthContext } from "../../Context/Auth/AuthContext";
-const URL = (mypath) => {
-  return `http://localhost:3456${mypath}`;
-};
 
+const API_URL =process.env.REACT_APP_BACKEND_URL;
+const socketUrl = process.env.REACT_APP_SOCKET_URL;
+// "ws://localhost:4444"
 const MessageBody = ({ info }) => {
   const [User, setUser] = useState({});
-  const {Id} = useContext(AuthContext);
+  const { Id } = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [arrMessage, setarrMessage] = useState(null);
   const [Status, setStatus] = useState("offline");
   const [EmojiBox, setEmojiBox] = useState(false);
-  const socket = useRef();
+  const socket = useRef(socketUrl);
   const scrollRef = useRef();
 
   useEffect(() => {
-    socket.current = io("ws://localhost:4444");
+    socket.current = io();
     socket.current.on("typingResponse", (data) => {
       setStatus(data.text);
     });
@@ -71,7 +71,7 @@ const MessageBody = ({ info }) => {
       setMessages((messages) => [...messages, message]);
       setNewMessage("");
       await axios
-        .post(URL("/message/addmessage"), {
+        .post(`${API_URL}/message/addmessage`, {
           from: Id,
           to: info._id,
           message: newMessage,
@@ -88,8 +88,8 @@ const MessageBody = ({ info }) => {
   useEffect(() => {
     const getmessages = async () => {
       await axios
-        .post(URL("/message/getmessage"), {
-          from:Id,
+        .post(`${API_URL}/message/getmessage`, {
+          from: Id,
           to: info._id,
         })
         .then((res) => {
