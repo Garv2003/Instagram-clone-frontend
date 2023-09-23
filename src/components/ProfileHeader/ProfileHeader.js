@@ -7,9 +7,7 @@ import Settingpopup from "../Settingpopup/Settingpopup";
 import axios from "axios";
 import PostLoader from "../PostLoader/PostLoader";
 
-const URL = (mypath) => {
-  return `http://localhost:3456${mypath}`;
-};
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const ProfileHeader = ({ User, length, followers, following }) => {
   const [user, setuser] = useState(User);
@@ -19,7 +17,6 @@ const ProfileHeader = ({ User, length, followers, following }) => {
   const [profileImage, setProfileImage] = useState(User.profileImage);
   const [loading, setLoading] = useState(false);
   const hiddenInput = useRef(null);
-
   useEffect(() => {
     setuser(User);
     setProfileImage(User.profileImage);
@@ -39,7 +36,7 @@ const ProfileHeader = ({ User, length, followers, following }) => {
     setLoading(true);
     try {
       const res = await axios.post(
-        URL("/post/addprofilephoto"),
+        `${API_URL}/post/addprofilephoto`,
         {
           ImageUrl: file,
         },
@@ -65,7 +62,7 @@ const ProfileHeader = ({ User, length, followers, following }) => {
   const removeProfilePhoto = async () => {
     setLoading(true);
     try {
-      await axios.delete(URL("/post/deleteprofilephoto"), {
+      await axios.delete(`${API_URL}/post/deleteprofilephoto`, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -79,7 +76,8 @@ const ProfileHeader = ({ User, length, followers, following }) => {
   };
 
   return (
-    <div className="profile_header">
+  <div className="header">
+      <div className="profile_header">
       <input
         type="file"
         ref={hiddenInput}
@@ -167,6 +165,7 @@ const ProfileHeader = ({ User, length, followers, following }) => {
         </div>
       </div>
     </div>
+  </div>
   );
 };
 

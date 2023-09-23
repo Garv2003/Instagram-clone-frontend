@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
+import "./Savedpost.css";
 
 const Profile = ({data}) => {
   return (

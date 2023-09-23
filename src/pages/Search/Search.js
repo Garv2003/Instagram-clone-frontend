@@ -22,7 +22,7 @@ const Search = ({ setProgress }) => {
           <input
             className="search_input1"
             type="text"
-            placeholder="search"
+            placeholder="search..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -35,10 +35,15 @@ const Search = ({ setProgress }) => {
               <div style={{ textAlign: "center" }}>
                 <PostLoader />
               </div>
+            ) : !search && users.length === 0 ? (
+              <div className="searchname">
+                <SearchIcon className="search_icon" sx={{ fontSize: 150 }} />
+                <div className="search_icon_heading">No Recent Search</div>
+              </div>
             ) : (
               <div className="searchname">
-                <SearchIcon className="search_icon" sx={{ fontSize: 100 }} />
-                <div>No Recent Searches</div>
+                <SearchIcon className="search_icon" sx={{ fontSize: 150 }} />
+                <div className="search_icon_heading">No Results Found</div>
               </div>
             )}
           </div>

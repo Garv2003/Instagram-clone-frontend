@@ -1,9 +1,12 @@
 .search{
-    width: 400px;
-    height: 790px;
-    margin: auto;
-    margin-top: 70px;
+    width: 40%;
+    height: 400px;
+    position: relative;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%,-30%);
     padding: 10px;
+    text-align: center;
 }
 .search_heading{
     font-size: 40px;
@@ -11,17 +14,35 @@
     margin-bottom: 20px;
 }
 .search_input1{
-    width: 96%;
-    padding: 10px;
-    border-radius: 10px;
+    width: 90%;
+    padding: 15px 20px 10px 20px;
+    border-radius: 50px;
     border: 1px solid gray;
     color: white;
     background-color: transparent;
 }
+.search_input1:focus{
+    outline: none;
+}
+.search_input1::placeholder{
+    font-size: 20px;
+    color: gray;
+}
 .searchbody{
     color: white;
     margin-top: 30px;
+    text-align: left;
 }
 .searchname{
     text-align: center;
 }
+.search_icon_heading{
+    font-size: 30px;
+}
+
+@media screen and (max-width: 1000px){
+    .search{
+        width: 60%;
+    }
+}
+    

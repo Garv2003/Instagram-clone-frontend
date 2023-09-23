@@ -57,9 +57,9 @@ const Home = ({ setProgress }) => {
   };
   return (
     <div className="home">
-      <div className="navbar">
+      {/* <div className="navbar"> */}
         <Navbar />
-      </div>
+      {/* </div> */}
       <div className="posts">
         <div className="timeline">
           <div className="timeline__left">

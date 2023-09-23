@@ -46,7 +46,6 @@ const Profile = ({ setProgress }) => {
     fetchData();
     document.title = `${info.name} (@${info.username}) • Instagram photos and videos`;
   }, [setProgress]);
-
   return (
     <div className="home">
       <div className="navbar">
@@ -54,14 +53,12 @@ const Profile = ({ setProgress }) => {
       </div>
       <div className="posts">
         <div className="profile">
-          <div>
-            <ProfileHeader
-              User={user}
-              length={data.length}
-              followers={followers}
-              following={following}
-            />
-          </div>
+          <ProfileHeader
+            User={user}
+            length={data.length}
+            followers={followers}
+            following={following}
+          />
           <div className="profile_header_footer">
             <div className="profile_header_footericon">
               <button className="profile_header_footericons">
