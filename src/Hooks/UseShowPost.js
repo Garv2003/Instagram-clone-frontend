@@ -10,18 +10,18 @@ export default function UseShowPost() {
   };
 
   const handleUpdate = () => {
-    axios
-      .post(`${API_URL}/post/updatepost/${post._id}`, {
-        ImageUrl: post.ImageUrl,
-        title: post.title,
-        description: post.description,
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // axios
+    //   .post(`${API_URL}/post/updatepost/${post._id}`, {
+    //     ImageUrl: post.ImageUrl,
+    //     title: post.title,
+    //     description: post.description,
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   const handleDeletePost = async (id) => {
