@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./ProfileHeader.css";
 import { Avatar } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Settingpopup from "../Settingpopup/Settingpopup";
 import axios from "axios";
@@ -10,7 +10,6 @@ import PostLoader from "../PostLoader/PostLoader";
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const ProfileHeader = ({ User, length, followers, following }) => {
-  const [user, setuser] = useState(User);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -18,7 +17,6 @@ const ProfileHeader = ({ User, length, followers, following }) => {
   const [loading, setLoading] = useState(false);
   const hiddenInput = useRef(null);
   useEffect(() => {
-    setuser(User);
     setProfileImage(User.profileImage);
   }, [User]);
 

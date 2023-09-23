@@ -13,9 +13,12 @@ const Messages = ({ setProgress }) => {
   const [user, setuser] = useState([]);
 
   useEffect(() => {
+    setProgress(10);
     document.title = "Inbox • Chats";
+    setProgress(50);
     getsuggestion();
-  }, []);
+    setProgress(100);
+  }, [setProgress]);
   
   const getsuggestion = () => {
     axios

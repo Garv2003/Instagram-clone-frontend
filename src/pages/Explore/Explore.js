@@ -8,9 +8,12 @@ const Explore = ({ setProgress }) => {
   const [posts, setPosts] = useState([]);
   const API_URL = process.env.REACT_APP_BACKEND_URL;
   useEffect(() => {
+    setProgress(10);
     getdata();
+    setProgress(50);
     document.title = "Instagram Explore";
-  }, []);
+    setProgress(100);
+  }, [setProgress]);
   const getdata = async () => {
     const res = await axios.get(`${API_URL}/post/explore`, {
       headers: {

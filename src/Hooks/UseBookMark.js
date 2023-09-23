@@ -1,5 +1,4 @@
-import react from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
@@ -7,7 +6,7 @@ const API_URL = process.env.REACT_APP_BACKEND_URL;
 export default function UseBookMark(INITIAL_VALUE) {
   const [bookmark, setBookmark] = useState(INITIAL_VALUE);
   const bookmarkPostAction = async (id, action) => {
-    if (action == true) {
+    if (action === true) {
       try {
         await axios.put(
           `${API_URL}/post/bookmark`,

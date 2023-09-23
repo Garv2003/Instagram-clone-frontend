@@ -14,7 +14,7 @@ function Login({ setProgress }) {
 
   useEffect(() => {
     setProgress(100);
-  }, []);
+  }, [setProgress]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -24,7 +24,7 @@ function Login({ setProgress }) {
       return;
     }
 
-    setProgress(10);
+    setProgress(20);
 
     try {
       const response = await axios.post(`${API_URL}/auth/login`, {
@@ -33,6 +33,7 @@ function Login({ setProgress }) {
       });
 
       if (!response.data.success) {
+        setProgress(50);
         toast.error(response.data.msg, {
           position: "top-right",
           autoClose: 5000,

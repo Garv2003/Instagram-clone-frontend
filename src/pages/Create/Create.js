@@ -11,10 +11,8 @@ const Create = ({ setProgress }) => {
     setTitle,
     description,
     setDescription,
-    file,
     setFile,
     loading,
-    setLoading,
     handleSubmit,
   } = UseCreate();
   setProgress(100);

@@ -18,7 +18,7 @@ function Register({ setProgress }) {
 
   useEffect(() => {
     setProgress(100);
-  }, []);
+  }, [setProgress]);
 
   const navigate = useNavigate();
   const handleRegister = async (e) => {
@@ -37,11 +37,18 @@ function Register({ setProgress }) {
     setemail("");
     setname("");
     try {
-      const response = await axios.post(`${API_URL}/auth/register`, {
+      await axios.post(`${API_URL}/auth/register`, {
         data,
+      })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.success) {
+          toast.success(res.data.message);
+          navigate("/login");
+        } else {
+          toast.error(res.data.message);
+        }
       });
-      toast.success("Registered Successfully");
-      navigate("/login");
     } catch (error) {
       console.error(error);
     }

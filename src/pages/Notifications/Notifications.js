@@ -11,9 +11,12 @@ const Notifications = ({ setProgress }) => {
   const [user, setuser] = useState([]);
 
   useEffect(() => {
+    setProgress(10);
     getsuggestion();
+    setProgress(50);
     document.title = "Instagram Notifications";
-  }, []);
+    setProgress(100);
+  }, [setProgress]);
   
   const getsuggestion = () => {
     setProgress(20);

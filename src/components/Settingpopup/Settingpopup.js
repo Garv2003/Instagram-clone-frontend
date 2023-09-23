@@ -1,7 +1,7 @@
 import React from "react";
 import "./Settingpopup.css";
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Settingpopup = ({ onClose, open }) => {
