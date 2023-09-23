@@ -16,6 +16,7 @@ const Notifications = ({ setProgress }) => {
   }, []);
   
   const getsuggestion = () => {
+    setProgress(20);
     axios
       .get(`${API_URL}/user/suggestion`, {
         headers: {
@@ -26,6 +27,7 @@ const Notifications = ({ setProgress }) => {
       .then((res) => {
         setuser(res.data);
       });
+      setProgress(100);
   };
 
   return (

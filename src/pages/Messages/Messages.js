@@ -6,6 +6,8 @@ import MessageSidebar from "../../components/MessageSideBar/MessageSidebar";
 import ChatIcon from "@mui/icons-material/Chat";
 import Navbar from "../../layout/Navbar/Navbar";
 
+const API_URL = process.env.REACT_APP_BACKEND_URL;
+
 const Messages = ({ setProgress }) => {
   const [info, setInfo] = useState(null);
   const [user, setuser] = useState([]);
@@ -18,7 +20,7 @@ const Messages = ({ setProgress }) => {
   const getsuggestion = () => {
     axios
 
-      .get(("http://localhost:3456/user/suggestion"), {
+      .get((`${API_URL}/user/suggestion`), {
         headers: {
           "Content-Type": "application/json",
           Authorization: localStorage.getItem("token"),
