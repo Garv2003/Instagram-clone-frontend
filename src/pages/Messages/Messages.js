@@ -19,11 +19,11 @@ const Messages = ({ setProgress }) => {
     getsuggestion();
     setProgress(100);
   }, [setProgress]);
-  
+
   const getsuggestion = () => {
     axios
 
-      .get((`${API_URL}/user/suggestion`), {
+      .get(`${API_URL}/user/suggestion`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: localStorage.getItem("token"),
@@ -40,7 +40,7 @@ const Messages = ({ setProgress }) => {
 
   return (
     <div className="home">
-      <div className="navbar">
+      <div className="navbar1">
         <Navbar />
       </div>
       <div className="posts">

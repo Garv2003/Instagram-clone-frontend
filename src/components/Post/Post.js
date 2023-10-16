@@ -164,6 +164,8 @@ const Post = ({ post }) => {
           </div>
         </div>
         <div>{likes} likes</div>
+        <div className="postp_title">{post.title}</div>
+        <div className="postp_description">{post.description}</div>
       </div>
       <div className="profile_footer1">
         <Link className="cl" to={`/p/${post._id}`}>
@@ -182,7 +184,6 @@ const Post = ({ post }) => {
               <Picker
                 onEmojiClick={(event) => {
                   setComment(comment + event.emoji);
-                  // setEmojiBox(false)
                 }}
                 pickerStyle={{ width: "100%" }}
               />

@@ -25,15 +25,12 @@ const Home = ({ setProgress }) => {
   }, [setProgress]);
 
   const fetchData = async () => {
-    const res = await axios.get(
-      `${API_URL}/post?skip=${skip}&limit=${LIMIT}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-      }
-    );
+    const res = await axios.get(`${API_URL}/post?skip=${skip}&limit=${LIMIT}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    });
     setTotal(res.data.total);
     setPosts((prev) => {
       return [...prev, ...res.data.posts];
@@ -43,49 +40,52 @@ const Home = ({ setProgress }) => {
   };
   const getsuggestion = () => {
     axios
-      .get((`${API_URL}/user/suggestion`), {
+      .get(`${API_URL}/user/suggestion`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: localStorage.getItem("token"),
         },
       })
       .then((res) => {
-       setuser(res.data);
+        setuser(res.data);
       });
   };
   return (
     <div className="home">
-      {/* <div className="navbar"> */}
+      <div className="navbar1">
         <Navbar />
-      {/* </div> */}
+      </div>
       <div className="posts">
         <div className="timeline">
           <div className="timeline__left">
-            {loading && (
-              <div style={{ textAlign: "center" }}>
-                <PostLoader />
-              </div>
-            )}
-            <InfiniteScroll
-              style={{ overflow: "hidden" }}
-              dataLength={posts.length}
-              next={fetchData}
-              hasMore={posts.length < total}
-              loader={
+            <div></div>
+            <div>
+              {loading && (
                 <div style={{ textAlign: "center" }}>
                   <PostLoader />
                 </div>
-              }
-              endMessage={
-                <p style={{ textAlign: "center", marginBottom: "20px" }}>
-                  <b>Yay! You have seen it all</b>
-                </p>
-              }
-            >
-              {posts.map((post, i) => (
-                <Post post={post} key={i} />
-              ))}
-            </InfiniteScroll>
+              )}
+              <InfiniteScroll
+                style={{ overflow: "hidden" }}
+                dataLength={posts.length}
+                next={fetchData}
+                hasMore={posts.length < total}
+                loader={
+                  <div style={{ textAlign: "center" }}>
+                    <PostLoader />
+                  </div>
+                }
+                endMessage={
+                  <p style={{ textAlign: "center", marginBottom: "20px" }}>
+                    <b>Yay! You have seen it all</b>
+                  </p>
+                }
+              >
+                {posts.map((post, i) => (
+                  <Post post={post} key={i} />
+                ))}
+              </InfiniteScroll>
+            </div>
           </div>
           <div className="timeline__right">
             <Suggestions user={user} key={user.length} />

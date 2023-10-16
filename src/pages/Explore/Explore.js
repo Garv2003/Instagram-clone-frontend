@@ -26,7 +26,7 @@ const Explore = ({ setProgress }) => {
 
   return (
     <div className="home">
-      <div className="navbar">
+      <div className="navbar1">
         <Navbar />
       </div>
       <div className="posts">

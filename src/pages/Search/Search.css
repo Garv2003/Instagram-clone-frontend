@@ -1,10 +1,10 @@
 .search{
     width: 40%;
     height: 400px;
-    position: relative;
+    position:relative;
     left: 50%;
-    top: 30%;
-    transform: translate(-50%,-30%);
+    top: 10%;
+    transform: translate(-50%,50%);
     padding: 10px;
     text-align: center;
 }
@@ -14,9 +14,9 @@
     margin-bottom: 20px;
 }
 .search_input1{
-    width: 90%;
+    width: 100%;
     padding: 15px 20px 10px 20px;
-    border-radius: 50px;
+    border-radius: 14px;
     border: 1px solid gray;
     color: white;
     background-color: transparent;
@@ -42,7 +42,48 @@
 
 @media screen and (max-width: 1000px){
     .search{
+        width: 40%;
+    }
+    .search_heading{
+        font-size: 33px;
+    }
+    .searchbody{
+        font-size: 15px;
+    }
+    .search_icon_heading{
+        font-size: 25px;
+    }
+}
+
+@media screen and (max-width: 750px){
+    .search{
         width: 60%;
     }
 }
+
+@media screen and (max-width: 500px){
+    .search{
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 400px){
+    .search{
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 350px){
+    .search{
+        width: 95%;
+    }
+}
+
+@media screen and (max-width: 300px){
+    .search{
+        width: 100%;
+    }
+}
+
+
     

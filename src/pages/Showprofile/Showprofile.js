@@ -27,7 +27,7 @@ const Profile = ({ setProgress }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get((`${API_URL}/user/showprofile/${id}`), {
+        const res = await axios.get(`${API_URL}/user/showprofile/${id}`, {
           headers: {
             Authorization: localStorage.getItem("token"),
           },
@@ -51,9 +51,7 @@ const Profile = ({ setProgress }) => {
 
   return (
     <div className="home">
-      <div className="navbar">
-        <Navbar />
-      </div>
+      <Navbar />
       <div className="posts">
         <div className="profile">
           <div>
@@ -145,8 +143,8 @@ const Profile = ({ setProgress }) => {
                 path="/"
                 element={data.length ? <Savedpost data={data} /> : <NoPost />}
               />
-              <Route path="/reels" element={ <NoReel />} />
-              <Route path="/tagged" element={<Savedpost data={data}/>} /> 
+              <Route path="/reels" element={<NoReel />} />
+              <Route path="/tagged" element={<Savedpost data={data} />} />
             </Routes>
           </div>
         </div>

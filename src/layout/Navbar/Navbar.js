@@ -16,7 +16,12 @@ import {
 } from "@mui/icons-material";
 
 const NavigationButton = ({ icon, text, to }) => {
-  return (
+  return to === "/notifications" || to === "/search" ? (
+    <Link to={to} className="navbutton cl hiddenicon">
+      {icon}
+      <span>{text}</span>
+    </Link>
+  ) : (
     <Link to={to} className="navbutton cl">
       {icon}
       <span>{text}</span>
@@ -35,7 +40,7 @@ const Navbar = () => {
           src="https://www.pngkey.com/png/full/828-8286178_mackeys-work-needs-no-elaborate-presentation-or-distracting.png"
           alt="Instagram Logo"
         />
-        <div className="logo2">
+        <div className="navbutton logo2">
           {" "}
           <InstagramIcon sx={{ color: "white" }} />
         </div>

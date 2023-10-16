@@ -18,12 +18,12 @@ const Create = ({ setProgress }) => {
   setProgress(100);
   return (
     <div className="home">
-      <div className="navbar">
+      <div className="navbar1">
         <Navbar />
       </div>
       <div className="posts">
         {loading ? (
-          <div className="loader" style={{textAlign:"center"}}>
+          <div className="loader" style={{ textAlign: "center" }}>
             <img src={logo} alt="Loading" />
             <h1>Creating Post....</h1>
           </div>

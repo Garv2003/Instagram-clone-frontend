@@ -1,19 +1,20 @@
 .home {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+.navbar1 {
+  flex: 0.16;
 }
 .posts {
-  width: 84%;
-  min-height: 870px;
-  padding: 0;
-  position: relative;
-  left: 16%;
+  flex: 0.84;
 }
 .timeline {
   display: flex;
   flex-direction: row;
 }
-
 .timeline__left {
   flex: 0.6;
   padding: 0px;
@@ -25,5 +26,76 @@
   padding-top: 20px;
 }
 
-.timeline__posts {
+@media screen and (max-width: 1260px) {
+  .navbar1 {
+    flex: 0.12;
+  }
+  .posts {
+    flex: 0.88;
+    padding: 0;
+  }
+  .timeline {
+    display: flex;
+    flex-direction: row;
+  }
+  .timeline__left {
+    width: 60%;
+  }
+  .timeline__right {
+    width: 40%;
+    padding: 50px;
+    padding-top: 20px;
+  }
+}
+
+@media screen and (max-width: 1060px) {
+  .navbar1 {
+    flex: 0.1;
+  }
+  .posts {
+    flex: 0.9;
+  }
+  .timeline {
+    display: block;
+    align-items: center;
+    width: 90%;
+  }
+  .timeline__left {
+    width: 100%;
+    /* width: 470px; */
+    margin: 0;
+    margin: auto;
+  }
+  .timeline__right {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .navbar1 {
+    flex: 0.1;
+  }
+  .posts {
+    flex: 0.90;
+  }
+  .home {
+    display: flex;
+    flex-direction: column;
+  }
+  .timeline__left {
+    width: 100vw;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .home {
+    display: flex;
+    flex-direction: column;
+  }
+  .navbar1 {
+    flex: 0.1;
+  }
+  .posts {
+    width: 100%;
+  }
 }

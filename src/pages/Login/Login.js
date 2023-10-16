@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import "./Login.css";
 import axios from "axios";
+import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -105,6 +107,7 @@ function Login({ setProgress }) {
                 onChange={(e) => setPassword(e.target.value)}
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
+                autoComplete="on"
               />
               <div
                 className="eye"
@@ -143,6 +146,9 @@ function Login({ setProgress }) {
               Sign Up
             </Link>
           </p>
+        </div>
+        <div className="footer">
+          <ProfileFooter />
         </div>
       </div>
     </>

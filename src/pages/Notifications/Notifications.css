@@ -1,8 +1,6 @@
 .notifications {
   width: 600px;
-  min-height: 840px;
   margin: auto;
-  margin-top: 30px;
 }
 .notifications_header {
   display: flex;
@@ -11,6 +9,7 @@
   margin-bottom: 20px;
   text-align: center;
   align-items: center;
+  padding-top:30px;
 }
 .not_heading {
 }
@@ -40,4 +39,13 @@
 .high:hover{
   cursor: pointer;
   text-decoration: underline;
+}
+
+@media screen and (max-width:750px) {
+  .notifications {
+    width: 90%;
+  }
+  .notifications_footer{
+    display: none;
+  }
 }

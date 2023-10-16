@@ -99,6 +99,7 @@ function Register({ setProgress }) {
                 className="login-input"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="off"
               />
               <div
                 className="eye"
@@ -119,6 +120,7 @@ function Register({ setProgress }) {
                 className="login-input"
                 value={confirmpassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                autoComplete="off"
               />
               <div
                 className="eye"

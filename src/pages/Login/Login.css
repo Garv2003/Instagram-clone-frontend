@@ -9,6 +9,7 @@
   flex-direction: column;
   align-items: center;
   font-size: 14px;
+  margin-bottom: 10px;
 }
 
 .box1 {
@@ -27,11 +28,13 @@
 }
 
 .headinglogin {
-  margin: 22px auto 12px;
-  background-image: url("https://www.instagram.com/static/bundles/es6/sprite_core_b20f2a3cd7e4.png/b20f2a3cd7e4.png");
-  background-position: -98px 0;
-  height: 51px;
-  width: 177px;
+  margin: 25px auto 15px;
+  background-image: url("https://www.pngkey.com/png/full/828-8286178_mackeys-work-needs-no-elaborate-presentation-or-distracting.png");
+  background-position:0;
+  background-size: 200px;
+  background-repeat: no-repeat;
+  height: 70px;
+  width: 200px;
   overflow: hidden;
 }
 .field {
@@ -92,7 +95,9 @@ input:not(:placeholder-shown) {
   color: #fff;
   font-weight: 600;
   font-size: 14px;
+  border-radius: 8px;
   cursor: pointer;
+  margin: 10px 0;
 }
 .separator {
   display: flex;
@@ -138,4 +143,21 @@ input:not(:placeholder-shown) {
   width: 70%;
   text-align: center;
   font-size: 15px;
+}
+.footer{
+  padding: 10px 20px 0px 20px;
+}
+
+@media screen and (max-width:450px) {
+  .containerlogin{
+    width: 100%;
+    margin: 0;
+  }
+  .box1{
+    border:none;
+  }
+}
+
+a{
+  text-decoration: none;
 }

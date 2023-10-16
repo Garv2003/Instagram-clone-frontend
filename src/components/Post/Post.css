@@ -1,6 +1,8 @@
 .Postp {
-  width: 550px;
-  margin: 30px 40px 50px 30px;
+  width: 88%;
+  margin:auto;
+  padding: 30px 20px 30px 20px;
+  border-top: 1px solid rgba(128, 128, 128, 0.616);
 }
 .Postp_header {
   display: flex;
@@ -101,3 +103,10 @@ input[type="submit"]:hover{
   background-color: transparent;
   cursor: pointer;
 }
+.postp_title{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.postp_description{
+  margin-bottom: 10px;
+} 

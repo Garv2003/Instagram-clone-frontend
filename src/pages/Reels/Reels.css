@@ -4,8 +4,7 @@
 }
 
 .reels_header{
-    min-height:770px;
-    margin-top: 20px;
+    padding-top: 20px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

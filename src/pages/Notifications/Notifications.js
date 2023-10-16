@@ -17,7 +17,7 @@ const Notifications = ({ setProgress }) => {
     document.title = "Instagram Notifications";
     setProgress(100);
   }, [setProgress]);
-  
+
   const getsuggestion = () => {
     setProgress(20);
     axios
@@ -30,12 +30,12 @@ const Notifications = ({ setProgress }) => {
       .then((res) => {
         setuser(res.data);
       });
-      setProgress(100);
+    setProgress(100);
   };
 
   return (
     <div className="home">
-      <div className="navbar">
+      <div className="navbar1">
         <Navbar />
       </div>
       <div className="posts">

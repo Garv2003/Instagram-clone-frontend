@@ -1,17 +1,21 @@
 import "./Search.css";
+import { useEffect } from "react";
 import Navbar from "../../layout/Navbar/Navbar";
 import SearchIcon from "@mui/icons-material/Search";
 import ProfileBar from "../../components/ProfileBar/ProfileBar";
 import UseSearch from "../../Hooks/UseSearch";
-import PostLoader from "../../components/PostLoader/PostLoader";
+import { MagnifyingGlass } from "react-loader-spinner";
 
 const Search = ({ setProgress }) => {
-  // setProgress(100);
-  document.title = "Instagram Search";
+  useEffect(() => {
+    document.title = "Instagram Search";
+    setProgress(100);
+  }, [setProgress]);
+
   const { search, setSearch, users, loading } = UseSearch();
   return (
     <div className="home">
-      <div className="navbar">
+      <div className="navbar1">
         <Navbar />
       </div>
       <div className="posts">
@@ -33,7 +37,17 @@ const Search = ({ setProgress }) => {
               })
             ) : loading ? (
               <div style={{ textAlign: "center" }}>
-                <PostLoader />
+                <MagnifyingGlass
+                  visible={true}
+                  wrapperStyle={{
+                    height: "100%",
+                    width: "40%",
+                  }}
+                  ariaLabel="MagnifyingGlass-loading"
+                  wrapperClass="MagnifyingGlass-wrapper"
+                  glassColor="#000000"
+                  color="#fafafa"
+                />
               </div>
             ) : !search && users.length === 0 ? (
               <div className="searchname">
