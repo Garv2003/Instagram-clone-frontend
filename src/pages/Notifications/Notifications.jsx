@@ -5,7 +5,7 @@ import Navbar from "../../layout/Navbar/Navbar";
 import axios from "axios";
 import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
+const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
 
 const Notifications = ({ setProgress }) => {
   const [user, setuser] = useState([]);

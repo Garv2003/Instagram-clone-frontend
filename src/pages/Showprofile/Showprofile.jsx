@@ -13,7 +13,7 @@ import NoReel from "../../components/NoReels/NoReel";
 
 import UseFollow from "../../Hooks/UseFollow";
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
+const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
 
 const Profile = ({ setProgress }) => {
   const { id } = useParams();

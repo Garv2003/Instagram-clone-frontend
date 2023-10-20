@@ -12,7 +12,7 @@ import NoPost from "../../components/NoPost/NoPost";
 import NoSavedPost from "../../components/NoSavedPost/NoSavedPost";
 import NoReel from "../../components/NoReels/NoReel";
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
+const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
 
 const Profile = ({ setProgress }) => {
   const [data, setData] = useState([]);

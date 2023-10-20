@@ -22,7 +22,7 @@ import UseBookMark from "../../Hooks/UseBookMark";
 import UseComment from "../../Hooks/UseComment";
 import UseShowPost from "../../Hooks/UseShowPost";
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
+const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
 
 const Showpost = ({ setProgress }) => {
   const { id } = useParams();

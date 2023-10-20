@@ -140,61 +140,37 @@
     background-color: black;
     position: fixed;
     bottom: 0;
-    top: 90%;
+    top: 94%;
     width: 100%;
-    border: 0px;
-  }
-  .logo2 {
-    display: none;
+    border-top: 1px solid gray;
+    border-right:0px;
   }
   .navbarbuttons {
     position: relative;
     bottom: 0;
     display: flex;
     flex-direction: row;
-    height: 100%;
+    width: 100%;
   }
   .navbutton {
     display: flex;
     flex-direction: column;
-    align-items: end;
+    align-items: center;
     background: 0;
     border: 0;
-    margin: 5px 10px 10px 10px;
+    margin: 0px;
     padding: 10px 15px 10px 15px;
     border-radius: 8px;
     width: 90%;
   }
-  .navbutton_more {
+  .logo2 {
     display: none;
   }
-}
-
-@media screen and (max-width: 720px) {
-  .navbar {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    background-color: black;
-    bottom: 0;
-    top: 92%;
-    border: 0px;
-  }
-  .navbutton {
-    display: flex;
-    flex-direction: column;
-    align-items:center;
-    background: 0;
-    border: 0;
-    margin: 5px 10px 10px 10px;
-    padding: 10px 15px 10px 15px;
-    border-radius: 8px;
-    width: 100%;
-  }
-  .logo2 {
+  .navbutton_more {
     display: none;
   }
   .hiddenicon{
     display: none;
   }
 }
+

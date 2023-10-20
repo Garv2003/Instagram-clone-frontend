@@ -6,7 +6,7 @@ import Post from "../../components/Post/Post";
 import Suggestions from "../../layout/Suggestions/Suggestions";
 import InfiniteScroll from "react-infinite-scroll-component";
 import PostLoader from "../../components/PostLoader/PostLoader";
-const API_URL = process.env.REACT_APP_BACKEND_URL;
+const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
 
 const Home = ({ setProgress }) => {
   const [user, setuser] = useState([]);
@@ -58,7 +58,6 @@ const Home = ({ setProgress }) => {
       <div className="posts">
         <div className="timeline">
           <div className="timeline__left">
-            <div></div>
             <div>
               {loading && (
                 <div style={{ textAlign: "center" }}>

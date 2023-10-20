@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
-import Post from "../../components/Post/Post";
-import "./Reels.css";
+import "./Explore.css";
 import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
+import Savedpost from "../../components/Savedpost/Savedpost";
 import Navbar from "../../layout/Navbar/Navbar";
 import axios from "axios";
-function Reels({ setProgress }) {
+const Explore = ({ setProgress }) => {
   const [posts, setPosts] = useState([]);
-  const API_URL = process.env.REACT_APP_BACKEND_URL;
-
+  const API_URL =import.meta.env.VITE_APP_BACKEND_URL;
   useEffect(() => {
     setProgress(10);
     getdata();
     setProgress(50);
-    document.title = "Instagram Reels";
+    document.title = "Instagram Explore";
     setProgress(100);
   }, [setProgress]);
   const getdata = async () => {
@@ -31,21 +30,17 @@ function Reels({ setProgress }) {
         <Navbar />
       </div>
       <div className="posts">
-        <div className="reels">
-          <div className="reels_header">
-            {posts.map((post) => (
-              <div key={post._id}>
-                <Post post={post} />
-              </div>
-            ))}
-            <div className="explore_footer">
-              <ProfileFooter />
-            </div>
+        <div className="explore">
+          <div className="explore_header">
+            <Savedpost data={posts} />
+          </div>
+          <div className="explore_footer">
+            <ProfileFooter />
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default Reels;
+export default Explore;

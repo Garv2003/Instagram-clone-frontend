@@ -143,7 +143,7 @@ input[type="file"]::file-selector-button:hover {
 
 @media screen and (max-width:750px) {
   .container{
-    width: 90%;
+    width: 80%;
     left: 50%;
     top: 0%;
     transform: translate(-50%,0%);
@@ -187,5 +187,9 @@ input[type="file"]::file-selector-button:hover {
   .container{
     background-color:transparent ;
   }
+  .tic{
+    padding: 10px;
+    font-size: 12px;
+    font-weight: 400;
+  }
 }
-

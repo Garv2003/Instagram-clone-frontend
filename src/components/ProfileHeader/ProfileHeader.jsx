@@ -7,7 +7,7 @@ import Settingpopup from "../Settingpopup/Settingpopup";
 import axios from "axios";
 import PostLoader from "../PostLoader/PostLoader";
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
+const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
 
 const ProfileHeader = ({ User, length, followers, following }) => {
   const navigate = useNavigate();

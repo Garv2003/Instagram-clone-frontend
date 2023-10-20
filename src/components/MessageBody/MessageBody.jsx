@@ -11,8 +11,8 @@ import { io } from "socket.io-client";
 import "./MessageBody.css";
 import { AuthContext } from "../../Context/Auth/AuthContext";
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
-const socketUrl = process.env.REACT_APP_SOCKET_URL;
+const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
+const socketUrl = import.meta.env.VITE_APP_SOCKET_URL;
 // "ws://localhost:4444"
 const MessageBody = ({ info }) => {
   const [User, setUser] = useState({});
@@ -67,7 +67,7 @@ const MessageBody = ({ info }) => {
   }, [info]);
 
   const handleSendMessage = async () => {
-    const message = {
+    let message = {
       senderId: Id,
       receiverId: info._id,
       text: newMessage,

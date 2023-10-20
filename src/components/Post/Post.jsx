@@ -17,7 +17,7 @@ import UseBookMark from "../../Hooks/UseBookMark";
 import UseLike from "../../Hooks/UseLike";
 import UseFollow from "../../Hooks/UseFollow";
 import UseComment from "../../Hooks/UseComment";
-const { formatInstagramDate } = require("../../utils/utils");
+import { formatInstagramDate } from "../../utils/utils";
 
 const Post = ({ post }) => {
   const {

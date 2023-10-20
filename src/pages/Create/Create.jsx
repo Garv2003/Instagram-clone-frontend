@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import Navbar from "../../layout/Navbar/Navbar";
 import logo from "../../assets/load-37.gif";
@@ -15,7 +15,10 @@ const Create = ({ setProgress }) => {
     loading,
     handleSubmit,
   } = UseCreate();
-  setProgress(100);
+  useEffect(() => {
+    setProgress(10);
+    setProgress(100);
+  }, [setProgress]);
   return (
     <div className="home">
       <div className="navbar1">

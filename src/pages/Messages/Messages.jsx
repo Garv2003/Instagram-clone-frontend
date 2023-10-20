@@ -6,7 +6,7 @@ import MessageSidebar from "../../components/MessageSideBar/MessageSidebar";
 import ChatIcon from "@mui/icons-material/Chat";
 import Navbar from "../../layout/Navbar/Navbar";
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
+const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
 
 const Messages = ({ setProgress }) => {
   const [info, setInfo] = useState(null);
