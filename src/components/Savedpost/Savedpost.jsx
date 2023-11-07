@@ -4,15 +4,14 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
 import "./Savedpost.css";
 
-const Profile = ({data}) => {
+const Profile = ({ data }) => {
   return (
-    <div className="explore_header">
+    <div className="gallery">
       {data.map((post) => {
         return (
-        <div className="pl-22" key={post._id}>
-          <div className="gallery-item">
+          <div className="gallery-item" key={post._id}>
             <div>
-              <img className="profileimage" src={post.ImageUrl} alt="" />
+              <img className="gallery-post" src={post.ImageUrl} alt="" />
               <div />
               <Link to={`/p/${post._id}`}>
                 <div className="gallery-item-info">
@@ -32,7 +31,6 @@ const Profile = ({data}) => {
               </Link>
             </div>
           </div>
-        </div>
         );
       })}
     </div>

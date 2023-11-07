@@ -6,7 +6,7 @@ import Navbar from "../../layout/Navbar/Navbar";
 import axios from "axios";
 const Explore = ({ setProgress }) => {
   const [posts, setPosts] = useState([]);
-  const API_URL =import.meta.env.VITE_APP_BACKEND_URL;
+  const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
   useEffect(() => {
     setProgress(10);
     getdata();
@@ -31,9 +31,7 @@ const Explore = ({ setProgress }) => {
       </div>
       <div className="posts">
         <div className="explore">
-          <div className="explore_header">
-            <Savedpost data={posts} />
-          </div>
+          <Savedpost data={posts} />
           <div className="explore_footer">
             <ProfileFooter />
           </div>
