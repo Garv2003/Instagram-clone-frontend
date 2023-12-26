@@ -2,44 +2,14 @@
     padding: 10px 20px 0px 20px;
     margin: 0 auto;
     width: 85%;
-    height: 95dvh;
-}
-.explore_header{
-    width: 95%;
-    padding: 10px 20px 0px 20px;
-    font-size: 1em;
-    display: none;
-    margin: auto;
-    position: sticky;
-    top: 0;
-    z-index: 3;
-    background: black;
-}
-
-.explore_header span
-{
-    margin-right: auto;
-    font-size: 1.5em;
-    font-weight: 600;
-}
-
-.explore_header_btn{
-    margin-right: auto;
-    background: transparent;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    font-size: 1.5em;
-    font-weight: 600;
-    color: inherit;
+    min-height: 95dvh;
+    height: 100%;
 }
 
 @media screen and (max-width:770px) {
     .explore{
         width: 100%;
         padding: 0px;
-    }
-    .explore_header{
-        display: flex;
+        padding-top: 10px;
     }
 }

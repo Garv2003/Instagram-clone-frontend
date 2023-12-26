@@ -16,14 +16,16 @@
   align-items: center;
   height: 52px;
 }
-.active{
-  border-top: 1px solid hsl(0, 0%, 15%);
+.active {
+  border-top: 2px solid white;
   margin-top: -1px;
-  color: hsl(0, 0%, 15%);
+  color: rgb(0, 149, 246);
 }
-
+.active_icon {
+  
+}
 .tabs {
-  border-top: 1px solid hsl(0, 0%, 86%);
+  border-top: 1px solid hsl(0, 0%, 56%);
   display: flex;
   justify-content: center;
   gap: 60px;
@@ -74,5 +76,23 @@
 @media only screen and (max-width: 735px) {
   .profile {
     padding: 0;
+  }
+}
+
+.profile_header {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  padding: 10px 20px 10px 20px;
+  border-bottom: 1px solid rgb(219, 219, 219);
+  background: black;
+  z-index: 5;
+}
+
+@media only screen and (max-width: 770px) {
+  .profile_header {
+    display: flex;
   }
 }

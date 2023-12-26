@@ -1,4 +1,3 @@
-
 .profileloader {
   position: relative;
   width: inherit;
@@ -234,4 +233,13 @@ header {
 }
 .profile-info .row.last {
   margin-bottom: 0px;
+}
+
+.profile_header_avatar{
+  width: 150px;
+  height: 150px;
+  margin: 40px;
+  cursor: pointer;
+  position: relative;
+  color: white;
 }

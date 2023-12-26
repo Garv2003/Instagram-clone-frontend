@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Post from "../../components/Post/Post";
 import "./Reels.css";
 import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
 import Navbar from "../../layout/Navbar/Navbar";
 import axios from "axios";
+import Bar from "../../components/Bar/Bar";
+
 function Reels({ setProgress }) {
   const [posts, setPosts] = useState([]);
   const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
@@ -29,6 +31,7 @@ function Reels({ setProgress }) {
     <div className="home">
         <Navbar />
       <div className="posts">
+        <Bar text="Reels" />
         <div className="reels">
           <div className="postbox">
             {posts.map((post) => (

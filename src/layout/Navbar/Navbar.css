@@ -95,6 +95,7 @@
     flex-direction: row;
     width: 100vw;
     border: none;
+    border-top: 1px solid gray;
   }
   .navbarbuttons {
     flex-direction: row;
@@ -132,4 +133,9 @@
   .navbutton_more {
     display: none;
   }
+}
+
+.icon{
+  font-size: 22px;
+  color: inherit;
 }

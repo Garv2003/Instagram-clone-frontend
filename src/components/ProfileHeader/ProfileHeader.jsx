@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./ProfileHeader.css";
-import { Avatar } from "@mui/material";
+import { IoIosSettings } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import SettingsIcon from "@mui/icons-material/Settings";
 import Settingpopup from "../Settingpopup/Settingpopup";
 import axios from "axios";
 import PostLoader from "../PostLoader/PostLoader";
+import { IoPersonCircleSharp } from "react-icons/io5";
 
 const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
 
@@ -118,17 +118,10 @@ const ProfileHeader = ({ User, length, followers, following }) => {
                 <img onClick={onPhoto} src={profileImage} alt="profile" />
               ) : (
                 <button className="photobtn">
-                  <Avatar
+                  <IoPersonCircleSharp
                     className="profile_header_avatar"
                     onClick={onAvatar}
-                    style={{
-                      width: "150px",
-                      height: "150px",
-                      margin: "40px",
-                      cursor: "pointer",
-                      position: "relative",
-                    }}
-                  ></Avatar>
+                  ></IoPersonCircleSharp>
                 </button>
               )}
               {loading && (
@@ -158,7 +151,13 @@ const ProfileHeader = ({ User, length, followers, following }) => {
               </div>
               <div className="btnsetting" onClick={() => setOpen(!open)}>
                 <Settingpopup onClose={onPhoto} open={open} />
-                <SettingsIcon className="btnset" />
+                <IoIosSettings
+                  className="btnset"
+                  style={{
+                    fontSize: "30px",
+                    cursor: "pointer",
+                  }}
+                />
               </div>
             </div>
             <div className="desktop-only">

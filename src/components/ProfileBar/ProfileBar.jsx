@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Context/Auth/AuthContext";
-import { AccountCircle } from "@mui/icons-material";
+import { IoPersonCircleSharp } from "react-icons/io5";
 import UseFollow from "../../Hooks/UseFollow";
 
 const Profilebar = ({ post }) => {
@@ -23,7 +23,12 @@ const Profilebar = ({ post }) => {
                   alt="profile"
                 />
               ) : (
-                <AccountCircle sx={{ fontSize: 35 }} />
+                <IoPersonCircleSharp
+                  style={{
+                    fontSize: "30px",
+                    cursor: "pointer",
+                  }}
+                />
               )}
             </Link>
             <div className="username__info">

@@ -4,18 +4,16 @@ import { Link } from "react-router-dom";
 import Popup from "../../components/Popup/Popup";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import InstagramLogo from "../../assets/instagram-logo.png";
+import { GrHomeRounded } from "react-icons/gr";
+import { IoSearch } from "react-icons/io5";
+import { MdOutlineExplore } from "react-icons/md";
+import { FaRegHeart } from "react-icons/fa";
+import { BsPlusSquare } from "react-icons/bs";
+import { CgProfile } from "react-icons/cg";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { BiSolidMoviePlay } from "react-icons/bi";
+import { RiMessengerLine } from "react-icons/ri";
 
-import {
-  Home,
-  Search,
-  Explore,
-  Slideshow,
-  Chat,
-  FavoriteBorder,
-  AddCircleOutline,
-  Menu,
-  AccountCircle,
-} from "@mui/icons-material";
 // import { UseTheme } from "../../Context/Theme/ThemeContext";
 
 const NavigationButton = ({ icon, text, to }) => {
@@ -47,23 +45,43 @@ const Navbar = () => {
           </div>
         </Link>
         <div className="navbarbuttons">
-          <NavigationButton icon={<Home />} text="Home" to="/" />
-          <NavigationButton icon={<Search />} text="Search" to="/search" />
-          <NavigationButton icon={<Explore />} text="Explore" to="/explore" />
-          <NavigationButton icon={<Slideshow />} text="Reels" to="/Reels" />
-          <NavigationButton icon={<Chat />} text="Messages" to="/message" />
           <NavigationButton
-            icon={<FavoriteBorder />}
+            icon={<GrHomeRounded className="icon" />}
+            text="Home"
+            to="/"
+          />
+          <NavigationButton
+            icon={<IoSearch className="icon" />}
+            text="Search"
+            to="/search"
+          />
+          <NavigationButton
+            icon={<MdOutlineExplore className="icon" />}
+            text="Explore"
+            to="/explore"
+          />
+          <NavigationButton
+            icon={<BiSolidMoviePlay className="icon" />}
+            text="Reels"
+            to="/Reels"
+          />
+          <NavigationButton
+            icon={<RiMessengerLine className="icon" />}
+            text="Messages"
+            to="/message"
+          />
+          <NavigationButton
+            icon={<FaRegHeart className="icon" />}
             text="Notifications"
             to="/notifications"
           />
           <NavigationButton
-            icon={<AddCircleOutline />}
+            icon={<BsPlusSquare className="icon" />}
             text="Create"
             to="/create"
           />
           <NavigationButton
-            icon={<AccountCircle />}
+            icon={<CgProfile className="icon" />}
             text="Profile"
             to="/profile"
           />
@@ -71,7 +89,7 @@ const Navbar = () => {
         <div className="navbutton_more">
           {open && <Popup Open={open} onClose={() => setOpen(false)} />}
           <button onClick={() => setOpen(!open)} className="navbutton">
-            <Menu sx={{ color: "white" }} />
+            <GiHamburgerMenu className="icon" />
             <span>More</span>
           </button>
         </div>

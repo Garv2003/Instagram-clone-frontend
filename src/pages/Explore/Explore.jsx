@@ -4,7 +4,7 @@ import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
 import Savedpost from "../../components/Savedpost/Savedpost";
 import Navbar from "../../layout/Navbar/Navbar";
 import axios from "axios";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Bar from "../../components/Bar/Bar";
 
 const Explore = ({ setProgress }) => {
   const [posts, setPosts] = useState([]);
@@ -30,13 +30,7 @@ const Explore = ({ setProgress }) => {
     <div className="home">
       <Navbar />
       <div className="posts">
-        <div className="explore_header">
-          <button className="explore_header_btn">
-            <ArrowBackIcon />
-          </button>
-          <span> Explore</span>
-        </div>
-
+        <Bar text="Explore" />
         <div className="explore">
           <Savedpost data={posts} />
           <div className="explore_footer">

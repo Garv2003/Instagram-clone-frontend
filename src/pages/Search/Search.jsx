@@ -4,6 +4,7 @@ import Navbar from "../../layout/Navbar/Navbar";
 import SearchIcon from "@mui/icons-material/Search";
 import ProfileBar from "../../components/ProfileBar/ProfileBar";
 import UseSearch from "../../Hooks/UseSearch";
+import Bar from "../../components/Bar/Bar";
 import { MagnifyingGlass } from "react-loader-spinner";
 
 const Search = ({ setProgress }) => {
@@ -17,6 +18,7 @@ const Search = ({ setProgress }) => {
     <div className="home">
       <Navbar />
       <div className="posts">
+        <Bar text="Search" />
         <div className="search">
           <div className="search_heading">
             <h3>Search</h3>
