@@ -29,29 +29,32 @@
 
 .headinglogin {
   margin: 25px auto 15px;
-  background-image: url("https://www.pngkey.com/png/full/828-8286178_mackeys-work-needs-no-elaborate-presentation-or-distracting.png");
-  background-position:0;
+  /* background-image: url("https://www.pngkey.com/png/full/828-8286178_mackeys-work-needs-no-elaborate-presentation-or-distracting.png"); */
+  background-image: url("../../assets/instagram-logo.png");
+  background-position: 0;
   background-size: 200px;
   background-repeat: no-repeat;
   height: 70px;
   width: 200px;
   overflow: hidden;
 }
+
 .field {
   margin: 10px 0;
   /* position: relative; */
   font-size: 14px;
-  width:16rem;
+  width: 16rem;
   text-overflow: ellipsis;
   background: #fafafa;
   border-radius: 3px;
   border: 1px solid #efefef;
-  display: flex ;
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   padding: 0px 10px 0px 0px;
 }
+
 .login-input {
   padding: 9px 0px 7px 9px;
   font-size: 12px;
@@ -59,6 +62,7 @@
   outline: none;
   border: 0;
 }
+
 /* .login-label {
   position: absolute;
   pointer-events: none;
@@ -86,6 +90,7 @@ input:not(:placeholder-shown) {
   padding-top: 14px;
   padding-bottom: 2px;
 } */
+
 .login-button {
   text-align: center;
   width: 100%;
@@ -99,6 +104,7 @@ input:not(:placeholder-shown) {
   cursor: pointer;
   margin: 10px 0;
 }
+
 .separator {
   display: flex;
   justify-content: space-between;
@@ -106,17 +112,20 @@ input:not(:placeholder-shown) {
   color: #999;
   margin-top: 6px;
 }
+
 .line {
   height: 1px;
   width: 40%;
   background-color: gray;
 }
+
 .other {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
 }
+
 .fb-login-btn {
   margin: 1rem;
   border: 0;
@@ -126,38 +135,49 @@ input:not(:placeholder-shown) {
   font-weight: 600;
   background: transparent;
 }
+
 .fb-icon {
   color: #385185;
   font-size: 1rem;
   padding-right: 1px;
 }
-.forgot-password {
-  font-size: 11px;
-  color: #003569;
+
+.facebooklogin {
+  font-size: 1.1em;
+  font-weight: 600;
 }
+
+.forgot-password {
+  font-size: 15px;
+  color: #003569;
+  font-weight: 600;
+}
+
 .signup {
   color: #3897f0;
   font-weight: 600;
 }
+
 .hother {
   width: 70%;
   text-align: center;
   font-size: 15px;
 }
-.footer{
+
+.footer {
   padding: 10px 20px 0px 20px;
 }
 
-@media screen and (max-width:450px) {
-  .containerlogin{
+@media screen and (max-width: 450px) {
+  .containerlogin {
     width: 100%;
     margin: 0;
   }
-  .box1{
-    border:none;
+  .box1 {
+    border: none;
   }
 }
 
-a{
+a {
   text-decoration: none;
 }

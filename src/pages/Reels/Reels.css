@@ -1,16 +1,10 @@
-.reels{
-    width: 1000px;
-    margin: auto;
+.reels {
+  width: 700px;
+  margin: auto;
 }
 
-.reels_header{
-    padding-top: 20px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content:center;
-}
-.imagexplore{
-    width: 300px;
-    height: 300px;
+@media screen and (max-width:750px) {
+    .reels{
+        width: 100vw;
+    }
 }

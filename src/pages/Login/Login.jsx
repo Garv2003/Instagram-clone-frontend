@@ -131,7 +131,7 @@ function Login({ setProgress }) {
             <div className="other">
               <button className="fb-login-btn" type="button">
                 <i className="fa fa-facebook-official fb-icon"></i>
-                <span className="">Log in with Facebook</span>
+                <span className="facebooklogin">Log in with Facebook</span>
               </button>
               <Link className="forgot-password" to="">
                 Forgot password?

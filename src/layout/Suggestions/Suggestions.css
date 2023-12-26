@@ -1,7 +1,17 @@
 .suggestions {
-  margin-top: 30px;
-  margin-right: 20px;
-  width: 350px;
+  margin-top: 36px;
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+.userbar
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .suggestions__title {

@@ -4,6 +4,7 @@
     flex-wrap: wrap;
     justify-content: center;
 }
+
 .profile_footer12{
     display: flex;
     flex-direction: row;
@@ -13,9 +14,17 @@
     font-size: 12px;
     margin-top: 20px;
 }
-.profile_footer>div{
+
+.smalldiv{
     cursor: pointer;
 }
-.profile_footer>div:hover{
+
+.smalldiv:hover{
     text-decoration: underline;
+}
+
+@media screen and (max-width:750px){
+    .profile_footer{
+        display: none;
+    }
 }

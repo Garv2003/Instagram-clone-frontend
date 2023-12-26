@@ -9,7 +9,7 @@ function Suggestions(props) {
   return (
     <div className="suggestions">
       {user.map((post) => (
-        <div key={post._id}>
+        <div key={post._id} className="userbar">
           {post._id === Id ? (
             <div className="suggestions__username">
               <div className="username__left">

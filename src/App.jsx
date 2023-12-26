@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
 import Home from "./pages/Home/Home";
@@ -15,7 +15,6 @@ import Setting from "./pages/Setting/Setting";
 import Notifications from "./pages/Notifications/Notifications";
 import Search from "./pages/Search/Search";
 import Showprofile from "./pages/Showprofile/Showprofile";
-import "./App.css";
 
 const App = () => {
   const [progress, setProgress] = useState(0);
@@ -35,9 +34,24 @@ const App = () => {
         <Route
           exact
           path="/login"
-          element={<Login setProgress={setProgress} />}
+          element={
+            localStorage.getItem("token") ? (
+              <Navigate to="/" />
+            ) : (
+              <Login setProgress={setProgress} />
+            )
+          }
         />
-        <Route path="/signup" element={<SignUp setProgress={setProgress} />} />
+        <Route
+          path="/signup"
+          element={
+            localStorage.getItem("token") ? (
+              <Navigate to="/" />
+            ) : (
+              <SignUp setProgress={setProgress} />
+            )
+          }
+        />
         <Route
           path="/"
           element={

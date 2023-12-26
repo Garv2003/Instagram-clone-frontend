@@ -3,14 +3,14 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "./Context/Auth/AuthContext";
-
+import { ThemeProvider } from "./Context/Theme/ThemeContext";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Router>
     <AuthProvider>
-      {/* <PostProvider> */}
-      <App />
-      {/* </PostProvider> */}
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
     </AuthProvider>
   </Router>
 );

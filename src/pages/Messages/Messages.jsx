@@ -40,9 +40,7 @@ const Messages = ({ setProgress }) => {
 
   return (
     <div className="home">
-      <div className="navbar1">
-        <Navbar />
-      </div>
+      <Navbar />
       <div className="posts">
         <div className="messages">
           <div className="message_left">

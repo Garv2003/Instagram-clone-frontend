@@ -1,6 +1,7 @@
 .Postp {
   width: 88%;
-  margin:auto;
+  height: auto;
+  margin: auto;
   padding: 30px 20px 30px 20px;
   border-top: 1px solid rgba(128, 128, 128, 0.616);
 }
@@ -23,14 +24,20 @@
   font-size: 15px;
 }
 .postp_image {
+  width: 100%;
+  height: 550px;
+  display: flex;
   align-items: center;
-  margin: auto;
+  justify-items: center;
+  border-radius: 6px;
+  border: 0.6px solid rgba(128, 128, 128, 0.516); 
 }
 .postp_image > img {
   width: 100%;
-  align-items: center;
-  border-radius: 6px;
-  border: 0.6px solid rgba(128, 128, 128, 0.516);
+  height: 100%;
+  aspect-ratio: 1/1;
+  object-fit:contain;
+  margin: auto;
 }
 .postp_footer {
   margin-bottom: 10px;
@@ -49,15 +56,15 @@
 .postIcon :hover {
   cursor: pointer;
 }
-.profile_footer1{
+.profile_footer1 {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.formposts>span{  
+.formposts > span {
   display: inline;
 }
-.formposts{
+.formposts {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -66,20 +73,20 @@
   width: 100%;
   height: 40px;
   border-radius: 25px;
-} 
-.formposts_input{
+}
+.formposts_input {
   font-size: 15px;
   box-sizing: border-box;
   background-color: transparent;
   width: 80%;
   height: 100%;
-  border:none;
+  border: none;
   outline: none;
   border-radius: 25px 0px 0px 25px;
   padding: 0px 10px 0px 10px;
   color: white;
 }
-.formposts_button{
+.formposts_button {
   border-radius: 0 25px 25px 0px;
   width: 20%;
   height: 100%;
@@ -89,24 +96,31 @@
   background-color: transparent;
   color: white;
 }
-input[type="submit"]:hover{
-  color:  #0d45a5;
+input[type="submit"]:hover {
+  color: #0d45a5;
 }
-.date{
+.date {
   color: gray;
   font-size: 14px;
   padding: 0px 5px 0px 5px;
 }
-.emoji__button{
+.emoji__button {
   border: none;
   outline: none;
   background-color: transparent;
   cursor: pointer;
 }
-.postp_title{
+.postp_title {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-.postp_description{
+.postp_description {
   margin-bottom: 10px;
-} 
+}
+
+@media screen and (max-width: 770px) {
+  .Postp {
+    width: 100%;
+  }
+
+}

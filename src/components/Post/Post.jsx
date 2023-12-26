@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import "./Post.css";
 import { Link } from "react-router-dom";
 import { AccountCircle } from "@mui/icons-material";
@@ -9,7 +9,7 @@ import TelegramIcon from "@mui/icons-material/Telegram";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import { AuthContext } from "../../Context/Auth/AuthContext";
+import { UseAuth } from "../../Context/Auth/AuthContext";
 import Picker from "emoji-picker-react";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
@@ -27,7 +27,7 @@ const Post = ({ post }) => {
     setCommentLength,
     addCommentToPost,
   } = UseComment(post.comments.length);
-  const { Id } = useContext(AuthContext);
+  const { Id } = UseAuth();
   const { bookmark, bookmarkPostAction } = UseBookMark(
     post.bookmarks.includes(Id)
   );
@@ -87,7 +87,7 @@ const Post = ({ post }) => {
             }
           >
             {" "}
-            •{formattedDate}•{" "}
+            • {formattedDate} •{" "}
           </Link>
           <div>
             {" "}

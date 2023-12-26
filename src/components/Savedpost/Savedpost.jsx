@@ -1,8 +1,8 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
 import "./Savedpost.css";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const Profile = ({ data }) => {
   return (
@@ -11,7 +11,12 @@ const Profile = ({ data }) => {
         return (
           <div className="gallery-item" key={post._id}>
             <div>
-              <img className="gallery-post" src={post.ImageUrl} alt="" />
+              <LazyLoadImage
+                // PlaceholderSrc={"dsds"}
+                className="gallery-post"
+                effect="blur"
+                src={post.ImageUrl}
+              />
               <div />
               <Link to={`/p/${post._id}`}>
                 <div className="gallery-item-info">

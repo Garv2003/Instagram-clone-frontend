@@ -35,9 +35,7 @@ const Notifications = ({ setProgress }) => {
 
   return (
     <div className="home">
-      <div className="navbar1">
-        <Navbar />
-      </div>
+      <Navbar />
       <div className="posts">
         <div className="notifications">
           <div className="notifications_header">

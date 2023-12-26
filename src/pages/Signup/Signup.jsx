@@ -1,12 +1,12 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../Login/Login.css";
+import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import "react-toastify/dist/ReactToastify.css";
 
-function Register({ setProgress }) {
+function Signup({ setProgress }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setname] = useState("");
@@ -14,7 +14,7 @@ function Register({ setProgress }) {
   const [confirmpassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const API_URL = process.env.REACT_APP_BACKEND_URL;
+  const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
 
   useEffect(() => {
     setProgress(100);
@@ -37,18 +37,19 @@ function Register({ setProgress }) {
     setemail("");
     setname("");
     try {
-      await axios.post(`${API_URL}/auth/register`, {
-        data,
-      })
-      .then((res) => {
-        console.log(res.data);
-        if (res.data.success) {
-          toast.success(res.data.message);
-          navigate("/login");
-        } else {
-          toast.error(res.data.message);
-        }
-      });
+      await axios
+        .post(`${API_URL}/auth/register`, {
+          data,
+        })
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.success) {
+            toast.success(res.data.message);
+            navigate("/login");
+          } else {
+            toast.error(res.data.message);
+          }
+        });
     } catch (error) {
       console.error(error);
     }
@@ -168,4 +169,4 @@ function Register({ setProgress }) {
   );
 }
 
-export default Register;
+export default Signup;

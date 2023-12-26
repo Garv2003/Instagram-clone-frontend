@@ -27,12 +27,10 @@ function Reels({ setProgress }) {
 
   return (
     <div className="home">
-      <div className="navbar1">
         <Navbar />
-      </div>
       <div className="posts">
         <div className="reels">
-          <div className="reels_header">
+          <div className="postbox">
             {posts.map((post) => (
               <div key={post._id}>
                 <Post post={post} />

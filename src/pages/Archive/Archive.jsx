@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import "./Archive.css";
 import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
 import RestoreIcon from "@mui/icons-material/Restore";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 import { Link } from "react-router-dom";
+
+
 const Archive = ({ setProgress }) => {
-  
   useEffect(() => {
     setProgress(100);
   }, [setProgress]);
@@ -32,7 +33,6 @@ const Archive = ({ setProgress }) => {
       <div className="archive_section">
         <div className="restoreicon">
           <RestoreIcon
-            baseClassName="fas"
             className="fa-plus-circle"
             sx={{ fontSize: 50 }}
           />

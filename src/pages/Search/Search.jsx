@@ -15,9 +15,7 @@ const Search = ({ setProgress }) => {
   const { search, setSearch, users, loading } = UseSearch();
   return (
     <div className="home">
-      <div className="navbar1">
-        <Navbar />
-      </div>
+      <Navbar />
       <div className="posts">
         <div className="search">
           <div className="search_heading">

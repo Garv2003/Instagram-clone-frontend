@@ -1,6 +1,7 @@
 .messages{
     display: flex;
-    flex-direction: row;
+    min-height: 100vh;
+    overflow: auto;
 }
 .message_left{
     flex: 0.3;
@@ -12,9 +13,7 @@
     height: 40px;
 }
 .message_right{
-    height:870px;
     flex: 0.7;
-    border-left: 1px solid gray;
 }
 .chaticon{
     width: 100px;

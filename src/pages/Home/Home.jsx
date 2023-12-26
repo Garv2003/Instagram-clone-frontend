@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../../layout/Navbar/Navbar";
 import "./Home.css";
 import axios from "axios";
@@ -6,6 +6,7 @@ import Post from "../../components/Post/Post";
 import Suggestions from "../../layout/Suggestions/Suggestions";
 import InfiniteScroll from "react-infinite-scroll-component";
 import PostLoader from "../../components/PostLoader/PostLoader";
+import SmallNavbar from "../../layout/SmallNavbar/SmallNavbar";
 const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
 
 const Home = ({ setProgress }) => {
@@ -19,8 +20,10 @@ const Home = ({ setProgress }) => {
   useEffect(() => {
     setProgress(10);
     fetchData();
+    setProgress(50);
     getsuggestion();
     setProgress(100);
+    setLoading(false);
     document.title = "Instagram Home";
   }, [setProgress]);
 
@@ -35,7 +38,6 @@ const Home = ({ setProgress }) => {
     setPosts((prev) => {
       return [...prev, ...res.data.posts];
     });
-    setLoading(false);
     setSkip(skip + LIMIT);
   };
   const getsuggestion = () => {
@@ -52,13 +54,15 @@ const Home = ({ setProgress }) => {
   };
   return (
     <div className="home">
-      <div className="navbar1">
-        <Navbar />
-      </div>
+      <Navbar />
       <div className="posts">
+        <SmallNavbar />
         <div className="timeline">
-          <div className="timeline__left">
-            <div>
+          <div
+            className="timeline__left"
+            style={{ maxWidth: "630px", width: "100%" }}
+          >
+            <div className="postbox">
               {loading && (
                 <div style={{ textAlign: "center" }}>
                   <PostLoader />

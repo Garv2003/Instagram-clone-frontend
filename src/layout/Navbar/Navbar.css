@@ -1,24 +1,26 @@
 .navbar {
   display: flex;
   flex-direction: column;
-  z-index: 1;
-  position: fixed;
-  left: 0;
-  height: 100%;
   border-right: 1px solid gray;
-  box-sizing: border-box;
   width: 16%;
+  /* transition: 0.5s ease-in-out; */
 }
+
+.navlist {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 .logo {
   width: 120px;
   margin: 30px;
 }
 
 .navbarbuttons {
-  position: relative;
-  top: 0;
   display: flex;
   flex-direction: column;
+  flex: 1;
   height: 100%;
 }
 .navbutton {
@@ -31,6 +33,7 @@
   padding: 10px 15px 10px 15px;
   border-radius: 8px;
   width: 85%;
+  color: inherit;
 }
 .logo2 {
   display: none;
@@ -49,14 +52,9 @@
   font-weight: bolder;
   margin-left: 10px;
 }
-.cl {
-  color: white;
-  text-decoration: none;
-}
+
 .navbutton_more {
-  width: 15%;
-  position: fixed;
-  bottom: 3px;
+  width: 100%;
 }
 .navbutton_more > button > span {
   font-size: 17px;
@@ -67,110 +65,71 @@
 
 @media screen and (max-width: 1260px) {
   .navbar {
-    width: 9%;
+    width: fit-content;
+    padding: 16px;
   }
+
   .logo {
     display: none;
+  }
+
+  .navbutton {
+    margin: 5px 0px 5px 0px;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
   }
   .logo2 {
     display: block;
   }
-  .navbarbuttons {
-    position: relative;
-    top: 0;
-    display: flex;
-    flex-direction: column;
-  }
-  .navbutton_more {
-    position: fixed;
-    bottom: 3px;
-  }
+
   .navbutton > span {
-    display: none;
-  }
-  .navbutton_more > button > span {
     display: none;
   }
 }
 
-@media screen and (max-width: 1060px) {
-  .navbar {
-    width: 8%;
-  }
-  .logo {
-    display: none;
-  }
-  .logo2 {
-    display: block;
-  }
-  .navbutton {
-    margin: 10px 10px 10px 10px;
-    padding: 8px 10px 8px 10px;
-    border-radius: 50px;
-    width: 60%;
-  }
-  .navbarbuttons {
-    position: relative;
-    top: 0;
-    display: flex;
-    flex-direction: column;
-  }
-  .navbutton_more {
-    position: fixed;
-    bottom: 3px;
-  }
-  .navbutton > span {
-    display: none;
-  }
-  .navbutton_more > button > span {
-    display: none;
-  }
-  .navbutton_more {
-    width: 15%;
-    position: fixed;
-    bottom: 3px;
-  }
-}
-
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 770px) {
   .navbar {
     display: flex;
+    padding: 10px;
     flex-direction: row;
-    z-index: 2;
-    background-color: black;
-    position: fixed;
-    bottom: 0;
-    top: 94%;
-    width: 100%;
-    border-top: 1px solid gray;
-    border-right:0px;
+    width: 100vw;
+    border: none;
   }
   .navbarbuttons {
-    position: relative;
-    bottom: 0;
-    display: flex;
     flex-direction: row;
-    width: 100%;
   }
   .navbutton {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     background: 0;
     border: 0;
     margin: 0px;
-    padding: 10px 15px 10px 15px;
+    padding: 10px 0px 10px 0px;
     border-radius: 8px;
-    width: 90%;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
   .logo2 {
     display: none;
   }
+  .hiddenicon {
+    display: none;
+  }
+
+  .navbutton:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.128);
+    transform: scale(1.05);
+  }
+  .navbutton:active {
+    background-color: rgb(255, 255, 255, 0.02);
+    transform: scale(0.95);
+  }
+
   .navbutton_more {
     display: none;
   }
-  .hiddenicon{
-    display: none;
-  }
 }
-
