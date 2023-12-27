@@ -114,14 +114,14 @@ const ProfileHeader = ({ User, length, followers, following }) => {
           ></div>
           <div className="profile-pic">
             <div className="profileloader">
-              {profileImage ? (
+              {!profileImage ? (
                 <img onClick={onPhoto} src={profileImage} alt="profile" />
               ) : (
                 <button className="photobtn">
                   <IoPersonCircleSharp
                     className="profile_header_avatar"
                     onClick={onAvatar}
-                  ></IoPersonCircleSharp>
+                  />
                 </button>
               )}
               {loading && (
