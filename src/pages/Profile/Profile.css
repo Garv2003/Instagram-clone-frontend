@@ -90,6 +90,11 @@
   background: black;
   z-index: 5;
 }
+.profile_header_center{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
 @media only screen and (max-width: 770px) {
   .profile_header {

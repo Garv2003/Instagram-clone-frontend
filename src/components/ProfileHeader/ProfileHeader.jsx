@@ -13,6 +13,7 @@ const ProfileHeader = ({ User, length, followers, following }) => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [onsetting, setOnsetting] = useState(false);
   const [profileImage, setProfileImage] = useState(User.profileImage);
   const [loading, setLoading] = useState(false);
   const hiddenInput = useRef(null);
@@ -75,7 +76,6 @@ const ProfileHeader = ({ User, length, followers, following }) => {
 
   return (
     <>
-      <div></div>
       <header>
         <div className="header-wrap">
           <input
@@ -149,8 +149,13 @@ const ProfileHeader = ({ User, length, followers, following }) => {
                   View Archive
                 </button>
               </div>
-              <div className="btnsetting" onClick={() => setOpen(!open)}>
-                <Settingpopup onClose={onPhoto} open={open} />
+              <div className="btnsetting" onClick={() => setOnsetting(!onsetting)}>
+                <Settingpopup
+                  onClose={() => {
+                    setOnsetting(false);
+                  }}
+                  open={onsetting}
+                />
                 <IoIosSettings
                   className="btnset"
                   style={{

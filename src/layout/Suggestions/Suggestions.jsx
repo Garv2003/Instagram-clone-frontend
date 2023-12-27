@@ -30,10 +30,12 @@ function Suggestions(props) {
                   </Link>
                 </div>
               </div>
-              {/* <button className="follow__button">Follow</button> */}
+              <button className="follow__button" style={{
+                paddingBottom: "0.5rem",
+              }}>Switch</button>
             </div>
           ) : (
-            <div></div>
+            <></>
           )}
         </div>
       ))}

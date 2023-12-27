@@ -13,6 +13,7 @@ import NoSavedPost from "../../components/NoSavedPost/NoSavedPost";
 import NoReel from "../../components/NoReels/NoReel";
 import { IoIosSettings } from "react-icons/io";
 import { IoPersonAddOutline } from "react-icons/io5";
+import { FaChevronDown } from "react-icons/fa";
 const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
 
 const Profile = ({ setProgress }) => {
@@ -56,7 +57,10 @@ const Profile = ({ setProgress }) => {
           <NavLink to="/accounts/edit">
             <IoIosSettings />
           </NavLink>
-          <div>{user.name}</div>
+          <div className="profile_header_center">
+            <span>{user.name}</span>
+            <FaChevronDown />
+          </div>
           <div>
             <IoPersonAddOutline />
           </div>
