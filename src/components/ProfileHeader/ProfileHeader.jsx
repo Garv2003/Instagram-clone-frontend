@@ -114,7 +114,7 @@ const ProfileHeader = ({ User, length, followers, following }) => {
           ></div>
           <div className="profile-pic">
             <div className="profileloader">
-              {!profileImage ? (
+              {profileImage ? (
                 <img onClick={onPhoto} src={profileImage} alt="profile" />
               ) : (
                 <button className="photobtn">
