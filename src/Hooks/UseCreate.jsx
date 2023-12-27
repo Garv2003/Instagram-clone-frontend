@@ -22,16 +22,17 @@ export default function UseCreate() {
 
       const response = await axios.post(`${API_URL}/post/addpost`, formData, {
         headers: {
+          "Content-Type": "multipart/form-data",
           Authorization: localStorage.getItem("token"),
         },
       });
       if (response.status === 200) {
-        setLoading(false);
-        console.log(response);
         navigate("/profile");
       }
     } catch (error) {
       console.error("Error creating post:", error);
+      setLoading(false);
+    } finally {
       setLoading(false);
     }
   };

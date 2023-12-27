@@ -5,6 +5,7 @@ import logo from "../../assets/load-37.gif";
 import "./Create.css";
 import UseCreate from "../../Hooks/UseCreate";
 import Bar from "../../components/Bar/Bar";
+// import { useDropzone } from "react-dropzone";
 
 const Create = ({ setProgress }) => {
   document.title = "Create Post • Instagram";
@@ -21,6 +22,17 @@ const Create = ({ setProgress }) => {
     setProgress(10);
     setProgress(100);
   }, [setProgress]);
+
+  // const [file, setFile] = useState(null);
+  // const [uploadedFiles, setUploadedFiles] = useState([]);
+  // const { getRootProps, getInputProps } = useDropzone({
+  //   onDrop: (acceptedFiles) => {
+  //     setUploadedFiles(acceptedFiles);
+  //     setFile(acceptedFiles[0]);
+  //     // Call your backend API endpoint to upload file
+  //   },
+  // });
+
   return (
     <div className="home">
       <Navbar />
@@ -93,6 +105,18 @@ const Create = ({ setProgress }) => {
           )}
         </div>
       </div>
+      {/* <> */}
+      {/* <div {...getRootProps()}>
+       <input {...getInputProps()} />
+       <p>Drag and drop files here or click to browse.</p>
+       <ul>
+         {uploadedFiles.map((file) => (
+           <li key={file.name}>{file.name}</li>
+         ))}
+       </ul>
+     </div>
+     <button onClick={upload}>Upload</button>
+     </> */}
     </div>
   );
 };

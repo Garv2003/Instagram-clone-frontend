@@ -1,14 +1,12 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Context/Auth/AuthContext";
 import { IoPersonCircleSharp } from "react-icons/io5";
 import UseFollow from "../../Hooks/UseFollow";
 
 const Profilebar = ({ post }) => {
-  const { Info, Id } = useContext(AuthContext);
-  const { follow, setFollow, handleFollowAction } = UseFollow(
-    post.followers.includes(Id)
-  );
+  const { Id } = useContext(AuthContext);
+  const { follow, handleFollowAction } = UseFollow(post.followers.includes(Id));
 
   return (
     <div key={post._id}>
