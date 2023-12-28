@@ -36,7 +36,7 @@
   width: 100%;
   height: 100%;
   aspect-ratio: 1/1;
-  object-fit:contain;
+  object-fit:cover;
   margin: auto;
 }
 .postp_footer {
@@ -122,5 +122,15 @@ input[type="submit"]:hover {
   .Postp {
     width: 100%;
   }
-
+  .postp_image {
+    width: 100%;
+    height: 400px;
+  }
+  .postp_image > img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    margin: auto;
+  }
 }

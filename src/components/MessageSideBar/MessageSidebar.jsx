@@ -49,7 +49,7 @@ const MessageSidebar = ({ user, handleData }) => {
                     </Link>
                     <div className="username__info">
                       <Link
-                        to={`/showprofile/${post._id}`}
+                        to={`/sp/${post._id}`}
                         className="username cl"
                       >
                         {post.username}

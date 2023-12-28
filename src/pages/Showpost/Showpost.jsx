@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState, useContext, useRef } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -183,14 +183,62 @@ const Showpost = ({ setProgress }) => {
   };
 
   return (
-    <div className="showpost">
+    <div className="show_post">
       <div className="arrow">
-        <ArrowBackIcon onClick={handleBack} sx={{ fontSize: "50px" }} />
+        <ArrowBackIcon
+          onClick={handleBack}
+          sx={{ fontSize: "30px", cursor: "pointer" }}
+        />
       </div>
-      <div className="showpostbox">
+      <div className="Postp_header bar_hidden">
+        <div className="postp_header_pro">
+          {post.User_id.profileImage ? (
+            <img
+              className="postprofileimage"
+              src={post.User_id.profileImage}
+              alt="profile"
+            />
+          ) : (
+            <Avatar style={{ marginRight: "10px" }}>
+              {post.User_id.username.charAt(0).toUpperCase()}
+            </Avatar>
+          )}
+          <Link
+            to={
+              post.User_id._id === Id ? "/profile" : `/sp/${post.User_id._id}`
+            }
+            className="cl"
+          >
+            {post.User_id.username}
+          </Link>
+          {post.User_id._id !== Id && (
+            <div>
+              {follow ? (
+                <button
+                  className="follow__button"
+                  onClick={() => handleFollowAction(post.User_id._id, false)}
+                >
+                  Unfollow
+                </button>
+              ) : (
+                <button
+                  className="follow__button"
+                  onClick={() => handleFollowAction(post.User_id._id, true)}
+                >
+                  Follow
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+        <MoreHorizIcon />
+      </div>
+      <div className="show_post_box">
         <div className="showpost1">
-          <img className="im" src={post.ImageUrl} alt="Post" />
-          <div className="showbuttons">
+          <div className="im">
+            <img src={post.ImageUrl} alt="Post" />
+          </div>
+          {/* <div className="showbuttons">
             {post.User_id._id === Id && (
               <button
                 className="showbtn"
@@ -205,10 +253,15 @@ const Showpost = ({ setProgress }) => {
             <Link className="cl" to={`/sp/${post.User_id._id}`}>
               <button className="showbtn">About this account</button>
             </Link>
-          </div>
+          </div> */}
         </div>
         <div className="showpost2">
-          <div className="Postp_header">
+          <div
+            className="Postp_header bar_hidden_desk"
+            style={{
+              padding: "10px",
+            }}
+          >
             <div className="postp_header_pro">
               {post.User_id.profileImage ? (
                 <img
@@ -255,26 +308,12 @@ const Showpost = ({ setProgress }) => {
             </div>
             <MoreHorizIcon />
           </div>
-          <div className="commentsection">
-            {Commentarr.length === 0 ? (
-              <div className="comment_heading">
-                <h2>No comments Yet.</h2>
-                <div>Start the conversation.</div>
-              </div>
-            ) : (
-              Commentarr.map((comment, index) => (
-                <CommentBar
-                  comment={comment}
-                  key={index}
-                  handleReply={handleReply}
-                  handleDeleteComment={handleDeleteComment}
-                  handleEditComment={handleEditComment}
-                />
-              ))
-            )}
-            <div ref={scrollRef}></div>
-          </div>
-          <div className="postp_footer">
+          <div
+            className="postp_footer bar_hidden_col"
+            style={{
+              padding: "10px",
+            }}
+          >
             <div className="posticons">
               <div className="post_iconsMain">
                 {like ? (
@@ -319,7 +358,88 @@ const Showpost = ({ setProgress }) => {
               {formatInstagramDate(post.date)}
             </Link>
           </div>
-          <div className="profile_footer1">
+          <div className="comment_section">
+            {Commentarr.length === 0 ? (
+              <div className="comment_heading">
+                <h2>No comments Yet.</h2>
+                <div>Start the conversation.</div>
+              </div>
+            ) : (
+              Commentarr.map((comment, index) => (
+                <CommentBar
+                  comment={comment}
+                  key={index}
+                  handleReply={handleReply}
+                  handleDeleteComment={handleDeleteComment}
+                  handleEditComment={handleEditComment}
+                />
+              ))
+            )}
+            <div ref={scrollRef}></div>
+          </div>
+          <div className="postp_footer bar_hidden_desk">
+            <div className="posticons">
+              <div className="post_iconsMain">
+                {like ? (
+                  <FavoriteIcon
+                    style={{ color: "red" }}
+                    className="postIcon"
+                    sx={{ fontSize: 45 }}
+                    onClick={() => handleLikeAction(post._id, false)}
+                  />
+                ) : (
+                  <FavoriteBorderIcon
+                    className="postIcon"
+                    sx={{ fontSize: 45 }}
+                    onClick={() => handleLikeAction(post._id, true)}
+                  />
+                )}
+                <ChatBubbleOutlineIcon
+                  sx={{ fontSize: 45 }}
+                  className="postIcon cl"
+                />
+                <TelegramIcon sx={{ fontSize: 45 }} className="postIcon" />
+              </div>
+              <div className="post_iconsb">
+                {bookmark ? (
+                  <BookmarkIcon
+                    style={{ color: "white" }}
+                    className="postIcon"
+                    sx={{ fontSize: 45 }}
+                    onClick={() => bookmarkPostAction(post._id, false)}
+                  />
+                ) : (
+                  <BookmarkBorderIcon
+                    className="postIcon"
+                    sx={{ fontSize: 45 }}
+                    onClick={() => bookmarkPostAction(post._id, true)}
+                  />
+                )}
+              </div>
+            </div>
+            <div
+              style={{
+                padding: "0px 10px",
+              }}
+            >
+              {likes ? `${likes} likes` : "Be the first to like this"}
+            </div>
+            <Link
+              style={{
+                padding: "0px 10px",
+              }}
+              className="cl"
+              to={`/sp/${post.User_id._id}`}
+            >
+              {formatInstagramDate(post.date)}
+            </Link>
+          </div>
+          <div
+            style={{
+              padding: "10px",
+            }}
+            className="profile_footer1"
+          >
             View all {commentlength} comments
             <div className="formposts">
               <button

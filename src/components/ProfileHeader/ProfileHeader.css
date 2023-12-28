@@ -164,7 +164,7 @@ header {
 }
 @media only screen and (max-width: 735px) {
   .profile-info{
-    width: 500px;
+    width: 100%;
     display: flex;
   }
   .profile-info .title {
