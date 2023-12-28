@@ -4,6 +4,15 @@
     width: 85%;
     min-height: 95dvh;
     height: 100%;
+    transition: 0.5s;
+}
+
+@media screen and (max-width:1260px) {
+    .explore{
+        width: 90%;
+        padding: 0px;
+        padding-top: 10px;
+    }
 }
 
 @media screen and (max-width:770px) {

@@ -25,12 +25,12 @@
   background-color: rgb(35, 33, 33);
   z-index: 2;
   border-radius: 20px;
-  width: 400px;
+  width: 300px;
   height: 220px;
   opacity: 0;
   transition: opacity 0.3s ease-in-out, top 0.3s ease-in-out;
 }
-.ProfilePopup.active {
+.ProfilePopup.show {
   top: 40%;
   opacity: 1;
   transform: translateX(-50%) scale(1);
@@ -57,20 +57,20 @@
   cursor: pointer;
   padding: 12px 8px;
   min-height: 48px;
-  border: 1px solid gray;
   background-color: transparent;
   border: 0px;
   color: white;
   font-weight: 200;
 }
 .popupprofile {
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid rgb(54,54,54);
 }
 .rel {
   color: red;
 }
 .bel {
-  color: rgb(53, 53, 208);
+  color: #0095F6;
+  font-weight: 700;
 }
 
 /* Profile */

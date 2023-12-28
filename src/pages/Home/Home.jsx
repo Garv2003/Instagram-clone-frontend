@@ -7,6 +7,7 @@ import Suggestions from "../../layout/Suggestions/Suggestions";
 import InfiniteScroll from "react-infinite-scroll-component";
 import PostLoader from "../../components/PostLoader/PostLoader";
 import SmallNavbar from "../../layout/SmallNavbar/SmallNavbar";
+import Right_Logo from "../../assets/Right_Logo.png";
 const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
 
 const Home = ({ setProgress }) => {
@@ -62,6 +63,13 @@ const Home = ({ setProgress }) => {
             className="timeline__left"
             style={{ maxWidth: "630px", width: "100%" }}
           >
+            <div className="caught_up">
+              <div className="caught_img">
+                <img src={Right_Logo} alt="" />
+              </div>
+              <h3>You're all caught up</h3>
+              <span>You've seen all new posts</span>
+            </div>
             <div className="postbox">
               {loading && (
                 <div style={{ textAlign: "center" }}>

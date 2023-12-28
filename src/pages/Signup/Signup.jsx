@@ -24,10 +24,14 @@ function Signup({ setProgress }) {
   const handleRegister = async (e) => {
     e.preventDefault();
     if (!username || !password || !name || !email) {
-      toast.error("Please fill all the fields");
+      toast.error("Please fill all the fields", {
+        theme: "dark",
+      });
       return;
     } else if (password !== confirmpassword) {
-      toast.error("Passwords do not match");
+      toast.error("Passwords do not match", {
+        theme: "dark",
+      });
       return;
     }
     const data = { username, name, password, email };
@@ -44,10 +48,14 @@ function Signup({ setProgress }) {
         .then((res) => {
           console.log(res.data);
           if (res.data.success) {
-            toast.success(res.data.message);
+            toast.success(res.data.message, {
+              theme: "dark",
+            });
             navigate("/login");
           } else {
-            toast.error(res.data.message);
+            toast.error(res.data.message, {
+              theme: "dark",
+            });
           }
         });
     } catch (error) {

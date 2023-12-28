@@ -21,7 +21,36 @@
 .timeline__left {
   margin-left: 60px;
 }
-
+.caught_up
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 12px;
+  box-sizing: border-box;
+}
+.caught_img
+{
+  width: 96px;
+  height: 96px;
+  margin-bottom: 12px;
+}
+.caught_img img
+{
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+.caught_up h3
+{
+  margin-bottom: 12px;
+}
+.caught_up span
+{
+  font-size: 14px;
+  color: rgb(168, 168,168);
+}
 .timeline__right {
   width: 319px;
   height: 100vh;
@@ -56,6 +85,6 @@
     height: 100dvh;
   }
   .timeline {
-    width: 100vw;
+    width: 100%;
   }
 }

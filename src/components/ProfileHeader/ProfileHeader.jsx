@@ -6,6 +6,8 @@ import Settingpopup from "../Settingpopup/Settingpopup";
 import axios from "axios";
 import PostLoader from "../PostLoader/PostLoader";
 import { IoPersonCircleSharp } from "react-icons/io5";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
 
@@ -48,6 +50,9 @@ const ProfileHeader = ({ User, length, followers, following }) => {
       );
       setProfileImage(res.data);
       setLoading(false);
+      toast.success("Profile Photo Upload Successfully",{
+        theme:"dark"
+      });
     } catch (error) {
       console.log(error);
     }
@@ -68,6 +73,9 @@ const ProfileHeader = ({ User, length, followers, following }) => {
       });
       setLoading(false);
       setProfileImage("");
+      toast.success("Profile Photo Removed Successfully",{
+        theme:"dark"
+      });
       setShowPopup(false);
     } catch (error) {
       console.log(error);
@@ -77,6 +85,7 @@ const ProfileHeader = ({ User, length, followers, following }) => {
   return (
     <>
       <header>
+        <ToastContainer />
         <div className="header-wrap">
           <input
             type="file"
@@ -85,7 +94,7 @@ const ProfileHeader = ({ User, length, followers, following }) => {
             onChange={uploading}
             style={{ display: "none" }}
           />
-          <div className={`ProfilePopup ${showPopup ? "active" : ""}`}>
+          <div className={`ProfilePopup ${showPopup ? "show" : ""}`}>
             <div className="popupprofile">
               <div className="popupprofile_item1">Change Profile Photo</div>
             </div>
@@ -149,7 +158,10 @@ const ProfileHeader = ({ User, length, followers, following }) => {
                   View Archive
                 </button>
               </div>
-              <div className="btnsetting" onClick={() => setOnsetting(!onsetting)}>
+              <div
+                className="btnsetting"
+                onClick={() => setOnsetting(!onsetting)}
+              >
                 <Settingpopup
                   onClose={() => {
                     setOnsetting(false);

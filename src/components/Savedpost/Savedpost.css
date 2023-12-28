@@ -2,7 +2,7 @@
 .gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
+  gap: 10px;
   min-height: 40vh;
 }
 @media only screen and (max-width: 735px) {

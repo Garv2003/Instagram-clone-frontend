@@ -44,7 +44,7 @@ function Login({ setProgress }) {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: "dark"
         });
         setProgress(100);
         return;
@@ -59,7 +59,7 @@ function Login({ setProgress }) {
         pauseOnHover: true,
         draggable: true,
         progress: 1,
-        theme: "light",
+        theme: "dark"
       });
 
       setProgress(100);
@@ -77,7 +77,7 @@ function Login({ setProgress }) {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: "dark"
       });
     }
   };
