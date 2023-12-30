@@ -1,13 +1,12 @@
 .suggestions {
-  margin-top: 36px;
+  margin-top: 20px;
   width: 280px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
 }
-.userbar
-{
+.userbar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -21,15 +20,15 @@
   flex-direction: row;
   justify-content: space-between;
 }
-.jkl{
+.jkl {
   margin-bottom: 20px;
 }
-.seeall{
+.seeall {
   color: white;
   cursor: pointer;
   text-decoration: none;
 }
-.seeall:hover{
+.seeall:hover {
   color: rgb(55, 53, 53);
 }
 .username__left {
@@ -68,14 +67,14 @@
   color: white;
   cursor: pointer;
 }
-.userprofile{
+.userprofile {
   margin-bottom: 30px;
 }
 .username {
   font-weight: 600;
   font-size: 14px;
 }
-.suggestion_footer{
+.suggestion_footer {
   margin-top: 40px;
   width: 250px;
   display: flex;
@@ -84,13 +83,41 @@
   color: gray;
   font-size: 12px;
 }
-.suggestion_icons{
+.suggestion_icons {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   cursor: pointer;
   gap: 2px;
 }
-.suggestion_icons>div:hover{
+.suggestion_icons > div:hover {
   text-decoration: underline;
+}
+.Login_Popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #262626;
+  z-index: 10;
+  width: 400px;
+  height: 350px;
+  border-radius: 15px;
+}
+.close
+{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+}
+.Login_Header
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0px;
 }

@@ -131,13 +131,13 @@ input:not(:placeholder-shown) {
   border: 0;
   cursor: pointer;
   font-size: 14px;
-  color: #385185;
+  color: #3897f0;
   font-weight: 600;
   background: transparent;
 }
 
 .fb-icon {
-  color: #385185;
+  color: #3897f0;
   font-size: 1rem;
   padding-right: 1px;
 }
@@ -149,7 +149,7 @@ input:not(:placeholder-shown) {
 
 .forgot-password {
   font-size: 15px;
-  color: #003569;
+  color: #3897f0;
   font-weight: 600;
 }
 
