@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./Login.css";
 import axios from "axios";
@@ -13,11 +13,26 @@ function Login({ setProgress }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const passwordhidden = useRef(null);
 
   useEffect(() => {
     setProgress(100);
-  }, [setProgress]);
+    if (showPassword) {
+      passwordhidden.current.type = "text";
+    } else {
+      passwordhidden.current.type = "password";
+    }
+  }, [setProgress, passwordhidden]);
 
+  function changeVisibility() {
+    if (passwordhidden.current.type === "password") {
+      passwordhidden.current.type = "text";
+      setShowPassword(true);
+    } else {
+      passwordhidden.current.type = "password";
+      setShowPassword(false);
+    }
+  }
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -44,7 +59,7 @@ function Login({ setProgress }) {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "dark"
+          theme: "dark",
         });
         setProgress(100);
         return;
@@ -59,7 +74,7 @@ function Login({ setProgress }) {
         pauseOnHover: true,
         draggable: true,
         progress: 1,
-        theme: "dark"
+        theme: "dark",
       });
 
       setProgress(100);
@@ -77,7 +92,7 @@ function Login({ setProgress }) {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "dark"
+        theme: "dark",
       });
     }
   };
@@ -105,18 +120,18 @@ function Login({ setProgress }) {
                 value={password}
                 className="login-input"
                 onChange={(e) => setPassword(e.target.value)}
-                type={showPassword ? "text" : "password"}
+                type="password"
+                ref={passwordhidden}
                 placeholder="Password"
                 autoComplete="on"
               />
-              <div
-                className="eye"
-                onClick={() => {
-                  setShowPassword(!showPassword);
-                }}
-              >
+              <div className="eye" onClick={() => changeVisibility()}>
                 <VisibilityIcon
-                  sx={{ color: showPassword ? "black" : "gray", fontSize: 20 }}
+                  sx={{
+                    color: showPassword ? "black" : "gray",
+                    fontSize: 20,
+                    cursor: "pointer",
+                  }}
                 />
               </div>
             </div>

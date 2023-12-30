@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import "../Login/Login.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,12 +13,33 @@ function Signup({ setProgress }) {
   const [email, setemail] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const passwordhidden = useRef(null);
+  const confirmpasswordhidden = useRef(null);
 
   const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
 
   useEffect(() => {
     setProgress(100);
-  }, [setProgress]);
+    if (showPassword) {
+      passwordhidden.current.type = "text";
+      confirmpasswordhidden.current.type = "text";
+    } else {
+      passwordhidden.current.type = "password";
+      confirmpasswordhidden.current.type = "password";
+    }
+  }, [setProgress, passwordhidden, confirmpasswordhidden]);
+
+  function changeVisibility() {
+    if (passwordhidden.current.type === "password") {
+      passwordhidden.current.type = "text";
+      confirmpasswordhidden.current.type = "text";
+      setShowPassword(true);
+    } else {
+      passwordhidden.current.type = "password";
+      confirmpasswordhidden.current.type = "password";
+      setShowPassword(false);
+    }
+  }
 
   const navigate = useNavigate();
   const handleRegister = async (e) => {
@@ -103,7 +124,8 @@ function Signup({ setProgress }) {
             <div className="field">
               <input
                 id="password"
-                type={showPassword ? "text" : "password"}
+                type="password"
+                ref={passwordhidden}
                 placeholder="password"
                 className="login-input"
                 value={password}
@@ -113,7 +135,7 @@ function Signup({ setProgress }) {
               <div
                 className="eye"
                 onClick={() => {
-                  setShowPassword(!showPassword);
+                  changeVisibility();
                 }}
               >
                 <VisibilityIcon
@@ -124,8 +146,9 @@ function Signup({ setProgress }) {
             <div className="field">
               <input
                 id="confirm password"
-                type={showPassword ? "text" : "password"}
+                type="password"
                 placeholder="confirm password"
+                ref={confirmpasswordhidden}
                 className="login-input"
                 value={confirmpassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
@@ -134,7 +157,7 @@ function Signup({ setProgress }) {
               <div
                 className="eye"
                 onClick={() => {
-                  setShowPassword(!showPassword);
+                  changeVisibility();
                 }}
               >
                 <VisibilityIcon
