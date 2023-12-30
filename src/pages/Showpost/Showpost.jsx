@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState, useContext, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Avatar } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
@@ -11,6 +10,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import "./Showpost.css";
+import { IoPersonCircleSharp } from "react-icons/io5";
 import { AuthContext } from "../../Context/Auth/AuthContext";
 import { formatInstagramDate } from "../../utils/utils";
 import CommentBar from "../../components/CommentBar/CommentBar";
@@ -199,9 +199,12 @@ const Showpost = ({ setProgress }) => {
               alt="profile"
             />
           ) : (
-            <Avatar style={{ marginRight: "10px" }}>
-              {post.User_id.username.charAt(0).toUpperCase()}
-            </Avatar>
+            <IoPersonCircleSharp
+              style={{
+                fontSize: "30px",
+                cursor: "pointer",
+              }}
+            />
           )}
           <Link
             to={

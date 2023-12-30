@@ -1,6 +1,4 @@
-import React from "react";
 import "./Setting.css";
-import { Avatar } from "@mui/material";
 import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
 const Setting = ({ setProgress }) => {
   document.title = "Edit Profile • Instagram";

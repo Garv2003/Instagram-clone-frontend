@@ -46,6 +46,7 @@ function Suggestions(props) {
         toast.error(response.data.msg, {
           theme: "dark",
         });
+        setLoading(false);
         return;
       }
       toast.success("Login Success", {
