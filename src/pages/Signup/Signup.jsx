@@ -126,7 +126,7 @@ function Signup({ setProgress }) {
                 id="password"
                 type="password"
                 ref={passwordhidden}
-                placeholder="password"
+                placeholder="Password"
                 className="login-input"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -147,7 +147,7 @@ function Signup({ setProgress }) {
               <input
                 id="confirm password"
                 type="password"
-                placeholder="confirm password"
+                placeholder="Confirm Password"
                 ref={confirmpasswordhidden}
                 className="login-input"
                 value={confirmpassword}

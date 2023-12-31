@@ -74,6 +74,10 @@
 }
 
 @media only screen and (max-width: 735px) {
+  .active {
+    border-top: none;
+    margin-top: 0;
+  }
   .profile {
     padding: 0;
   }

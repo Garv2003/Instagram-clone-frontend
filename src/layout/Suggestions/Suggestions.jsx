@@ -13,7 +13,7 @@ import { IoPersonCircleSharp } from "react-icons/io5";
 
 function Suggestions(props) {
   const { user } = props;
-  const { Id, info } = React.useContext(AuthContext);
+  const { info } = React.useContext(AuthContext);
   const [open, setOpen] = React.useState(false);
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -120,48 +120,42 @@ function Suggestions(props) {
         </>
       )}
       <div className="suggestions">
-        {user.map((post) => (
-          <div key={post._id} className="userbar">
-            {post._id === Id ? (
-              <div className="suggestions__username">
-                <div className="username__left">
-                  <Link to="/profile" className="avatar cl">
-                    {post.profileImage ? (
-                      <img
-                        className="postprofileimage"
-                        src={post.profileImage}
-                        alt="profile"
-                      />
-                    ) : (
-                      <IoPersonCircleSharp
-                        style={{
-                          fontSize: "30px",
-                          cursor: "pointer",
-                        }}
-                      />
-                    )}
-                  </Link>
-                  <div className="username__info">
-                    <Link to="/profile" className="username cl">
-                      {post.username}
-                    </Link>
-                  </div>
-                </div>
-                <button
-                  className="follow__button"
-                  style={{
-                    paddingBottom: "0.5rem",
-                  }}
-                  onClick={handleOpen}
-                >
-                  Switch
-                </button>
+        <div className="userbar">
+          <div className="suggestions__username">
+            <div className="username__left">
+              <Link to="/profile" className="avatar cl">
+                {info.profileImage ? (
+                  <img
+                    className="postprofileimage"
+                    src={info.profileImage}
+                    alt="profile"
+                  />
+                ) : (
+                  <IoPersonCircleSharp
+                    style={{
+                      fontSize: "30px",
+                      cursor: "pointer",
+                    }}
+                  />
+                )}
+              </Link>
+              <div className="username__info">
+                <Link to="/profile" className="username cl">
+                  {info.username}
+                </Link>
               </div>
-            ) : (
-              <></>
-            )}
+            </div>
+            <button
+              className="follow__button"
+              style={{
+                paddingBottom: "0.5rem",
+              }}
+              onClick={handleOpen}
+            >
+              Switch
+            </button>
           </div>
-        ))}
+        </div>
         <div className="suggestions__title">
           <div>Suggestions for you</div>
           <Link to="/notifications" className="seeall">
