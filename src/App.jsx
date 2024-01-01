@@ -77,7 +77,7 @@ const App = () => {
           }
         />
         <Route
-          path="/p/:id/*"
+          path="/p/:id/"
           element={
             <ProtectedRoute element={<Showpost setProgress={setProgress} />} />
           }

@@ -64,7 +64,7 @@ const Post = ({ post }) => {
               alt="profile"
             />
           ) : (
-            <AccountCircle style={{ fontSize: 35, marginRight: 5 }}>
+            <AccountCircle style={{ fontSize: 40, marginRight: 5 }}>
               {post.User_id.username.charAt(0).toUpperCase()}
             </AccountCircle>
           )}

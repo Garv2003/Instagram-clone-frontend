@@ -80,10 +80,10 @@ input[type="file"]::file-selector-button:hover {
 }
 
 .loader{
-  position: relative;
-  top: 40%;
-  left: 35%;
-  transform: translate(-40%, -35%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .loader>h1{
   color: white;
@@ -92,7 +92,7 @@ input[type="file"]::file-selector-button:hover {
   margin-bottom: 20px;
 }
 .loader>img{
-  width: 400px;
+  width: 300px;
 }
 .hidden{
   display: none;
@@ -132,17 +132,6 @@ input[type="file"]::file-selector-button:hover {
   input[type="file"] {
     width: 200px;
   }
-  .loader{
-    top: 30%;
-    left: 30%;
-    transform: translate(-30%, -30%);
-  }
-  .loader>h1{
-    font-size: 40px;
-  }
-  .loader>img{
-    width: 300px;
-  }
 }
 
 @media screen and (max-width:750px) {
@@ -170,17 +159,6 @@ input[type="file"]::file-selector-button:hover {
   }
   input[type="file"]{
     width: 200px;
-  }
-  .loader{
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  .loader>h1{
-    font-size: 40px;
-  }
-  .loader>img{
-    width: 300px;
   }
 }
 

@@ -273,9 +273,11 @@ const Showpost = ({ setProgress }) => {
                   alt="profile"
                 />
               ) : (
-                <Avatar style={{ marginRight: "10px" }}>
-                  {post.User_id.username.charAt(0).toUpperCase()}
-                </Avatar>
+                <IoPersonCircleSharp
+                  style={{
+                    fontSize: "40px",
+                  }}
+                />
               )}
               <Link
                 to={

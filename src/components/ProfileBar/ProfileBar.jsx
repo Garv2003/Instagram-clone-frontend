@@ -23,7 +23,7 @@ const Profilebar = ({ post }) => {
               ) : (
                 <IoPersonCircleSharp
                   style={{
-                    fontSize: "30px",
+                    fontSize: "40px",
                     cursor: "pointer",
                   }}
                 />

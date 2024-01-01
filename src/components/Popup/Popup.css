@@ -5,7 +5,7 @@
   flex-direction: column;
 }
 .popup2 {
-  border-top: 6px solid gray;
+  border-top: 6px solid rgb(75, 73, 73);
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -44,7 +44,7 @@
 
 .Popup {
   position: absolute;
-  bottom: 90px;
+  bottom: 110px;
   width: 250px;
   background-color: rgb(35, 33, 33);
   display: flex;

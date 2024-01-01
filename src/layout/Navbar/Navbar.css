@@ -1,7 +1,7 @@
 .navbar {
   display: flex;
   flex-direction: column;
-  border-right: 1px solid gray;
+  border-right: 0.2px solid gray;
   width: 16%;
 }
 .navlist {
@@ -87,7 +87,7 @@
     flex-direction: row;
     width: 100vw;
     border: none;
-    border-top: 1px solid gray;
+    border-top: 0.2px solid gray;
   }
   .navbarbuttons {
     flex-direction: row;
@@ -128,6 +128,6 @@
 }
 
 .icon{
-  font-size: 22px;
+  font-size: 25px;
   color: inherit;
 }
