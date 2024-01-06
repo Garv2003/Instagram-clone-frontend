@@ -58,7 +58,7 @@ function Suggestions(props) {
         window.location.assign("/profile");
       }, 500);
     } catch (error) {
-      console.error(error);
+      setLoading(false);
       toast.error("An error occurred while logging in.", {
         theme: "dark",
       });

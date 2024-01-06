@@ -5,6 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import "react-toastify/dist/ReactToastify.css";
+import { RotatingLines } from "react-loader-spinner";
 
 function Signup({ setProgress }) {
   const [username, setUsername] = useState("");
@@ -15,6 +16,7 @@ function Signup({ setProgress }) {
   const [showPassword, setShowPassword] = useState(false);
   const passwordhidden = useRef(null);
   const confirmpasswordhidden = useRef(null);
+  const [loading, setLoading] = useState(false);
 
   const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
 
@@ -56,18 +58,19 @@ function Signup({ setProgress }) {
       return;
     }
     const data = { username, name, password, email };
-    console.log(data);
     setPassword("");
+    setConfirmPassword("");
     setUsername("");
     setemail("");
     setname("");
     try {
+      setLoading(true);
       await axios
         .post(`${API_URL}/auth/register`, {
           data,
         })
         .then((res) => {
-          console.log(res.data);
+          setLoading(false);
           if (res.data.success) {
             toast.success(res.data.message, {
               theme: "dark",
@@ -80,7 +83,10 @@ function Signup({ setProgress }) {
           }
         });
     } catch (error) {
-      console.error(error);
+      setLoading(false);
+      toast.error("An error occurred while signing up.", {
+        theme: "dark",
+      });
     }
   };
 
@@ -168,8 +174,12 @@ function Signup({ setProgress }) {
               Confirm Password
             </label> */}
             </div>
-            <button className="login-button" title="login">
-              Sign Up
+            <button className="login-button" title="login" disabled={loading}>
+              {loading ? (
+                <RotatingLines strokeColor="#fff" height={15} width={15} />
+              ) : (
+                "Sign Up"
+              )}
             </button>
           </form>
           <div className="separator">

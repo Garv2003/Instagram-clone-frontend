@@ -42,7 +42,6 @@ const Setting = ({ setProgress }) => {
             <div className="body2_heading">Edit profile</div>
             <div className="profileinfo">
               <div>
-                <Avatar />
               </div>
               <div>
                 <div>username</div>

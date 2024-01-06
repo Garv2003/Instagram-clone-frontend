@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./Login.css";
 import axios from "axios";
@@ -6,6 +6,7 @@ import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { RotatingLines } from "react-loader-spinner";
 
 const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
 
@@ -14,6 +15,7 @@ function Login({ setProgress }) {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const passwordhidden = useRef(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setProgress(100);
@@ -44,6 +46,7 @@ function Login({ setProgress }) {
     setProgress(20);
 
     try {
+      setLoading(true);
       const response = await axios.post(`${API_URL}/auth/login`, {
         username,
         password,
@@ -61,6 +64,7 @@ function Login({ setProgress }) {
           progress: undefined,
           theme: "dark",
         });
+        setLoading(false);
         setProgress(100);
         return;
       }
@@ -76,14 +80,14 @@ function Login({ setProgress }) {
         progress: 1,
         theme: "dark",
       });
-
+      setLoading(false);
       setProgress(100);
       setTimeout(() => {
         localStorage.setItem("token", response.data.token);
         window.location.assign("/profile");
       }, 500);
     } catch (error) {
-      console.error(error);
+      setLoading(false);
       toast.error("An error occurred while logging in.", {
         position: "top-right",
         autoClose: 5000,
@@ -135,8 +139,17 @@ function Login({ setProgress }) {
                 />
               </div>
             </div>
-            <button className="login-button" type="submit" title="Login">
-              Log In
+            <button
+              className="login-button"
+              type="submit"
+              title="Login"
+              disabled={loading}
+            >
+              {loading ? (
+                <RotatingLines strokeColor="#fff" height={15} width={15} />
+              ) : (
+                "Log In"
+              )}
             </button>
             <div className="separator">
               <div className="line"></div>
