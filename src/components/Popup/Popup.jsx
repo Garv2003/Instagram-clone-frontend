@@ -5,13 +5,16 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import ModeNightOutlinedIcon from "@mui/icons-material/ModeNightOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import { toast } from "react-toastify";
+import PropTypes from "prop-types";
 import "react-toastify/dist/ReactToastify.css";
 
-const Popup = ({ Open, onClose }) => {
+const Popup = ({ onClose }) => {
   const handlelogout = () => {
     localStorage.removeItem("token");
     showToast("Logout Successfully");
-    window.location.assign("/login");
+    setTimeout(() => {
+      window.location.assign("/login");
+    }, 1000);
   };
 
   const showToast = (message) => {
@@ -70,6 +73,10 @@ const Popup = ({ Open, onClose }) => {
       </div>
     </>
   );
+};
+
+Popup.propTypes = {
+  onClose: PropTypes.func.isRequired,
 };
 
 export default Popup;

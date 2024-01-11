@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
@@ -10,11 +10,13 @@ import axios from "axios";
 import { io } from "socket.io-client";
 import "./MessageBody.css";
 import { AuthContext } from "../../Context/Auth/AuthContext";
+import PropType from "prop-types";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
 const socketUrl = import.meta.env.VITE_APP_SOCKET_URL;
 // "ws://localhost:4444"
-const MessageBody = ({ info }) => {
+const MessageBody = ({ info, setInfo }) => {
   const [User, setUser] = useState({});
   const { Id } = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
@@ -125,6 +127,11 @@ const MessageBody = ({ info }) => {
       <div className="messagebody_top">
         <div>
           <div className="topicon">
+            <IoMdArrowRoundBack
+              onClick={() => {
+                setInfo(null);
+              }}
+            />
             <div className="messagestatus">
               <Link to={`/showprofile/${info._id}`} className="avatar">
                 {info.profileImage ? (
@@ -191,7 +198,6 @@ const MessageBody = ({ info }) => {
           type="text"
           placeholder="Message..."
           value={newMessage}
-          theme="dark"
           onFocus={() => {
             handleTyping(true);
             setEmojiBox(false);
@@ -208,6 +214,11 @@ const MessageBody = ({ info }) => {
       </div>
     </div>
   );
+};
+
+MessageBody.propTypes = {
+  info: PropType.object,
+  setInfo: PropType.func,
 };
 
 export default MessageBody;

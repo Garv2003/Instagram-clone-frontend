@@ -1,48 +1,65 @@
-.messages{
-    display: flex;
-    min-height: 100vh;
-    overflow: auto;
+.messages {
+  display: flex;
+  min-height: 100vh;
+  overflow: auto;
 }
-.message_left{
-    flex: 0.3;
-    border-right: 1px solid gray;
+.message_left {
+  flex: 0.3;
+  border-right: 1px solid gray;
 }
-.postprofileimage{
-    border-radius:50%;
-    width: 40px;
-    height: 40px;
+.postprofileimage {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
 }
-.message_right{
-    flex: 0.7;
+.message_right {
+  flex: 0.7;
 }
-.chaticon{
-    width: 100px;
-    height: 100px;
-    border: 5px solid  #ccc;
-    border-radius:50%;
+.chaticon {
+  width: 100px;
+  height: 100px;
+  border: 5px solid #ccc;
+  border-radius: 50%;
 }
-.messagewelcome{
-   
+.messagewelcome {
 }
-.messageicon{
-    margin-top: 200px;
-    display: flex;
+.messageicon {
+  margin-top: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #ccc;
+}
+.messageicon h1 {
+  font-weight: 500;
+  margin-top: 10px;
+}
+.smbtn {
+  background-color: #0095f6;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: 600;
+  padding: 8px 12px;
+  margin: 10px 0px;
+}
+.smbtn:hover {
+  background-color: #0095f6;
+}
+
+@media screen and (max-width: 770px) {
+  .messages {
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    color: #ccc;
-}
-.messageicon h1{
-    font-weight: 500;
-    margin-top: 10px;
-}
-.smbtn{
-    background-color: #0095F6;
-    cursor: pointer;
+  }
+  .message_left {
+    border-right: none;
+  }
+  .message_right {
     border: none;
-    border-radius: 5px;
-    color: white;
-    font-weight: 600;
-    padding: 8px 12px;
-    margin: 10px 0px;
+  }
+  .messageicon {
+    display: none;
+  }
 }

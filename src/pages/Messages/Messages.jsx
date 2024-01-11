@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./Messages.css";
 import axios from "axios";
 import MessageBody from "../../components/MessageBody/MessageBody";
 import MessageSidebar from "../../components/MessageSideBar/MessageSidebar";
 import ChatIcon from "@mui/icons-material/Chat";
 import Navbar from "../../layout/Navbar/Navbar";
-
+import PropType from "prop-types";
 const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
 
 const Messages = ({ setProgress }) => {
   const [info, setInfo] = useState(null);
   const [user, setuser] = useState([]);
-
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   useEffect(() => {
     setProgress(10);
     document.title = "Inbox • Chats";
@@ -19,6 +19,14 @@ const Messages = ({ setProgress }) => {
     getsuggestion();
     setProgress(100);
   }, [setProgress]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [windowWidth]);
 
   const getsuggestion = () => {
     axios
@@ -40,7 +48,7 @@ const Messages = ({ setProgress }) => {
 
   return (
     <div className="home">
-      <Navbar />
+      <Navbar width={windowWidth} />
       <div className="posts">
         <div className="messages">
           <div className="message_left">
@@ -48,7 +56,7 @@ const Messages = ({ setProgress }) => {
           </div>
           <div className="message_right">
             {info ? (
-              <MessageBody info={info} />
+              <MessageBody info={info} setInfo={setInfo} />
             ) : (
               <div className="messageicon">
                 <div className="chaticon">
@@ -66,6 +74,10 @@ const Messages = ({ setProgress }) => {
       </div>
     </div>
   );
+};
+
+Messages.propTypes = {
+  setProgress: PropType.func,
 };
 
 export default Messages;

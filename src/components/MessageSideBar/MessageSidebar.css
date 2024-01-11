@@ -1,14 +1,29 @@
-.currentuser{
-    padding: 20px 0px 0px 20px;
-    display: flex;
-    flex-direction: column;
+.currentuser {
+  display: flex;
+  flex-direction: column;
 }
-.head{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 20px 20px 0px 20px;
+.message_subheader {
+  padding: 20px 0px 0px 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
 }
-.friends{
-    padding: 15px;
+.head {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px 20px 0px 20px;
+}
+.friends {
+  padding: 15px;
+}
+.back {
+  cursor: pointer;
+  display: none;
+}
+@media screen and (max-width: 770px) {
+  .back {
+    display: block;
+  }
 }

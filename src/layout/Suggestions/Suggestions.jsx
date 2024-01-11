@@ -164,7 +164,7 @@ function Suggestions(props) {
         </div>
         <div className="suggestions__usernames">
           <div className="usersuggestions">
-            {user.map((post) => (
+            {user.slice(0, 6).map((post) => (
               <Profilebar post={post} key={post._id} />
             ))}
           </div>

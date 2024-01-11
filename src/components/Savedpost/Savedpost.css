@@ -46,15 +46,23 @@
   height: 1px;
   width: 1px;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   clip: rect(1px, 1px, 1px, 1px);
 }
-
+.gallery-item-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .gallery-item-info li {
   display: inline-block;
   font-size: 1.7rem;
   font-weight: 600;
 }
 .gallery-item-info > ul {
+  display: flex;
   background-color: transparent;
 }
 .gallery-item-info > ul > li {
@@ -74,4 +82,10 @@
   top: 1rem;
   right: 1rem;
   font-size: 2.5rem;
+}
+
+@media screen and (max-width: 735px) {
+  .gallery-item-info li {
+    font-size: 1rem;
+  }
 }

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
 import "./Savedpost.css";
+import propTypes from "prop-types";
 
 const Profile = ({ data }) => {
   return (
@@ -21,13 +22,17 @@ const Profile = ({ data }) => {
                   <ul>
                     <li className="gallery-item-likes cl">
                       <span className="visually-hidden">Likes:</span>
-                      <FavoriteIcon />
-                      {post.likes.length}
+                      <div className="gallery-item-div">
+                        <FavoriteIcon />
+                        {post.likes.length}
+                      </div>
                     </li>
                     <li className="gallery-item-comments cl">
                       <span className="visually-hidden">Comments:</span>
-                      <CommentIcon />
-                      {post.comments.length}
+                      <div className="gallery-item-div">
+                        <CommentIcon />
+                        {post.comments.length}
+                      </div>
                     </li>
                   </ul>
                 </div>
@@ -38,6 +43,10 @@ const Profile = ({ data }) => {
       })}
     </div>
   );
+};
+
+Profile.propTypes = {
+  data: propTypes.array.isRequired,
 };
 
 export default Profile;

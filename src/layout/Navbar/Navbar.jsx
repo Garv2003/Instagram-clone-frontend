@@ -13,6 +13,7 @@ import { CgProfile } from "react-icons/cg";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BiSolidMoviePlay } from "react-icons/bi";
 import { RiMessengerLine } from "react-icons/ri";
+import PropType from "prop-types";
 
 // import { UseTheme } from "../../Context/Theme/ThemeContext";
 
@@ -30,12 +31,11 @@ const NavigationButton = ({ icon, text, to }) => {
   );
 };
 
-const Navbar = () => {
+const Navbar = ({ width }) => {
   const [open, setOpen] = useState(false);
   // const { Theme } = UseTheme();
-
   return (
-    <div className="navbar">
+    <div className="navbar" style={width <= 770 ? { display: "none" } : {}}>
       <div className="navlist">
         <Link to="/">
           <img className="logo" src={InstagramLogo} alt="Instagram Logo" />
@@ -96,6 +96,16 @@ const Navbar = () => {
       </div>
     </div>
   );
+};
+
+NavigationButton.propTypes = {
+  icon: PropType.element,
+  text: PropType.string,
+  to: PropType.string,
+};
+
+Navbar.propTypes = {
+  width: PropType.number,
 };
 
 export default Navbar;

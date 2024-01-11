@@ -1,27 +1,29 @@
 import React from "react";
 import "./MessageSidebar.css";
-import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { Link, useNavigate } from "react-router-dom";
 import { AccountCircle } from "@mui/icons-material";
 import { AuthContext } from "../../Context/Auth/AuthContext";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 const MessageSidebar = ({ user, handleData }) => {
   const { Id } = React.useContext(AuthContext);
+  const navigate = useNavigate();
   return (
     <>
       <div className="message_header">
         <div>
-          <div className="currentuser">
-            {user.map((post) => {
-              return (
-                <div key={post._id}>
-                  {post._id === Id? (
-                    <div>{post.username}</div>
-                  ) : (
-                    <></>
-                  )}
-                </div>
-              );
-            })}
+          <div className="message_subheader">
+            <IoMdArrowRoundBack onClick={() => navigate(-1)} className="back" />
+            <div className="currentuser">
+              {user.map((post) => {
+                return (
+                  <div key={post._id}>
+                    {post._id === Id ? <div>{post.username}</div> : <></>}
+                  </div>
+                );
+              })}
+            </div>
           </div>
           <div className="head">
             <div>Messages</div>
@@ -44,14 +46,11 @@ const MessageSidebar = ({ user, handleData }) => {
                           alt="profile"
                         />
                       ) : (
-                        <AccountCircle sx={{fontSize:35}}/>
+                        <AccountCircle sx={{ fontSize: 35 }} />
                       )}
                     </Link>
                     <div className="username__info">
-                      <Link
-                        to={`/sp/${post._id}`}
-                        className="username cl"
-                      >
+                      <Link to={`/sp/${post._id}`} className="username cl">
                         {post.username}
                       </Link>
                       <span className="relation">New to Instagram</span>
@@ -75,6 +74,11 @@ const MessageSidebar = ({ user, handleData }) => {
       </div>
     </>
   );
+};
+
+MessageSidebar.propTypes = {
+  user: PropTypes.array,
+  handleData: PropTypes.func,
 };
 
 export default MessageSidebar;
