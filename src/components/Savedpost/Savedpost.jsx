@@ -5,6 +5,7 @@ import "./Savedpost.css";
 import propTypes from "prop-types";
 
 const Profile = ({ data }) => {
+  console.log(data);
   return (
     <div className="gallery">
       {data.map((post) => {
