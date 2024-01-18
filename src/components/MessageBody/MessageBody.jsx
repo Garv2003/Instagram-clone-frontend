@@ -1,41 +1,36 @@
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Avatar } from "@mui/material";
-import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
-import SendRoundedIcon from "@mui/icons-material/SendRounded";
-import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
-import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
+import { RxAvatar } from "react-icons/rx";
+import { IoEllipsisHorizontalSharp } from "react-icons/io5";
+import { IoSend } from "react-icons/io5";
+import { MdEmojiEmotions } from "react-icons/md";
+import { MdInsertPhoto } from "react-icons/md";
 import Picker from "emoji-picker-react";
 import axios from "axios";
-import { io } from "socket.io-client";
 import "./MessageBody.css";
-import { AuthContext } from "../../Context/Auth/AuthContext";
+import { UseAuth } from "../../Context/Auth/AuthContext";
 import PropType from "prop-types";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { UseSocket } from "../../Context/Socket/SocketContext";
+import { RotatingLines } from "react-loader-spinner";
+import { MdError } from "react-icons/md";
 
-const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
-const socketUrl = import.meta.env.VITE_APP_SOCKET_URL;
-// "ws://localhost:4444"
 const MessageBody = ({ info, setInfo }) => {
-  const [User, setUser] = useState({});
-  const { Id } = useContext(AuthContext);
+  const { Id } = UseAuth();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [arrMessage, setarrMessage] = useState(null);
-  const [Status, setStatus] = useState("offline");
+  const [Status, setStatus] = useState("Offline");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [skip, setSkip] = useState(0);
+  const [total, setTotal] = useState(0);
   const [EmojiBox, setEmojiBox] = useState(false);
-  // const socket = useRef(socketUrl);
-  const socket = useRef();
+  const { socket } = UseSocket();
+
   const scrollRef = useRef();
 
   useEffect(() => {
-    socket.current = io(socketUrl, {
-      withCredentials: true,
-      extraHeaders: {
-        "my-custom-header": "abcd",
-      },
-    });
-
     socket.current.on("typingResponse", (data) => {
       setStatus(data.text);
     });
@@ -64,7 +59,6 @@ const MessageBody = ({ info, setInfo }) => {
       } else {
         setStatus("offline");
       }
-      setUser(user[0]);
     });
   }, [info]);
 
@@ -80,12 +74,12 @@ const MessageBody = ({ info, setInfo }) => {
       setMessages((messages) => [...messages, message]);
       setNewMessage("");
       await axios
-        .post(`${API_URL}/message/addmessage`, {
+        .post(`${import.meta.env.VITE_APP_BACKEND_URL}/message/addmessage`, {
           from: Id,
           to: info._id,
           message: newMessage,
         })
-        .then((res) => {
+        .then(() => {
           message = "";
         })
         .catch((err) => {
@@ -96,16 +90,19 @@ const MessageBody = ({ info, setInfo }) => {
 
   useEffect(() => {
     const getmessages = async () => {
+      setLoading(true);
       await axios
-        .post(`${API_URL}/message/getmessage`, {
+        .post(`${import.meta.env.VITE_APP_BACKEND_URL}/message/getmessage`, {
           from: Id,
           to: info._id,
         })
         .then((res) => {
           setMessages(res.data);
+          setLoading(false);
         })
         .catch((err) => {
-          console.log(err);
+          setError(err.message);
+          setLoading(false);
         });
     };
     getmessages();
@@ -119,16 +116,20 @@ const MessageBody = ({ info, setInfo }) => {
     socket.current.emit("typing", {
       senderId: Id,
       receiverId: info._id,
-      text: type ? "typing..." : "online",
+      text: type ? "Typing..." : "Online",
     });
   };
+
   return (
     <div className="messagebody">
       <div className="messagebody_top">
         <div>
           <div className="topicon">
             <IoMdArrowRoundBack
+              className="back"
               onClick={() => {
+                document.querySelector(".message_left").style.display = "block";
+                document.querySelector(".message_right").style.display = "none";
                 setInfo(null);
               }}
             />
@@ -141,47 +142,104 @@ const MessageBody = ({ info, setInfo }) => {
                     alt="Profile"
                   />
                 ) : (
-                  <Avatar>{info.username[0]}</Avatar>
+                  <RxAvatar className="postprofileimage" />
                 )}
               </Link>
             </div>
-            <div>{info.username}</div>
-          </div>
-          <div>
-            <p className="status">{Status}</p>
+            <div className="messagestatus">
+              <div>{info.username}</div>
+              <p className="status">{Status}</p>
+            </div>
           </div>
         </div>
 
         <div>
-          <MoreHorizRoundedIcon />
+          <IoEllipsisHorizontalSharp />
         </div>
       </div>
       <div className="message__container">
-        {messages.map((message, i) =>
-          message.senderId === Id ? (
-            <div className="message__chats" key={i}>
-              <p className="sender__name">You</p>
-              <div className="message__sender">
-                <p>{message.text}</p>
+        {loading ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              minHeight: "90vh",
+            }}
+          >
+            <RotatingLines
+              strokeColor="#fafafa"
+              strokeWidth="4"
+              height="80"
+              width="80"
+            />
+          </div>
+        ) : error ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              minHeight: "90vh",
+            }}
+          >
+            <MdError
+              size="5rem"
+              style={{
+                color: "#fafafa",
+              }}
+            />
+            {error}
+          </div>
+        ) : messages.length === 0 ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              minHeight: "90vh",
+              gap: "10px",
+              fontSize: "1.5rem",
+            }}
+          >
+            No Messages{" "}
+            <span
+              style={{
+                fontSize: "1rem",
+              }}
+            >
+              Start Typing to Start a Conversation
+            </span>
+          </div>
+        ) : (
+          messages.map((message, i) =>
+            message.senderId === Id ? (
+              <div className="message__chats" key={i}>
+                <p className="sender__name">You</p>
+                <div className="message__sender">
+                  <p>{message.text}</p>
+                </div>
               </div>
-            </div>
-          ) : (
-            <div className="message__chats" key={i}>
-              <p>{info.username}</p>
-              <div className="message__recipient">
-                <p>{message.text}</p>
+            ) : (
+              <div className="message__chats" key={i}>
+                <p>{info.username}</p>
+                <div className="message__recipient">
+                  <p>{message.text}</p>
+                </div>
               </div>
-            </div>
+            )
           )
         )}
         <div ref={scrollRef}></div>
       </div>
       <div className="messagebody_footer">
         <button onClick={() => setEmojiBox(!EmojiBox)}>
-          <EmojiEmotionsIcon />
+          <MdEmojiEmotions />
         </button>
         <button>
-          <InsertPhotoIcon />
+          <MdInsertPhoto />
         </button>
         <div className="emoji">
           {EmojiBox && (
@@ -209,7 +267,7 @@ const MessageBody = ({ info, setInfo }) => {
           }}
         />
         <button onClick={handleSendMessage}>
-          <SendRoundedIcon />
+          <IoSend />
         </button>
       </div>
     </div>

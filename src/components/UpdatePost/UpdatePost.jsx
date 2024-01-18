@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState, useMemo } from "react";
 import Navbar from "../../layout/Navbar/Navbar";
 import { ColorRing } from "react-loader-spinner";
-import "./Create.css";
-import Bar from "../../components/Bar/Bar";
+import "./UpdatePost.css";
+import Bar from "../Bar/Bar";
 import PropType from "prop-types";
 import { useDropzone } from "react-dropzone";
 import { UseAuth } from "../../Context/Auth/AuthContext";
@@ -19,7 +19,7 @@ import { FaPlay } from "react-icons/fa";
 import { BsVolumeMuteFill } from "react-icons/bs";
 import { BsVolumeUpFill } from "react-icons/bs";
 
-const Create = ({ setProgress }) => {
+const UpdatePost = ({ setProgress }) => {
   document.title = "Create new Post • Instagram";
   const { info } = UseAuth();
   const [caption, setCaption] = useState("");
@@ -209,8 +209,10 @@ const Create = ({ setProgress }) => {
             )}
             {success && (
               <div className="success">
-                <img src={Right} alt="Success" 
-                style={{width:"100px",height:"100px"}}
+                <img
+                  src={Right}
+                  alt="Success"
+                  style={{ width: "100px", height: "100px" }}
                 />
                 <div>{success}</div>
               </div>
@@ -452,8 +454,8 @@ const Create = ({ setProgress }) => {
   );
 };
 
-Create.propTypes = {
-  setProgress: PropType.func.isRequired,
+UpdatePost.propTypes = {
+  setProgress: PropType.func,
 };
 
-export default Create;
+export default UpdatePost;

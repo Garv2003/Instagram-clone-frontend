@@ -2,12 +2,14 @@ import React from "react";
 import "./MessageSidebar.css";
 import PropTypes from "prop-types";
 import { Link, useNavigate } from "react-router-dom";
-import { AccountCircle } from "@mui/icons-material";
+import { RxAvatar } from "react-icons/rx";
 import { AuthContext } from "../../Context/Auth/AuthContext";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { TailSpin } from "react-loader-spinner";
+import { MdError } from "react-icons/md";
 
-const MessageSidebar = ({ user, handleData }) => {
-  const { Id } = React.useContext(AuthContext);
+const MessageSidebar = ({ user, handleData, loading, error }) => {
+  const { info } = React.useContext(AuthContext);
   const navigate = useNavigate();
   return (
     <>
@@ -16,13 +18,7 @@ const MessageSidebar = ({ user, handleData }) => {
           <div className="message_subheader">
             <IoMdArrowRoundBack onClick={() => navigate(-1)} className="back" />
             <div className="currentuser">
-              {user.map((post) => {
-                return (
-                  <div key={post._id}>
-                    {post._id === Id ? <div>{post.username}</div> : <></>}
-                  </div>
-                );
-              })}
+              <div>{info.username}</div>
             </div>
           </div>
           <div className="head">
@@ -31,11 +27,42 @@ const MessageSidebar = ({ user, handleData }) => {
           </div>
         </div>
       </div>
-      <div className="friends">
-        {user.map((post) => {
-          return (
-            <div key={post._id}>
-              {post._id !== Id ? (
+      {loading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "80vh",
+          }}
+        >
+          <TailSpin
+            visible={true}
+            height="80"
+            width="80"
+            color="#afafaf"
+            ariaLabel="tail-spin-loading"
+            radius="1"
+          />
+        </div>
+      ) : error ? (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "80vh",
+          }}
+        >
+          <MdError />
+          {error}
+        </div>
+      ) : (
+        <div className="friends">
+          {user.map((post) => {
+            return (
+              <div key={post._id}>
                 <div className="suggestions__username">
                   <div className="username__left">
                     <Link to={`/sp/${post._id}`} className="avatar cl">
@@ -46,7 +73,7 @@ const MessageSidebar = ({ user, handleData }) => {
                           alt="profile"
                         />
                       ) : (
-                        <AccountCircle sx={{ fontSize: 35 }} />
+                        <RxAvatar className="postprofileimage" />
                       )}
                     </Link>
                     <div className="username__info">
@@ -65,13 +92,11 @@ const MessageSidebar = ({ user, handleData }) => {
                     Message
                   </button>
                 </div>
-              ) : (
-                <></>
-              )}
-            </div>
-          );
-        })}
-      </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </>
   );
 };
@@ -79,6 +104,8 @@ const MessageSidebar = ({ user, handleData }) => {
 MessageSidebar.propTypes = {
   user: PropTypes.array,
   handleData: PropTypes.func,
+  loading: PropTypes.bool,
+  error: PropTypes.string,
 };
 
 export default MessageSidebar;

@@ -11,11 +11,15 @@ const Profile = ({ data }) => {
         return (
           <div className="gallery-item" key={post._id}>
             <div>
-              <img
-                className="gallery-post"
-                loading="lazy"
-                src={post.ImageUrl}
-              />
+              {post.type === "image" ? (
+                <img
+                  className="gallery-post"
+                  loading="lazy"
+                  src={post.ImageUrl}
+                />
+              ) : (
+                <video className="gallery-post" src={post.ImageUrl} />
+              )}
               <div />
               <Link to={`/p/${post._id}`}>
                 <div className="gallery-item-info">

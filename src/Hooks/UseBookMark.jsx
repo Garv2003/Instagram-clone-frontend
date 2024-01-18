@@ -8,6 +8,7 @@ export default function UseBookMark(INITIAL_VALUE) {
   const bookmarkPostAction = async (id, action) => {
     if (action === true) {
       try {
+        setBookmark(true);
         await axios.put(
           `${API_URL}/post/bookmark`,
           {
@@ -19,12 +20,12 @@ export default function UseBookMark(INITIAL_VALUE) {
             },
           }
         );
-        setBookmark(true);
       } catch (error) {
-        console.error("Error bookmarking post:", error);
+        setBookmark(false);
       }
     } else {
       try {
+        setBookmark(false);
         await axios.put(
           `${API_URL}/post/unbookmark`,
           {
@@ -36,15 +37,10 @@ export default function UseBookMark(INITIAL_VALUE) {
             },
           }
         );
-        setBookmark(false);
       } catch (error) {
-        console.error("Error bookmarking post:", error);
+        setBookmark(true);
       }
     }
   };
   return { bookmark, setBookmark, bookmarkPostAction };
 }
-
-
-
-

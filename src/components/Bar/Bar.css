@@ -7,10 +7,7 @@
   position: sticky;
   top: 0;
   z-index: 5;
-  background: black;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-   background-color: rgb(26, 26, 26);
+  background-color: rgb(26, 26, 26);
 }
 
 .bar_header span {
@@ -30,9 +27,8 @@
   color: inherit;
 }
 
-
-@media screen and (max-width:770px) {
-  .bar_header{
-      display: flex;
+@media screen and (max-width: 770px) {
+  .bar_header {
+    display: flex;
   }
 }

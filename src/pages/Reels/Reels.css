@@ -1,10 +1,18 @@
 .reels {
-  width: 700px;
-  margin: auto;
+  width: 100%;
 }
-
-@media screen and (max-width:750px) {
-    .reels{
-        width: 100vw;
-    }
+.postBox {
+  width: 100%;
+  scroll-snap-type: y mandatory;
+  overflow: scroll; 
+  overflow-x: hidden;
+  height: 100vh;
+}
+@media screen and (max-width: 750px) {
+  .reels {
+    width: 100vw;
+  }
+  .postBox {
+    height: 85vh;
+  }
 }

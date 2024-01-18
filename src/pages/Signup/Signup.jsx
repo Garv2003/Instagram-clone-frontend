@@ -1,98 +1,41 @@
-import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../Login/Login.css";
-import { useEffect, useState, useRef } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { useEffect } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import "react-toastify/dist/ReactToastify.css";
 import { RotatingLines } from "react-loader-spinner";
+import PropType from "prop-types";
+import UseLogin from "../../Hooks/UseLogin";
 
 function Signup({ setProgress }) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setname] = useState("");
-  const [email, setemail] = useState("");
-  const [confirmpassword, setConfirmPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const passwordhidden = useRef(null);
-  const confirmpasswordhidden = useRef(null);
-  const [loading, setLoading] = useState(false);
-
-  const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
+  const {
+    username,
+    password,
+    name,
+    email,
+    confirmpassword,
+    setUsername,
+    setPassword,
+    setname,
+    setemail,
+    setConfirmPassword,
+    showPassword,
+    changeVisibility,
+    passwordhidden,
+    confirmpasswordhidden,
+    changeVisibility2,
+    loading,
+    handleRegister,
+    showPassword2,
+  } = UseLogin(setProgress);
 
   useEffect(() => {
     setProgress(100);
-    if (showPassword) {
-      passwordhidden.current.type = "text";
-      confirmpasswordhidden.current.type = "text";
-    } else {
-      passwordhidden.current.type = "password";
-      confirmpasswordhidden.current.type = "password";
-    }
-  }, [setProgress, passwordhidden, confirmpasswordhidden]);
-
-  function changeVisibility() {
-    if (passwordhidden.current.type === "password") {
-      passwordhidden.current.type = "text";
-      confirmpasswordhidden.current.type = "text";
-      setShowPassword(true);
-    } else {
-      passwordhidden.current.type = "password";
-      confirmpasswordhidden.current.type = "password";
-      setShowPassword(false);
-    }
-  }
-
-  const navigate = useNavigate();
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    if (!username || !password || !name || !email) {
-      toast.error("Please fill all the fields", {
-        theme: "dark",
-      });
-      return;
-    } else if (password !== confirmpassword) {
-      toast.error("Passwords do not match", {
-        theme: "dark",
-      });
-      return;
-    }
-    const data = { username, name, password, email };
-    setPassword("");
-    setConfirmPassword("");
-    setUsername("");
-    setemail("");
-    setname("");
-    try {
-      setLoading(true);
-      await axios
-        .post(`${API_URL}/auth/register`, {
-          data,
-        })
-        .then((res) => {
-          setLoading(false);
-          if (res.data.success) {
-            toast.success(res.data.message, {
-              theme: "dark",
-            });
-            navigate("/login");
-          } else {
-            toast.error(res.data.message, {
-              theme: "dark",
-            });
-          }
-        });
-    } catch (error) {
-      setLoading(false);
-      toast.error("An error occurred while signing up.", {
-        theme: "dark",
-      });
-    }
-  };
+    document.title = "Instagram Sign up";
+  }, [setProgress]);
 
   return (
     <>
-      <ToastContainer />
       <div className="containerlogin">
         <div className="box1">
           <div className="headinglogin"></div>
@@ -163,11 +106,11 @@ function Signup({ setProgress }) {
               <div
                 className="eye"
                 onClick={() => {
-                  changeVisibility();
+                  changeVisibility2();
                 }}
               >
                 <VisibilityIcon
-                  sx={{ color: showPassword ? "black" : "gray", fontSize: 20 }}
+                  sx={{ color: showPassword2 ? "black" : "gray", fontSize: 20 }}
                 />
               </div>
               {/* <label for="password" className="login-label">
@@ -206,8 +149,13 @@ function Signup({ setProgress }) {
           </p>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }
+
+Signup.propTypes = {
+  setProgress: PropType.func.isRequired,
+};
 
 export default Signup;

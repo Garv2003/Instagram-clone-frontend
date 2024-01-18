@@ -51,12 +51,12 @@
     font-size: 20px;
     color: white;
 }
-.searchbody{
+.search_body{
     max-width: 500px;
     width: 100%;
     min-height: 210px;
 }
-.searchname{
+.search_name{
     text-align: center;
 }
 .search_icon_heading{

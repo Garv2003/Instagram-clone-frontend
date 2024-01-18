@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -9,6 +9,7 @@ import { AuthContext } from "../../Context/Auth/AuthContext";
 import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import PropTypes from "prop-types";
 
 const CommentBar = ({
   comment,
@@ -147,6 +148,13 @@ const CommentBar = ({
       </div>
     </>
   );
+};
+
+CommentBar.propTypes = {
+  comment: PropTypes.object.isRequired,
+  handleReply: PropTypes.func.isRequired,
+  handleDeleteComment: PropTypes.func.isRequired,
+  handleEditComment: PropTypes.func.isRequired,
 };
 
 export default CommentBar;

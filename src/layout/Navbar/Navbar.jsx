@@ -14,6 +14,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { BiSolidMoviePlay } from "react-icons/bi";
 import { RiMessengerLine } from "react-icons/ri";
 import PropType from "prop-types";
+import { UseAuth } from "../../Context/Auth/AuthContext";
 
 // import { UseTheme } from "../../Context/Theme/ThemeContext";
 
@@ -33,6 +34,7 @@ const NavigationButton = ({ icon, text, to }) => {
 
 const Navbar = ({ width }) => {
   const [open, setOpen] = useState(false);
+  const { info } = UseAuth();
   // const { Theme } = UseTheme();
   return (
     <div className="navbar" style={width <= 770 ? { display: "none" } : {}}>
@@ -80,11 +82,18 @@ const Navbar = ({ width }) => {
             text="Create"
             to="/create"
           />
-          <NavigationButton
-            icon={<CgProfile className="icon" />}
-            text="Profile"
-            to="/profile"
-          />
+          <Link to="/profile" className="navbutton cl">
+            {info.profileImage ? (
+              <img
+                src={info.profileImage}
+                alt="profile"
+                className="profile_image"
+              />
+            ) : (
+              <CgProfile className="icon" id="pro_icon" />
+            )}
+            <span>Profile</span>
+          </Link>
         </div>
         <div className="navbutton_more">
           {open && <Popup Open={open} onClose={() => setOpen(false)} />}

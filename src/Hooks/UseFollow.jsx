@@ -1,29 +1,16 @@
 import { useState } from "react";
 import axios from "axios";
-
-const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
+import { UseAuth } from "../Context/Auth/AuthContext";
 
 export default function UseFollow(INITIALVALUE) {
   const [follow, setFollow] = useState(INITIALVALUE);
-  
+  const { followers, setFollowers } = UseAuth();
   const handleFollowAction = async (id, action) => {
-    try {
-      if (action === true) {
-        await axios.put(
-          `${API_URL}/user/follow`,
-          {
-            followId: id,
-          },
-          {
-            headers: {
-              Authorization: localStorage.getItem("token"),
-            },
-          }
-        );
+    if (action === true) {
+      try {
         setFollow(true);
-      } else if (action === false) {
         await axios.put(
-          `${API_URL}/user/unfollow`,
+          `${import.meta.env.VITE_APP_BACKEND_URL}/user/follow`,
           {
             followId: id,
           },
@@ -33,10 +20,29 @@ export default function UseFollow(INITIALVALUE) {
             },
           }
         );
+        setFollowers([...followers, id]);
+      } catch (error) {
         setFollow(false);
       }
-    } catch (error) {
-      console.error("Error following user:", error);
+    } else if (action === false) {
+      try {
+        setFollow(false);
+        await axios.put(
+          `${import.meta.env.VITE_APP_BACKEND_URL}/user/unfollow`,
+          {
+            followId: id,
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        );
+        const newFollowers = followers.filter((item) => item !== id);
+        setFollowers(newFollowers);
+      } catch (error) {
+        setFollow(true);
+      }
     }
   };
 

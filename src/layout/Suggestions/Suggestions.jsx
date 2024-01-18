@@ -1,68 +1,28 @@
-import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Profilebar from "../../components/ProfileBar/ProfileBar";
 import "./Suggestions.css";
 import { RxCross2 } from "react-icons/rx";
-import { AuthContext } from "../../Context/Auth/AuthContext";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
-const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
 import { RotatingLines } from "react-loader-spinner";
 import { IoPersonCircleSharp } from "react-icons/io5";
+import PropType from "prop-types";
+import UseLogin from "../../Hooks/UseLogin";
+import { UseAuth } from "../../Context/Auth/AuthContext";
 
 function Suggestions(props) {
-  const { user } = props;
-  const { info } = React.useContext(AuthContext);
-  const [open, setOpen] = React.useState(false);
-  const [username, setUsername] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
+  const { info } = UseAuth();
+  const { user, setProgress } = props;
+  const [open, setOpen] = useState(false);
+  const { username, password, setUsername, setPassword, loading, handleLogin } =
+    UseLogin(setProgress);
 
   const handleClose = () => {
     setOpen(false);
   };
   const handleOpen = () => {
     setOpen(true);
-  };
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    if (!username || !password) {
-      toast.error("Please fill all the fields");
-      return;
-    }
-    if (username === info.username) {
-      toast.error("You are already logged in");
-      return;
-    }
-    try {
-      const response = await axios.post(`${API_URL}/auth/login`, {
-        username,
-        password,
-      });
-      setLoading(true);
-      if (!response.data.success) {
-        toast.error(response.data.msg, {
-          theme: "dark",
-        });
-        setLoading(false);
-        return;
-      }
-      toast.success("Login Success", {
-        theme: "dark",
-      });
-      setLoading(false);
-      setTimeout(() => {
-        localStorage.setItem("token", response.data.token);
-        window.location.assign("/profile");
-      }, 500);
-    } catch (error) {
-      setLoading(false);
-      toast.error("An error occurred while logging in.", {
-        theme: "dark",
-      });
-    }
   };
 
   return (
@@ -164,7 +124,7 @@ function Suggestions(props) {
         </div>
         <div className="suggestions__usernames">
           <div className="usersuggestions">
-            {user.slice(0, 6).map((post) => (
+            {user.slice(0, 5).map((post) => (
               <Profilebar post={post} key={post._id} />
             ))}
           </div>
@@ -182,5 +142,10 @@ function Suggestions(props) {
     </>
   );
 }
+
+Suggestions.propTypes = {
+  user: PropType.array,
+  setProgress: PropType.func,
+};
 
 export default Suggestions;

@@ -20,16 +20,14 @@
   align-items: center;
   flex-direction: column;
   border: 1px solid gray;
-  border-radius: 1px;
+  border-radius: 5px;
   margin: 0 0 10px;
   padding: 30px;
-  color: wh;
   flex-grow: 1;
 }
 
 .headinglogin {
   margin: 25px auto 15px;
-  /* background-image: url("https://www.pngkey.com/png/full/828-8286178_mackeys-work-needs-no-elaborate-presentation-or-distracting.png"); */
   background-image: url("../../assets/instagram-logo.png");
   background-position: 0;
   background-size: 200px;

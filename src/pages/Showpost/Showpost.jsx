@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState, useContext, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -11,7 +11,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import "./Showpost.css";
 import { IoPersonCircleSharp } from "react-icons/io5";
-import { AuthContext } from "../../Context/Auth/AuthContext";
+import { UseAuth } from "../../Context/Auth/AuthContext";
 import { formatInstagramDate } from "../../utils/utils";
 import CommentBar from "../../components/CommentBar/CommentBar";
 import Picker from "emoji-picker-react";
@@ -21,12 +21,15 @@ import UseLike from "../../Hooks/UseLike";
 import UseBookMark from "../../Hooks/UseBookMark";
 import UseComment from "../../Hooks/UseComment";
 import UseShowPost from "../../Hooks/UseShowPost";
-
-const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
+import PropTypes from "prop-types";
+import { FaPlay } from "react-icons/fa";
+import { BsVolumeMuteFill } from "react-icons/bs";
+import { BsVolumeUpFill } from "react-icons/bs";
+import UsePrev from "../../Hooks/UsePrev";
 
 const Showpost = ({ setProgress }) => {
   const { id } = useParams();
-  const { Id } = useContext(AuthContext);
+  const { Id } = UseAuth();
   const scrollRef = useRef();
 
   const [post, setPost] = useState({
@@ -41,7 +44,39 @@ const Showpost = ({ setProgress }) => {
     likes: [],
     bookmarks: [],
     date: "",
+    type: "",
   });
+  ``;
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [play, setPlay] = useState(false);
+  const [volume, setVolume] = useState(true);
+
+  const video = useRef(null);
+
+  const VideoPlayer = useMemo(() => {
+    if (post.type === "image") return null;
+    return (
+      <video
+        src={post.ImageUrl}
+        alt="preview"
+        className="preview_image"
+        id="video"
+        ref={video}
+        onClick={playVideo}
+      />
+    );
+  }, [video, post.type, post.ImageUrl]);
+
+  function playVideo() {
+    if (video.current.paused) {
+      video.current.play();
+      document.querySelector(".play").style.display = "none";
+    } else {
+      video.current.pause();
+      document.querySelector(".play").style.display = "flex";
+    }
+  }
 
   const {
     comment,
@@ -57,7 +92,8 @@ const Showpost = ({ setProgress }) => {
   const { follow, setFollow, handleFollowAction } = UseFollow(false);
   const { like, setLike, likes, setLikes, handleLikeAction } = UseLike(false);
   const { bookmark, setBookmark, bookmarkPostAction } = UseBookMark();
-  const { handleBack, handleUpdate, handleDeletePost } = UseShowPost();
+  const { handleUpdate, handleDeletePost } = UseShowPost();
+  const { prev } = UsePrev();
   const inputref = useRef(null);
 
   useEffect(() => {
@@ -69,11 +105,14 @@ const Showpost = ({ setProgress }) => {
 
   const getPost = async () => {
     try {
-      const response = await axios.get(`${API_URL}/post/showpost/${id}`, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      });
+      const response = await axios.get(
+        `${import.meta.env.VITE_APP_BACKEND_URL}/post/showpost/${id}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
       setProgress(0);
       const postData = response.data;
       setPost(postData);
@@ -105,7 +144,6 @@ const Showpost = ({ setProgress }) => {
     setComment("");
     inputref.current.focus();
     setEditAndReply(true);
-    console.log(id);
     // try {
     //   axios.get(`http://localhost:3456/post/comment/${id}`).then((res) => {
     //     setReptlId(id);
@@ -127,7 +165,7 @@ const Showpost = ({ setProgress }) => {
             },
           }
         )
-        .then((res) => {
+        .then(() => {
           setCommentarr(
             Commentarr.filter((comment) => comment._id !== commentid)
           );
@@ -182,11 +220,86 @@ const Showpost = ({ setProgress }) => {
     }
   };
 
+  const hiddenPopup = useRef(null);
+  const [hidden, setHidden] = useState(false);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (hiddenPopup.current && !hiddenPopup.current.contains(event.target)) {
+        setHidden(false);
+      }
+
+      if (hiddenPopup.current && hiddenPopup.current.contains(event.target)) {
+        setHidden(true);
+      }
+    };
+
+    if (hidden) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    } else {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [hidden]);
+
+  const SidePopup = () => {
+    return (
+      <div className="hidden_popup" ref={hiddenPopup}>
+        {post.User_id._id === Id && (
+          <button
+            className="show_btn"
+            style={{
+              color: "red",
+              border: "none",
+            }}
+            onClick={() => handleDeletePost(post._id)}
+          >
+            Delete
+          </button>
+        )}
+        <button className="show_btn" onClick={() => handleUpdate(post._id)}>
+          Edit
+        </button>
+        {/* <div>
+            <button className="show_btn">Share</button>
+          </div> */}
+        {/* <div>
+            <button>Hide like count to others</button>
+          </div>
+          <div>
+            <button>Turn off Commenting for this post</button>
+          </div> */}
+        <Link
+          className="cl"
+          style={{
+            width: "100%",
+          }}
+          to={post.User_id._id === Id ? "/profile" : `/sp/${post.User_id._id}`}
+        >
+          <button className="show_btn">About this account</button>
+        </Link>
+        <button
+          className="show_btn"
+          onClick={() => {
+            setHidden(false);
+          }}
+        >
+          Cancel
+        </button>
+      </div>
+    );
+  };
+  const handlePopup = () => {
+    setHidden(!hidden);
+  };
   return (
     <div className="show_post">
       <div className="arrow">
         <ArrowBackIcon
-          onClick={handleBack}
+          onClick={prev}
           sx={{ fontSize: "30px", cursor: "pointer" }}
         />
       </div>
@@ -239,24 +352,34 @@ const Showpost = ({ setProgress }) => {
       <div className="show_post_box">
         <div className="showpost1">
           <div className="im">
-            <img src={post.ImageUrl} alt="Post" />
-          </div>
-          {/* <div className="showbuttons">
-            {post.User_id._id === Id && (
-              <button
-                className="showbtn"
-                onClick={() => handleDeletePost(post._id)}
-              >
-                Delete
-              </button>
+            {post.type === "image" ? (
+              <img src={post.ImageUrl} alt="Post" />
+            ) : (
+              <div className="video__container">
+                {VideoPlayer}
+                <div className="play" onClick={playVideo}>
+                  <FaPlay />
+                </div>
+                <div className="volume">
+                  {volume ? (
+                    <BsVolumeUpFill
+                      onClick={() => {
+                        video.current.muted = true;
+                        setVolume(false);
+                      }}
+                    />
+                  ) : (
+                    <BsVolumeMuteFill
+                      onClick={() => {
+                        video.current.muted = false;
+                        setVolume(true);
+                      }}
+                    />
+                  )}
+                </div>
+              </div>
             )}
-            <button className="showbtn" onClick={() => handleUpdate(post._id)}>
-              Edit
-            </button>
-            <Link className="cl" to={`/sp/${post.User_id._id}`}>
-              <button className="showbtn">About this account</button>
-            </Link>
-          </div> */}
+          </div>
         </div>
         <div className="showpost2">
           <div
@@ -311,7 +434,22 @@ const Showpost = ({ setProgress }) => {
                 </div>
               )}
             </div>
-            <MoreHorizIcon />
+            <MoreHorizIcon
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                handlePopup();
+              }}
+            />
+            {hidden && <SidePopup />}
+            <div
+              style={{
+                display: "none",
+                position: "absolute",
+                top: "0",
+              }}
+            >
+              dsldnslndlslkn
+            </div>
           </div>
           <div
             className="postp_footer bar_hidden_col"
@@ -491,6 +629,10 @@ const Showpost = ({ setProgress }) => {
       </div>
     </div>
   );
+};
+
+Showpost.propTypes = {
+  setProgress: PropTypes.func,
 };
 
 export default Showpost;

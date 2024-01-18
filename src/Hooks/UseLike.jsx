@@ -8,8 +8,10 @@ export default function UseLike(INITIAL_VALUE, INITIAL_COUNT) {
   const [likes, setLikes] = useState(INITIAL_COUNT);
 
   const handleLikeAction = async (id, action) => {
-    try {
-      if (action) {
+    if (action) {
+      try {
+        setLike(true);
+        setLikes(likes + 1);
         await axios.put(
           `${API_URL}/post/like`,
           {
@@ -21,9 +23,14 @@ export default function UseLike(INITIAL_VALUE, INITIAL_COUNT) {
             },
           }
         );
-        setLike(true);
-        setLikes(likes + 1);
-      } else {
+      } catch (error) {
+        setLike(false);
+        setLikes(likes - 1);
+      }
+    } else {
+      try {
+        setLike(false);
+        setLikes(likes - 1);
         await axios.put(
           `${API_URL}/post/unlike`,
           {
@@ -35,11 +42,10 @@ export default function UseLike(INITIAL_VALUE, INITIAL_COUNT) {
             },
           }
         );
-        setLike(false);
-        setLikes(likes - 1);
+      } catch (error) {
+        setLike(true);
+        setLikes(likes + 1);
       }
-    } catch (error) {
-      console.error("Error liking post:", error);
     }
   };
 

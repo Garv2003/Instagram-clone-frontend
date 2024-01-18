@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState, useContext } from "react";
 import axios from "axios";
-
+import PropType from "prop-types";
 const apiEndpoint = import.meta.env.VITE_APP_BACKEND_URL;
 
 export const AuthContext = createContext();
@@ -9,7 +9,9 @@ export const AuthProvider = ({ children }) => {
   const [info, setInfo] = useState({});
   const [Id, setId] = useState("");
   const [loading, setLoading] = useState(true);
-
+  const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,22 +29,40 @@ export const AuthProvider = ({ children }) => {
           const responseData = response.data;
           setInfo(responseData);
           setId(responseData._id);
+          setFollowers(responseData.followers);
+          setFollowing(responseData.following);
         }
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        localStorage.removeItem("token");
+        window.location.assign("/login");
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [localStorage.getItem("token")]);
+  }, [localStorage.getItem("token"), window.location.pathname]);
 
   return (
-    <AuthContext.Provider value={{ info, setInfo, Id, loading }}>
+    <AuthContext.Provider
+      value={{
+        info,
+        setInfo,
+        Id,
+        loading,
+        followers,
+        setFollowers,
+        following,
+        setFollowing,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
+};
+
+AuthProvider.propTypes = {
+  children: PropType.node.isRequired,
 };
 
 export function UseAuth() {

@@ -5,10 +5,16 @@ import Savedpost from "../../components/Savedpost/Savedpost";
 import Navbar from "../../layout/Navbar/Navbar";
 import axios from "axios";
 import Bar from "../../components/Bar/Bar";
+import PropType from "prop-types";
+const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
+import { RotatingLines } from "react-loader-spinner";
+import { MdError } from "react-icons/md";
 
 const Explore = ({ setProgress }) => {
   const [posts, setPosts] = useState([]);
-  const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     setProgress(10);
     getdata();
@@ -17,13 +23,20 @@ const Explore = ({ setProgress }) => {
     setProgress(100);
   }, [setProgress]);
   const getdata = async () => {
-    const res = await axios.get(`${API_URL}/post/explore`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
-      },
-    });
-    setPosts(res.data);
+    try {
+      await axios
+        .get(`${API_URL}/post/explore`, {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        })
+        .then((res) => {
+          setPosts(res.data);
+          setLoading(false);
+        });
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (
@@ -32,7 +45,40 @@ const Explore = ({ setProgress }) => {
       <div className="posts">
         <Bar text="Explore" />
         <div className="explore">
-          <Savedpost data={posts} />
+          {loading ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                minHeight: "90vh",
+              }}
+            >
+              <RotatingLines
+                strokeColor="#fafafa"
+                strokeWidth="4"
+                height="80"
+                width="80"
+              />
+            </div>
+          ) : error ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+                gap: "10px",
+                alignItems: "center",
+                minHeight: "50vh",
+                fontSize: "2rem",
+              }}
+            >
+              <MdError />
+              {error}
+            </div>
+          ) : (
+            <Savedpost data={posts} />
+          )}
           <div className="explore_footer">
             <ProfileFooter />
           </div>
@@ -40,6 +86,10 @@ const Explore = ({ setProgress }) => {
       </div>
     </div>
   );
+};
+
+Explore.propTypes = {
+  setProgress: PropType.func.isRequired,
 };
 
 export default Explore;

@@ -4,21 +4,22 @@ import { IoIosSettings } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import Settingpopup from "../Settingpopup/Settingpopup";
 import axios from "axios";
-import PostLoader from "../PostLoader/PostLoader";
+import { RotatingLines } from "react-loader-spinner";
 import { IoPersonCircleSharp } from "react-icons/io5";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
+import PropType from "prop-types";
+import { UseAuth } from "../../Context/Auth/AuthContext";
 
 const ProfileHeader = ({ User, length, followers, following }) => {
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [onsetting, setOnsetting] = useState(false);
   const [profileImage, setProfileImage] = useState(User.profileImage);
   const [loading, setLoading] = useState(false);
   const hiddenInput = useRef(null);
+  const { info, setInfo } = UseAuth();
+
   useEffect(() => {
     setProfileImage(User.profileImage);
   }, [User]);
@@ -34,10 +35,11 @@ const ProfileHeader = ({ User, length, followers, following }) => {
   const uploading = async (e) => {
     const token = localStorage.getItem("token");
     const file = e.target.files[0];
+    if (!file) return;
     setLoading(true);
     try {
       const res = await axios.post(
-        `${API_URL}/post/addprofilephoto`,
+        `${import.meta.env.VITE_APP_BACKEND_URL}/post/addprofilephoto`,
         {
           ImageUrl: file,
         },
@@ -49,9 +51,11 @@ const ProfileHeader = ({ User, length, followers, following }) => {
         }
       );
       setProfileImage(res.data);
+      info.profileImage = res.data;
+      setInfo(info);
       setLoading(false);
-      toast.success("Profile Photo Upload Successfully",{
-        theme:"dark"
+      toast.success("Profile Photo Upload Successfully", {
+        theme: "dark",
       });
     } catch (error) {
       console.log(error);
@@ -66,20 +70,50 @@ const ProfileHeader = ({ User, length, followers, following }) => {
   const removeProfilePhoto = async () => {
     setLoading(true);
     try {
-      await axios.delete(`${API_URL}/post/deleteprofilephoto`, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      });
+      await axios.delete(
+        `${import.meta.env.VITE_APP_BACKEND_URL}/post/deleteprofilephoto`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
       setLoading(false);
       setProfileImage("");
-      toast.success("Profile Photo Removed Successfully",{
-        theme:"dark"
+      info.profileImage = "";
+      setInfo(info);
+      toast.success("Profile Photo Removed Successfully", {
+        theme: "dark",
       });
       setShowPopup(false);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const removeProfilePhotoPopup = () => {
+    return (
+      <div className={`ProfilePopup ${showPopup ? "show" : ""}`}>
+        <div className="popupprofile">
+          <div className="popupprofile_item1">Change Profile Photo</div>
+        </div>
+        <div className="popupprofile_item popupprofile bel" onClick={onAvatar}>
+          Upload Photo
+        </div>
+        <div
+          className="popupprofile_item rel popupprofile"
+          onClick={removeProfilePhoto}
+        >
+          Remove Current Photo
+        </div>
+        <button
+          className="popupprofile_item"
+          onClick={() => setShowPopup(false)}
+        >
+          Cancel
+        </button>
+      </div>
+    );
   };
 
   return (
@@ -94,29 +128,7 @@ const ProfileHeader = ({ User, length, followers, following }) => {
             onChange={uploading}
             style={{ display: "none" }}
           />
-          <div className={`ProfilePopup ${showPopup ? "show" : ""}`}>
-            <div className="popupprofile">
-              <div className="popupprofile_item1">Change Profile Photo</div>
-            </div>
-            <div
-              className="popupprofile_item popupprofile bel"
-              onClick={onAvatar}
-            >
-              Upload Photo
-            </div>
-            <div
-              className="popupprofile_item rel popupprofile"
-              onClick={removeProfilePhoto}
-            >
-              Remove Current Photo
-            </div>
-            <button
-              className="popupprofile_item"
-              onClick={() => setShowPopup(false)}
-            >
-              Cancel
-            </button>
-          </div>
+          {removeProfilePhotoPopup()}
           <div
             className={`overlay ${showPopup ? "open" : ""}`}
             onClick={() => setShowPopup(!showPopup)}
@@ -126,7 +138,7 @@ const ProfileHeader = ({ User, length, followers, following }) => {
               {profileImage ? (
                 <img onClick={onPhoto} src={profileImage} alt="profile" />
               ) : (
-                <button className="photobtn">
+                <button className="photobtn" disabled={loading}>
                   <IoPersonCircleSharp
                     className="profile_header_avatar"
                     onClick={onAvatar}
@@ -135,7 +147,20 @@ const ProfileHeader = ({ User, length, followers, following }) => {
               )}
               {loading && (
                 <div className="proloader">
-                  <PostLoader />
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <RotatingLines
+                      strokeColor="#fafafa"
+                      strokeWidth="4"
+                      height="80"
+                      width="80"
+                    />
+                  </div>
                 </div>
               )}
             </div>
@@ -215,6 +240,13 @@ const ProfileHeader = ({ User, length, followers, following }) => {
       </header>
     </>
   );
+};
+
+ProfileHeader.propTypes = {
+  User: PropType.object.isRequired,
+  length: PropType.number.isRequired,
+  followers: PropType.number.isRequired,
+  following: PropType.number.isRequired,
 };
 
 export default ProfileHeader;

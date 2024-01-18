@@ -1,24 +1,27 @@
-import { useNavigate } from "react-router-dom";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import "./Bar.css";
+import PropTypes from "prop-types";
+import UsePrev from "../../Hooks/UsePrev";
+import { GrFormPreviousLink } from "react-icons/gr";
 
-const Bar = (props) => {
-  const navigate = useNavigate();
-  const goBack = () => {
-    navigate(-1);
-  };
+const Bar = ({ text }) => {
+  const { prev } = UsePrev();
+
   return (
     <div className="bar_header">
       <button className="bar_header_btn">
-        <ArrowBackIcon
+        <GrFormPreviousLink
           onClick={() => {
-            goBack();
+            prev();
           }}
         />
       </button>
-      <span>{props.text}</span>
+      <span>{text}</span>
     </div>
   );
+};
+
+Bar.propTypes = {
+  text: PropTypes.string.isRequired,
 };
 
 export default Bar;

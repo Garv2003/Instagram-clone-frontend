@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Context/Auth/AuthContext";
-import { IoPersonCircleSharp } from "react-icons/io5";
+import { RxAvatar } from "react-icons/rx";
 import UseFollow from "../../Hooks/UseFollow";
+import PropType from "prop-types";
 
 const Profilebar = ({ post }) => {
   const { Id } = useContext(AuthContext);
@@ -10,53 +11,53 @@ const Profilebar = ({ post }) => {
 
   return (
     <div key={post._id}>
-      {post._id !== Id ? (
-        <div className="suggestions__username">
-          <div className="username__left">
-            <Link to={`/sp/${post._id}`} className="avatar cl">
-              {post.profileImage ? (
-                <img
-                  className="postprofileimage"
-                  src={post.profileImage}
-                  alt="profile"
-                />
-              ) : (
-                <IoPersonCircleSharp
-                  style={{
-                    fontSize: "40px",
-                    cursor: "pointer",
-                  }}
-                />
-              )}
+      <div className="suggestions__username">
+        <div className="username__left">
+          <Link to={`/sp/${post._id}`} className="avatar cl">
+            {post.profileImage ? (
+              <img
+                className="postprofileimage"
+                src={post.profileImage}
+                alt="profile"
+              />
+            ) : (
+              <RxAvatar
+                style={{
+                  fontSize: "40px",
+                  cursor: "pointer",
+                }}
+              />
+            )}
+          </Link>
+          <div className="username__info">
+            <Link to={`/sp/${post._id}`} className="username cl">
+              {post.username}
             </Link>
-            <div className="username__info">
-              <Link to={`/sp/${post._id}`} className="username cl">
-                {post.username}
-              </Link>
-              <span className="relation">New to Instagram</span>
-            </div>
+            <span className="relation">New to Instagram</span>
           </div>
-          {follow ? (
-            <button
-              className="follow__button"
-              onClick={() => handleFollowAction(post._id, false)}
-            >
-              Unfollow
-            </button>
-          ) : (
-            <button
-              className="follow__button"
-              onClick={() => handleFollowAction(post._id, true)}
-            >
-              Follow
-            </button>
-          )}
         </div>
-      ) : (
-        <div></div>
-      )}
+        {follow ? (
+          <button
+            className="follow__button"
+            onClick={() => handleFollowAction(post._id, false)}
+          >
+            Unfollow
+          </button>
+        ) : (
+          <button
+            className="follow__button"
+            onClick={() => handleFollowAction(post._id, true)}
+          >
+            Follow
+          </button>
+        )}
+      </div>
     </div>
   );
+};
+
+Profilebar.propTypes = {
+  post: PropType.object.isRequired,
 };
 
 export default Profilebar;

@@ -173,8 +173,7 @@
   gap: 20px;
   font-size: 30px;
 }
-.play
-{
+.play {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -187,8 +186,7 @@
   cursor: pointer;
   transition: 0.3s;
 }
-.volume
-{
+.volume {
   position: absolute;
   top: 5%;
   left: 5%;

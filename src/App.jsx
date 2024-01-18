@@ -15,6 +15,9 @@ import Setting from "./pages/Setting/Setting";
 import Notifications from "./pages/Notifications/Notifications";
 import Search from "./pages/Search/Search";
 import Showprofile from "./pages/Showprofile/Showprofile";
+import Proptype from "prop-types";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const [progress, setProgress] = useState(0);
@@ -29,6 +32,18 @@ const App = () => {
         color="#27c4f5 linear-gradient(to right,#27c4f5,#a307ba,#fd8d32,#70c050,#27c4f5)"
         progress={progress}
         height={3}
+      />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
       />
       <Routes>
         <Route
@@ -132,6 +147,10 @@ const App = () => {
       </Routes>
     </>
   );
+};
+
+App.propTypes = {
+  element: Proptype.element,
 };
 
 export default App;

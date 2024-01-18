@@ -1,24 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
-const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
+import { toast } from "react-toastify";
 
 export default function UseShowPost() {
   const navigate = useNavigate();
-  const handleBack = () => {
-    navigate(-1);
-  };
 
   const handleUpdate = () => {
     // axios
-    //   .post(`${API_URL}/post/updatepost/${post._id}`, {
+    //   .post(`${import.meta.env.VITE_APP_BACKEND_URL}/post/updatepost/${post._id}`, {
     //     ImageUrl: post.ImageUrl,
     //     title: post.title,
     //     description: post.description,
     //   })
     //   .then((res) => {
     //     console.log(res);
-    //   })    
+    //   })
     //   .catch((err) => {
     //     console.log(err);
     //   });
@@ -26,16 +22,23 @@ export default function UseShowPost() {
 
   const handleDeletePost = async (id) => {
     try {
-      await axios.delete(`${API_URL}/post/deletepost/${id}`, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      });
-      navigate("/profile");
+      await axios.delete(
+        `${import.meta.env.VITE_APP_BACKEND_URL}/post/deletepost/${id}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      toast.success("Post deleted successfully");
+      setTimeout(() => {
+        navigate("/profile");
+      }, 2000);
     } catch (error) {
-      console.error("Error deleting post:", error);
+      toast.error("Error deleting post");
+      // console.error("Error deleting post:", error);
     }
   };
 
-  return { handleBack, handleUpdate, handleDeletePost };
+  return { handleUpdate, handleDeletePost };
 }

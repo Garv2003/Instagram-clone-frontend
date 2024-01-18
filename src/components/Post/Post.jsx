@@ -1,23 +1,23 @@
 import { useState } from "react";
 import "./Post.css";
 import { Link } from "react-router-dom";
-import { AccountCircle } from "@mui/icons-material";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import TelegramIcon from "@mui/icons-material/Telegram";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
+import { RxAvatar } from "react-icons/rx";
+import { MdMoreHoriz } from "react-icons/md";
+import { MdOutlineFavoriteBorder } from "react-icons/md";
+import { MdOutlineChatBubbleOutline } from "react-icons/md";
+import { FaTelegramPlane } from "react-icons/fa";
+import { MdBookmarkBorder } from "react-icons/md";
+import { MdFavorite } from "react-icons/md";
+import { FaBookmark } from "react-icons/fa";
 import { UseAuth } from "../../Context/Auth/AuthContext";
 import Picker from "emoji-picker-react";
-import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
-import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
+import { MdEmojiEmotions } from "react-icons/md";
 import UseBookMark from "../../Hooks/UseBookMark";
 import UseLike from "../../Hooks/UseLike";
 import UseFollow from "../../Hooks/UseFollow";
 import UseComment from "../../Hooks/UseComment";
 import { formatInstagramDate } from "../../utils/utils";
+import PropTypes from "prop-types";
 
 const Post = ({ post }) => {
   const {
@@ -64,9 +64,12 @@ const Post = ({ post }) => {
               alt="profile"
             />
           ) : (
-            <AccountCircle style={{ fontSize: 40, marginRight: 5 }}>
-              {post.User_id.username.charAt(0).toUpperCase()}
-            </AccountCircle>
+            <RxAvatar
+              style={{
+                fontSize: "40px",
+                cursor: "pointer",
+              }}
+            />
           )}
           <Link
             to={
@@ -108,7 +111,10 @@ const Post = ({ post }) => {
             )}
           </div>
         </div>
-        <MoreHorizIcon />
+        <MdMoreHoriz
+          style={{ fontSize: "2.5rem", cursor: "pointer" }}
+          className="postIcon"
+        />
       </div>
       <div className="postp_image">
         <img src={post.ImageUrl} alt="PostImage" />
@@ -117,45 +123,52 @@ const Post = ({ post }) => {
         <div className="posticons">
           <div className="post_iconsMain">
             {like ? (
-              <FavoriteIcon
-                style={{ color: "red" }}
+              <MdFavorite
                 className="postIcon"
-                sx={{ fontSize: 45 }}
+                style={{
+                  fontSize: "3rem",
+                  color: "red",
+                }}
                 onClick={() => {
                   handleLikeAction(post._id, false);
                 }}
               />
             ) : (
-              <FavoriteBorderIcon
+              <MdOutlineFavoriteBorder
                 className="postIcon"
-                sx={{ fontSize: 45 }}
+                style={{ fontSize: "3rem" }}
                 onClick={() => {
                   handleLikeAction(post._id, true);
                 }}
               />
             )}
             <Link to={`/p/${post._id}`}>
-              <ChatBubbleOutlineIcon
-                sx={{ fontSize: 45 }}
-                className="postIcon cl"
+              <MdOutlineChatBubbleOutline
+                className="postIcon"
+                style={{ fontSize: 45 }}
               />
             </Link>
-            <TelegramIcon sx={{ fontSize: 45 }} className="postIcon" />
+            <FaTelegramPlane
+              className="postIcon"
+              style={{ fontSize: 45 }}
+              onClick={() => {
+                setComment("");
+              }}
+            />
           </div>
           <div className="post_iconsb">
             {bookmark ? (
-              <BookmarkIcon
-                style={{ color: "white" }}
+              <FaBookmark
                 className="postIcon"
-                sx={{ fontSize: 45 }}
+                style={{ fontSize: 45 }}
                 onClick={() => {
                   bookmarkPostAction(post._id, false);
                 }}
               />
             ) : (
-              <BookmarkBorderIcon
+              <MdBookmarkBorder
                 className="postIcon"
-                sx={{ fontSize: 45 }}
+                style={{ fontSize: 45 }}
                 onClick={() => {
                   bookmarkPostAction(post._id, true);
                 }}
@@ -164,8 +177,8 @@ const Post = ({ post }) => {
           </div>
         </div>
         <div>{likes} likes</div>
-        <div className="postp_title">{post.title}</div>
-        <div className="postp_description">{post.description}</div>
+        <div className="postp_title">{post.caption}</div>
+        <div className="postp_description">{post.location}</div>
       </div>
       <div className="profile_footer1">
         <Link className="cl" to={`/p/${post._id}`}>
@@ -177,7 +190,7 @@ const Post = ({ post }) => {
             onClick={() => setEmojiBox(!EmojiBox)}
             style={{ backgroundColor: "black", border: 0 }}
           >
-            <EmojiEmotionsIcon sx={{ color: "white" }} />
+            <MdEmojiEmotions style={{ fontSize: "1.8rem", color: "white" }} />
           </button>
           <div className="emoji">
             {EmojiBox && (
@@ -211,6 +224,10 @@ const Post = ({ post }) => {
       </div>
     </div>
   );
+};
+
+Post.propTypes = {
+  post: PropTypes.object.isRequired,
 };
 
 export default Post;

@@ -1,5 +1,7 @@
 import "./Setting.css";
 import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
+import PropType from "prop-types";
+
 const Setting = ({ setProgress }) => {
   document.title = "Edit Profile • Instagram";
   setProgress(100);
@@ -41,8 +43,7 @@ const Setting = ({ setProgress }) => {
           <div className="body2">
             <div className="body2_heading">Edit profile</div>
             <div className="profileinfo">
-              <div>
-              </div>
+              <div></div>
               <div>
                 <div>username</div>
                 <div>Change profile photo</div>
@@ -59,6 +60,10 @@ const Setting = ({ setProgress }) => {
       </div>
     </div>
   );
+};
+
+Setting.propTypes = {
+  setProgress: PropType.func.isRequired,
 };
 
 export default Setting;

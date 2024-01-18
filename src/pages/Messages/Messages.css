@@ -1,11 +1,13 @@
 .messages {
   display: flex;
   min-height: 100vh;
-  overflow: auto;
+  height: 100%;
 }
 .message_left {
-  flex: 0.3;
+  width: 30%;
   border-right: 1px solid gray;
+  overflow-y: auto;
+  height: 100%;
 }
 .postprofileimage {
   border-radius: 50%;
@@ -13,7 +15,7 @@
   height: 40px;
 }
 .message_right {
-  flex: 0.7;
+  width: 70%;
 }
 .chaticon {
   width: 100px;
@@ -21,19 +23,15 @@
   border: 5px solid #ccc;
   border-radius: 50%;
 }
-.messagewelcome {
-}
-.messageicon {
-  margin-top: 200px;
+.message_icon {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  justify-content: center;
+  min-height: 100vh;
+  height: 100%;
   color: #ccc;
-}
-.messageicon h1 {
-  font-weight: 500;
-  margin-top: 10px;
+  gap: 10px;
 }
 .smbtn {
   background-color: #0095f6;
@@ -49,15 +47,24 @@
   background-color: #0095f6;
 }
 
+@media screen and (max-width: 1000px) {
+  .message_icon {
+    font-size: 0.6rem;
+  }
+}
+
 @media screen and (max-width: 770px) {
   .messages {
     flex-direction: column;
   }
   .message_left {
+    width: 100%;
     border-right: none;
   }
   .message_right {
     border: none;
+    width: 100%;
+    display: none;
   }
   .messageicon {
     display: none;

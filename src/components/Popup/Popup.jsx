@@ -14,7 +14,7 @@ const Popup = ({ onClose }) => {
     showToast("Logout Successfully");
     setTimeout(() => {
       window.location.assign("/login");
-    }, 1000);
+    }, 2000);
   };
 
   const showToast = (message) => {
