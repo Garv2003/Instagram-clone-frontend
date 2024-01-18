@@ -50,6 +50,7 @@
   align-items: center;
   border-radius: 20px;
   width: 300px;
+  z-index: 1000;
 }
 .show_btn {
   width: 100%;

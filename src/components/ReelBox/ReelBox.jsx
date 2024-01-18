@@ -101,7 +101,7 @@ const Post = ({ post }) => {
 
   const handleVideoToggle = () => {
     if (videoRef.current.paused) {
-      videoRef.current.play();
+      videoRef.current.play()
       setPlaying(true);
     } else {
       videoRef.current.pause();

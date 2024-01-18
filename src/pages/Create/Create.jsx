@@ -18,6 +18,7 @@ import Right from "../../assets/Right_Logo.png";
 import { FaPlay } from "react-icons/fa";
 import { BsVolumeMuteFill } from "react-icons/bs";
 import { BsVolumeUpFill } from "react-icons/bs";
+import { toast } from "react-toastify";
 
 const Create = ({ setProgress }) => {
   document.title = "Create new Post • Instagram";
@@ -67,7 +68,8 @@ const Create = ({ setProgress }) => {
         setNext(false);
       }
     } catch (error) {
-      console.error("Error creating post:", error);
+      setError(error.response.data.message);
+      toast.error("Error in creating post");
       setLoading(false);
     } finally {
       setLoading(false);
@@ -110,7 +112,6 @@ const Create = ({ setProgress }) => {
       if (acceptedFiles[0] !== undefined) {
         setFile(acceptedFiles[0]);
         setType(acceptedFiles[0].type.split("/")[0]);
-        console.log(acceptedFiles[0].type.split("/")[0]);
         setNext(true);
         setError("");
       }
@@ -209,8 +210,10 @@ const Create = ({ setProgress }) => {
             )}
             {success && (
               <div className="success">
-                <img src={Right} alt="Success" 
-                style={{width:"100px",height:"100px"}}
+                <img
+                  src={Right}
+                  alt="Success"
+                  style={{ width: "100px", height: "100px" }}
                 />
                 <div>{success}</div>
               </div>
@@ -401,7 +404,7 @@ const Create = ({ setProgress }) => {
                 </div>
               </div>
             ) : (error.length === 0) & (success.length === 0) ? (
-              <div className="dropzone" {...getRootProps()}>
+              <div className="dropzone">
                 {" "}
                 <svg
                   aria-label="Icon to represent media such as images or videos"
@@ -435,11 +438,24 @@ const Create = ({ setProgress }) => {
                     type="file"
                     accept="image/*,video/*"
                     name="file"
-                    {...getInputProps()}
-                    onChange={(e) => setFile(e.target.files[0])}
+                    onChange={(e) => {
+                      if (e.target.files[0] !== undefined) {
+                        setFile(e.target.files[0]);
+                        setType(e.target.files[0].type.split("/")[0]);
+                        setNext(true);
+                        setError("");
+                      }
+                    }}
                     hidden
                   />
-                  <button className="submit_btn">select from device</button>
+                  <button
+                    className="submit_btn"
+                    onClick={() => {
+                      document.querySelector(".input12").click();
+                    }}
+                  >
+                    select from device
+                  </button>
                 </div>
               </div>
             ) : (

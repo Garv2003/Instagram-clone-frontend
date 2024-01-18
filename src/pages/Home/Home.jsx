@@ -43,7 +43,6 @@ const Home = ({ setProgress }) => {
     setPosts((prev) => {
       return [...prev, ...res.data.posts];
     });
-    console.log(res.data);
     setSkip(skip + LIMIT);
     setLoading(false);
   };

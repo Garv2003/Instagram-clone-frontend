@@ -6,6 +6,7 @@ import RestoreIcon from "@mui/icons-material/Restore";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 import { Link } from "react-router-dom";
+import PropType from "prop-types";
 
 const Archive = ({ setProgress }) => {
   useEffect(() => {
@@ -51,6 +52,10 @@ const Archive = ({ setProgress }) => {
       </div>
     </div>
   );
+};
+
+Archive.propTypes = {
+  setProgress: PropType.func.isRequired,
 };
 
 export default Archive;

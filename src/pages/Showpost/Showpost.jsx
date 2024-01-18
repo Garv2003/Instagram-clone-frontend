@@ -225,6 +225,10 @@ const Showpost = ({ setProgress }) => {
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
+      if (!hiddenPopup.current) return;
+      if (hiddenPopup.current && hiddenPopup.current.contains(event.target)) {
+        return;
+      }
       if (hiddenPopup.current && !hiddenPopup.current.contains(event.target)) {
         setHidden(false);
       }
@@ -260,9 +264,9 @@ const Showpost = ({ setProgress }) => {
             Delete
           </button>
         )}
-        <button className="show_btn" onClick={() => handleUpdate(post._id)}>
+        {/* <button className="show_btn" onClick={() => handleUpdate(post._id)}>
           Edit
-        </button>
+        </button> */}
         {/* <div>
             <button className="show_btn">Share</button>
           </div> */}
@@ -297,6 +301,7 @@ const Showpost = ({ setProgress }) => {
   };
   return (
     <div className="show_post">
+      {hidden && <SidePopup />}
       <div className="arrow">
         <ArrowBackIcon
           onClick={prev}
@@ -347,7 +352,12 @@ const Showpost = ({ setProgress }) => {
             </div>
           )}
         </div>
-        <MoreHorizIcon />
+        <MoreHorizIcon
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            handlePopup();
+          }}
+        />
       </div>
       <div className="show_post_box">
         <div className="showpost1">
@@ -440,7 +450,6 @@ const Showpost = ({ setProgress }) => {
                 handlePopup();
               }}
             />
-            {hidden && <SidePopup />}
             <div
               style={{
                 display: "none",

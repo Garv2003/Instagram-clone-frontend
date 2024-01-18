@@ -1,62 +1,73 @@
 import "./Setting.css";
+import React from "react";
 import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
 import PropType from "prop-types";
+import Navbar from "../../layout/Navbar/Navbar";
+import { toast } from "react-toastify";
 
 const Setting = ({ setProgress }) => {
-  document.title = "Edit Profile • Instagram";
-  setProgress(100);
+  React.useEffect(() => {
+    setProgress(100);
+  }, [setProgress]);
+
+  const Logout = () => {
+    localStorage.removeItem("token");
+    toast.success("Logout Successfully");
+    setTimeout(() => {
+      window.location.assign("/login");
+    }, 1000);
+  };
   return (
-    <div>
-      <div className="setting">
-        <div className="settingtitle">
-          <h2>Settings</h2>
-        </div>
-        <div className="setting_body">
-          <div className="body1">
-            <div className="body11">
-              <div className="body11_item ">Accounts Center</div>
-              <div className="body11_item fs">Manage your connected </div>
-              <div className="body11_item fs">
-                experiences and account settings
-              </div>
-              <div className="body11_item fs">across Meta technologies.</div>
-              <div className="body11_item">Personal details</div>
-              <div className="body11_item">Password and security</div>
-              <div className="body11_item"> Ad preferences </div>
-              <div className="body11_item">See more in Accounts Center</div>
+    <div className="home">
+      <Navbar />
+      <div className="posts">
+        <div className="setting">
+          <div className="setting_header">
+            <h1 className="setting_title">Settings and Privacy</h1>
+          </div>
+          <div>
+            <div className="">
+              <div>Your Account</div>
+              <div>Privacy</div>
             </div>
-            <div className="body12">
-              <div className="body12_item">Edit profile</div>
-              <div className="body12_item">Apps and websites</div>
-              <div className="body12_item"> Email notifications</div>
-              <div className="body12_item">Push notifications </div>
-              <div className="body12_item">What you see</div>
-              <div className="body12_item">Who can see your content </div>
-              <div className="body12_item">
-                How others can interact with you
-              </div>
-              <div className="body12_item">
-                Supervision Help Switch to professional account
-              </div>
+            <div>Account Centre</div>
+            <div>Password,security,personal details,ads</div>
+          </div>
+          <div className="setting_item">
+            <div>How you used Instagram</div>
+            <div>Saved</div>
+            <div>Archive</div>
+            <div>Your Activity</div>
+            <div>Close friends</div>
+            <div>Notifications</div>
+            <div>Time Spent</div>
+          </div>
+          <div>
+            <div>What you use</div>
+            <div>Favourities</div>
+            <div>Muted accounts</div>
+            <div>Suggested content</div>
+            <div>Like and share counts</div>
+          </div>
+          <div className="setting_item_info">
+            <div>More info and support</div>
+            <div>Help</div>
+            <div>Account Status</div>
+            <div>About</div>
+          </div>
+          <div className="setting_item_login">
+            <div>Login</div>
+            <div>Add account</div>
+            <div
+              onClick={() => {
+                Logout();
+              }}
+            >
+              Log out
             </div>
           </div>
-          <div className="body2">
-            <div className="body2_heading">Edit profile</div>
-            <div className="profileinfo">
-              <div></div>
-              <div>
-                <div>username</div>
-                <div>Change profile photo</div>
-              </div>
-            </div>
-            <div>name</div>
-            <div>phonenumber</div>
-            <div>Bio</div>
-          </div>
+          <ProfileFooter />
         </div>
-      </div>
-      <div className="setting_footer">
-        <ProfileFooter />
       </div>
     </div>
   );
