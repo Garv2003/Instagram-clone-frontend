@@ -4,7 +4,7 @@ import { ColorRing } from "react-loader-spinner";
 import "./Create.css";
 import Bar from "../../components/Bar/Bar";
 import PropType from "prop-types";
-import { useDropzone } from "react-dropzone";
+// import { useDropzone } from "react-dropzone";
 import { UseAuth } from "../../Context/Auth/AuthContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -107,16 +107,16 @@ const Create = ({ setProgress }) => {
     setProgress(100);
   }, [setProgress]);
 
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop: (acceptedFiles) => {
-      if (acceptedFiles[0] !== undefined) {
-        setFile(acceptedFiles[0]);
-        setType(acceptedFiles[0].type.split("/")[0]);
-        setNext(true);
-        setError("");
-      }
-    },
-  });
+  // const { getRootProps, getInputProps } = useDropzone({
+  //   onDrop: (acceptedFiles) => {
+  //     if (acceptedFiles[0] !== undefined) {
+  //       setFile(acceptedFiles[0]);
+  //       setType(acceptedFiles[0].type.split("/")[0]);
+  //       setNext(true);
+  //       setError("");
+  //     }
+  //   },
+  // });
 
   const Popup = () => {
     return (

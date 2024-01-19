@@ -99,7 +99,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
 }
 .preview_left img {
   width: 100%;
@@ -212,14 +211,14 @@
 
 @media screen and (max-width: 770px) {
   .Create_container {
-    min-height: 100vh;
     margin-top: 10px;
+    min-height: 95vh;
   }
   .container {
     min-width: 100%;
     background: none;
     transform: none;
-    height: 100dvh;
+    height: 95vh;
   }
   .tic {
     padding: 10px;

@@ -57,7 +57,6 @@ const Notifications = ({ setProgress }) => {
         })
         .then((res) => {
           setNotification(res.data.notifications);
-          console.log(res.data);
         });
       setProgress(100);
     } catch (error) {
@@ -167,7 +166,13 @@ const Notifications = ({ setProgress }) => {
                 {error}
               </div>
             ) : (
-              <div className="suggestions__usernames">
+              <div className="suggestions__usernames"
+              style={{
+                maxHeight: "20vh",
+                height: "auto",
+                minHeight: "40vh",
+              }}
+              >
                 {user.map((post) => (
                   <ProfileBar key={post._id} post={post} />
                 ))}

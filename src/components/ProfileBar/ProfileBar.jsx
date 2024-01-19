@@ -8,7 +8,7 @@ import PropType from "prop-types";
 const Profilebar = ({ post }) => {
   const { Id } = useContext(AuthContext);
   const { follow, handleFollowAction } = UseFollow(post.followers.includes(Id));
-
+  
   return (
     <div key={post._id}>
       <div className="suggestions__username">

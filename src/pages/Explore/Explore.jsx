@@ -6,7 +6,6 @@ import Navbar from "../../layout/Navbar/Navbar";
 import axios from "axios";
 import Bar from "../../components/Bar/Bar";
 import PropType from "prop-types";
-const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
 import { RotatingLines } from "react-loader-spinner";
 import { MdError } from "react-icons/md";
 
@@ -25,7 +24,7 @@ const Explore = ({ setProgress }) => {
   const getdata = async () => {
     try {
       await axios
-        .get(`${API_URL}/post/explore`, {
+        .get(`${import.meta.env.VITE_APP_BACKEND_URL}/post/explore`, {
           headers: {
             Authorization: localStorage.getItem("token"),
           },

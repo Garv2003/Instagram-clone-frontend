@@ -21,11 +21,15 @@ import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const [progress, setProgress] = useState(0);
-  const ProtectedRoute = ({ element, ...rest }) => {
+  const ProtectedRoute = ({ element }) => {
     const isAuthenticated = localStorage.getItem("token");
     return isAuthenticated ? element : <Navigate to="/login" />;
   };
 
+  ProtectedRoute.propTypes = {
+    element: Proptype.element.isRequired,
+  };
+  
   return (
     <>
       <LoadingBar
@@ -49,24 +53,9 @@ const App = () => {
         <Route
           exact
           path="/login"
-          element={
-            localStorage.getItem("token") ? (
-              <Navigate to="/" />
-            ) : (
-              <Login setProgress={setProgress} />
-            )
-          }
+          element={<Login setProgress={setProgress} />}
         />
-        <Route
-          path="/signup"
-          element={
-            localStorage.getItem("token") ? (
-              <Navigate to="/" />
-            ) : (
-              <SignUp setProgress={setProgress} />
-            )
-          }
-        />
+        <Route path="/signup" element={<SignUp setProgress={setProgress} />} />
         <Route
           path="/"
           element={
@@ -147,10 +136,6 @@ const App = () => {
       </Routes>
     </>
   );
-};
-
-App.propTypes = {
-  element: Proptype.element,
 };
 
 export default App;

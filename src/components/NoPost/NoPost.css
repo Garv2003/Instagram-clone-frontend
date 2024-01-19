@@ -1,5 +1,5 @@
 .no-post{
-    min-height: 500px;
+    min-height: 50vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
