@@ -26,6 +26,8 @@ import { FaPlay } from "react-icons/fa";
 import { BsVolumeMuteFill } from "react-icons/bs";
 import { BsVolumeUpFill } from "react-icons/bs";
 import UsePrev from "../../Hooks/UsePrev";
+import { RotatingLines } from "react-loader-spinner";
+import { MdError } from "react-icons/md";
 
 const Showpost = ({ setProgress }) => {
   const { id } = useParams();
@@ -49,7 +51,6 @@ const Showpost = ({ setProgress }) => {
   ``;
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [play, setPlay] = useState(false);
   const [volume, setVolume] = useState(true);
 
   const video = useRef(null);
@@ -133,8 +134,11 @@ const Showpost = ({ setProgress }) => {
       setFollow(followers.includes(Id));
       setCommentarr(comments);
       setComment("");
+      setProgress(100);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching post:", error);
+      setError(error.message);
     } finally {
       setProgress(100);
     }
@@ -299,6 +303,44 @@ const Showpost = ({ setProgress }) => {
   const handlePopup = () => {
     setHidden(!hidden);
   };
+
+  if (loading)
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "90vh",
+          fontSize: "1.5rem",
+        }}
+      >
+        <RotatingLines
+          strokeColor="#fafafa"
+          strokeWidth="4"
+          height="80"
+          width="80"
+        />
+      </div>
+    );
+  if (error) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          gap: "10px",
+          alignItems: "center",
+          minHeight: "90vh",
+          fontSize: "2rem",
+        }}
+      >
+        <MdError />
+        {error}
+      </div>
+    );
+  }
   return (
     <div className="show_post">
       {hidden && <SidePopup />}
@@ -450,15 +492,6 @@ const Showpost = ({ setProgress }) => {
                 handlePopup();
               }}
             />
-            <div
-              style={{
-                display: "none",
-                position: "absolute",
-                top: "0",
-              }}
-            >
-              dsldnslndlslkn
-            </div>
           </div>
           <div
             className="postp_footer bar_hidden_col"
