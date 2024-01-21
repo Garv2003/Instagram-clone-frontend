@@ -10,12 +10,17 @@ export const SocketProvider = ({ children }) => {
   const socket = useRef();
 
   useEffect(() => {
-    socket.current = io(socketUrl, {
-      withCredentials: true,
-      extraHeaders: {
-        "my-custom-header": "abcd",
-      },
-    });
+    if (
+      window.location.pathname !== "/login" ||
+      window.location.pathname !== "/signup"
+    ) {
+      socket.current = io(socketUrl, {
+        transports: ["websocket"],
+        query: {
+          token: localStorage.getItem("token"),
+        },
+      });
+    }
   }, []);
 
   return (
