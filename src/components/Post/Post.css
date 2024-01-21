@@ -1,5 +1,5 @@
 .Postp {
-  width: 88%;
+  width: 75%;
   height: auto;
   margin: auto;
   padding: 30px 20px 30px 20px;
@@ -30,7 +30,7 @@
   align-items: center;
   justify-items: center;
   border-radius: 6px;
-  border: 0.6px solid rgba(128, 128, 128, 0.516); 
+  border: 0.6px solid rgba(128, 128, 128, 0.516);
 }
 .postp_image > img {
   width: 100%;

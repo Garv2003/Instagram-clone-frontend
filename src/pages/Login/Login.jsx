@@ -27,7 +27,7 @@ function Login({ setProgress }) {
   }, [setProgress]);
 
   return (
-    <>
+    <div className="login">
       <ToastContainer />
       <div className="containerlogin">
         <div className="box1">
@@ -104,7 +104,7 @@ function Login({ setProgress }) {
           <ProfileFooter />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

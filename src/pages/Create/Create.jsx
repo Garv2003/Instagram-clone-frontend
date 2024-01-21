@@ -228,11 +228,11 @@ const Create = ({ setProgress }) => {
                   wrapperStyle={{}}
                   wrapperClass="color-ring-wrapper"
                   colors={[
-                    "#e15b64",
-                    "#f47e60",
-                    "#f8b26a",
-                    "#abbd81",
-                    "#849b87",
+                    "#27c4f5",
+                    "#a307ba",
+                    "#fd8d32",
+                    "#70c050",
+                    "#27c4f5",
                   ]}
                 />
                 <div

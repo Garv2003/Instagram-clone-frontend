@@ -134,7 +134,7 @@ const MessageBody = ({ info, setInfo }) => {
               }}
             />
             <div className="messagestatus">
-              <Link to={`/showprofile/${info._id}`} className="avatar">
+              <Link to={`/sp/${info._id}`} className="avatar">
                 {info.profileImage ? (
                   <img
                     className="postprofileimage"
@@ -280,3 +280,126 @@ MessageBody.propTypes = {
 };
 
 export default MessageBody;
+
+// import React, { useState, useEffect } from "react";
+// import queryString from "query-string";
+// import io from "socket.io-client";
+
+// let socket;
+
+// const Chat = ({ location }) => {
+//   const [name, setName] = useState("");
+//   const [room, setRoom] = useState("");
+//   const [messages, setMessages] = useState([]);
+//   const [message, setMessage] = useState("");
+
+//   const ENDPOINT = "http://localhost:5000";
+
+//   useEffect(() => {
+//     const { name, room } = queryString.parse(document.location.search);
+//     socket = io(ENDPOINT);
+//     setRoom(room);
+//     setName(name);
+
+//     socket.emit("join", { name, room }, (error) => {
+//       if (error) {
+//         alert(error);
+//       }
+//     });
+//   }, [document.location.search]);
+//   useEffect(() => {
+//     socket.on("message", (message) => {
+//       setMessages((messages) => [...messages, message]);
+//     });
+//     // socket.on("roomData", ({ users }) => {
+//     //   console.log(users);
+//     //   setUsers(users);
+//     // });
+//   }, []);
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     if (message) {
+//       socket.emit("sendMessage", { message });
+//       setMessage("");
+//     } else alert("empty input");
+//   };
+
+//   return (
+//     <div>
+//       {messages.map((val, i) => {
+//         return (
+//           <div key={i}>
+//             {val.text}
+//             <br />
+//             <b>{val.user}</b>
+//           </div>
+//         );
+//       })}
+//       <form action="" onSubmit={handleSubmit}>
+//         <input
+//           type="text"
+//           value={message}
+//           onChange={(e) => setMessage(e.target.value)}
+//         />
+//         <input type="submit" />
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default Chat;
+
+// import React, { useState } from "react";
+// import { Link } from "react-router-dom";
+
+// const Home = () => {
+//   const [name, setName] = useState("");
+//   const [room, setRoom] = useState("");
+
+//   return (
+//     <div>
+//       <h1>Home Page</h1>
+//       <div>
+//         <input
+//           placeholder="Name"
+//           type="text"
+//           onChange={(event) => setName(event.target.value)}
+//           required
+//         />
+//       </div>
+//       <div>
+//         <input
+//           placeholder="Room"
+//           type="text"
+//           onChange={(event) => setRoom(event.target.value)}
+//           required
+//         />
+//       </div>
+//       <Link
+//         onClick={(e) => (!name || !room ? e.preventDefault() : null)}
+//         to={`/chat?name=${name}&room=${room}`}
+//       >
+//         <button type="submit">Sign In</button>
+//       </Link>
+//     </div>
+//   );
+// };
+
+// export default Home;
+
+// import React from "react";
+// import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+// import Home from "./components/Home";
+// import Chat from "./components/Chat";
+
+// const App = () => (
+//   <Router>
+//     <Routes>
+//       <Route path="/" element={<Home/>} />
+//       <Route path="/chat" element={<Chat/>} />
+//     </Routes>
+//   </Router>
+// );
+
+// export default App;

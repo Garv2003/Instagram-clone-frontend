@@ -34,7 +34,7 @@ function Signup({ setProgress }) {
   }, [setProgress]);
 
   return (
-    <>
+    <div className="login">
       <div className="containerlogin">
         <div className="box1">
           <div className="headinglogin"></div>
@@ -148,7 +148,7 @@ function Signup({ setProgress }) {
           </p>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

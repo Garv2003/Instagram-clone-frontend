@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./Post.css";
 import { Link } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
@@ -51,6 +51,77 @@ const Post = ({ post }) => {
         setComment("");
       }
     });
+  };
+
+  const [hidden, setHidden] = useState(false);
+  const hiddenPopup = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (hiddenPopup.current && !hiddenPopup.current.contains(event.target)) {
+        setHidden(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [hiddenPopup]);
+
+  const SidePopup = () => {
+    return (
+      <div className="hidden_popup" ref={hiddenPopup}>
+        {post.User_id._id === Id && (
+          <button
+            className="show_btn"
+            style={{
+              color: "red",
+              border: "none",
+            }}
+          >
+            Delete
+          </button>
+        )}
+        <button className="show_btn">
+          <Link
+            className="cl"
+            style={{
+              width: "100%",
+            }}
+            to={`/p/${post._id}`}
+          >
+            Go to post
+          </Link>
+        </button>
+        {/* <div>
+            <button className="show_btn">Share</button>
+          </div> */}
+        {/* <div>
+            <button>Hide like count to others</button>
+          </div>
+          <div>
+            <button>Turn off Commenting for this post</button>
+          </div> */}
+        <Link
+          className="cl"
+          style={{
+            width: "100%",
+          }}
+          to={post.User_id._id === Id ? "/profile" : `/sp/${post.User_id._id}`}
+        >
+          <button className="show_btn">About this account</button>
+        </Link>
+        <button
+          className="show_btn"
+          onClick={() => {
+            document.body.style.opacity = 1;
+            setHidden(false);
+          }}
+        >
+          Cancel
+        </button>
+      </div>
+    );
   };
 
   return (
@@ -114,8 +185,12 @@ const Post = ({ post }) => {
         <MdMoreHoriz
           style={{ fontSize: "2.5rem", cursor: "pointer" }}
           className="postIcon"
+          onClick={() => {
+            setHidden(!hidden);
+          }}
         />
       </div>
+      {hidden && <SidePopup />}
       <div className="postp_image">
         <img src={post.ImageUrl} alt="PostImage" />
       </div>
