@@ -19,6 +19,7 @@ import Proptype from "prop-types";
 import { TailSpin } from "react-loader-spinner";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import logo from "./assets/logo.png";
 
 const App = () => {
   const [progress, setProgress] = useState(0);
@@ -50,8 +51,8 @@ const App = () => {
           }}
         >
           <img
-            src="../public/favicon.ico"
-            alt=""
+            src={logo}
+            alt="Instagram"
             style={{
               width: "100px",
               height: "100px",
