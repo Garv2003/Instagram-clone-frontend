@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-import Popup from "../../components/Popup/Popup";
-import InstagramIcon from "@mui/icons-material/Instagram";
+import Popup from "../../components/Popup";
+import { FaInstagram } from "react-icons/fa";
 import InstagramLogo from "../../assets/instagram-logo.png";
 import { GrHomeRounded } from "react-icons/gr";
 import { IoSearch } from "react-icons/io5";
@@ -43,7 +43,9 @@ const Navbar = ({ width }) => {
           <img className="logo" src={InstagramLogo} alt="Instagram Logo" />
           <div className="navbutton logo2">
             {" "}
-            <InstagramIcon sx={{ color: "white" }} />
+            <FaInstagram
+              style={{ color: "white", width: "1.8rem", height: "1.8rem" }}
+            />
           </div>
         </Link>
         <div className="navbarbuttons">

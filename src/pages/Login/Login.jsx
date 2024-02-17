@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import VisibilityIcon from "@mui/icons-material/Visibility";
+import { MdVisibilityOff, MdVisibility } from "react-icons/md";
 import { RotatingLines } from "react-loader-spinner";
 import PropType from "prop-types";
 import UseLogin from "../../Hooks/UseLogin";
@@ -55,13 +55,21 @@ function Login({ setProgress }) {
                 autoComplete="on"
               />
               <div className="eye" onClick={() => changeVisibility()}>
-                <VisibilityIcon
-                  sx={{
-                    color: showPassword ? "black" : "gray",
-                    fontSize: 20,
-                    cursor: "pointer",
-                  }}
-                />
+                {showPassword ? (
+                  <MdVisibilityOff
+                    style={{
+                      color: "black",
+                      fontSize: "20px",
+                    }}
+                  />
+                ) : (
+                  <MdVisibility
+                    style={{
+                      color: "grey",
+                      fontSize: "20px",
+                    }}
+                  />
+                )}
               </div>
             </div>
             <button

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Profilebar from "../../components/ProfileBar/ProfileBar";
-import "./Suggestions.css";
+import Profilebar from "../../components/ProfileBar";
 import { RxCross2 } from "react-icons/rx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
