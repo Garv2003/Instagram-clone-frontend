@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { MdFavorite } from "react-icons/md";
 import { FaComment } from "react-icons/fa6";
 import propTypes from "prop-types";
+import LazyLoad from "react-lazyload";
 
 const Profile = ({ data }) => {
   return (
@@ -11,13 +12,17 @@ const Profile = ({ data }) => {
           <div className="gallery-item" key={post._id}>
             <div>
               {post.type === "image" ? (
-                <img
-                  className="gallery-post"
-                  loading="lazy"
-                  src={post.ImageUrl}
-                />
+                <LazyLoad height={200} offset={100}>
+                  <img
+                    className="gallery-post"
+                    // loading="lazy"
+                    src={post.ImageUrl}
+                  />
+                </LazyLoad>
               ) : (
-                <video className="gallery-post" src={post.ImageUrl} />
+                <LazyLoad height={200} offset={100}>
+                  <video className="gallery-post" src={post.ImageUrl} />
+                </LazyLoad>
               )}
               <div />
               <Link to={`/p/${post._id}`}>

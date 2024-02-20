@@ -19,6 +19,7 @@ import { MdError } from "react-icons/md";
 import { FaRegBookmark } from "react-icons/fa";
 import { MdOutlineGridOn } from "react-icons/md";
 import { BiSolidMoviePlay } from "react-icons/bi";
+import LazyLoad from "react-lazyload";
 
 const Profile = ({ setProgress }) => {
   const { id } = useParams();
@@ -89,7 +90,9 @@ const Profile = ({ setProgress }) => {
               <div className="profile-pic">
                 <div className="profileloader">
                   {user.profileImage ? (
-                    <img src={user.profileImage} alt="profile" />
+                    <LazyLoad height={200} offset={100}>
+                      <img src={user.profileImage} alt="profile" />
+                    </LazyLoad>
                   ) : (
                     <button className="photobtn">
                       <IoPersonCircleSharp className="profile_header_avatar" />

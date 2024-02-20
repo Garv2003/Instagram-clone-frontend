@@ -21,6 +21,7 @@ import { BsVolumeMuteFill } from "react-icons/bs";
 import { BsVolumeUpFill } from "react-icons/bs";
 import { FaRegComment } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
+import LazyLoad from "react-lazyload";
 
 const Post = ({ post }) => {
   const {
@@ -138,11 +139,13 @@ const Post = ({ post }) => {
             }}
           >
             {post.User_id.profileImage ? (
-              <img
-                className="postprofileimage"
-                src={post.User_id.profileImage}
-                alt="profile"
-              />
+              <LazyLoad height={40} offset={100}>
+                <img
+                  className="postprofileimage"
+                  src={post.User_id.profileImage}
+                  alt="profile"
+                />
+              </LazyLoad>
             ) : (
               <RxAvatar
                 style={{

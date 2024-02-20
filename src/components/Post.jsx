@@ -17,6 +17,7 @@ import UseFollow from "../Hooks/UseFollow";
 import UseComment from "../Hooks/UseComment";
 import { formatInstagramDate } from "../utils/utils";
 import PropTypes from "prop-types";
+import LazyLoad from "react-lazyload";
 
 const Post = ({ post }) => {
   const {
@@ -128,11 +129,13 @@ const Post = ({ post }) => {
       <div className="Postp_header">
         <div className="postp_header_pro">
           {post.User_id.profileImage ? (
-            <img
-              className="postprofileimage"
-              src={post.User_id.profileImage}
-              alt="profile"
-            />
+            <LazyLoad height={200} offset={100}>
+              <img
+                className="postprofileimage"
+                src={post.User_id.profileImage}
+                alt="profile"
+              />
+            </LazyLoad>
           ) : (
             <RxAvatar
               style={{
@@ -190,9 +193,9 @@ const Post = ({ post }) => {
         />
       </div>
       {hidden && <SidePopup />}
-      <div className="postp_image">
+      <LazyLoad height="auto" offset={100} className="postp_image">
         <img src={post.ImageUrl} alt="PostImage" />
-      </div>
+      </LazyLoad>
       <div className="postp_footer">
         <div className="posticons">
           <div className="post_iconsMain">

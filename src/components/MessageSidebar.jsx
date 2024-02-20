@@ -6,6 +6,7 @@ import { AuthContext } from "../Context/Auth/AuthContext";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { TailSpin } from "react-loader-spinner";
 import { MdError } from "react-icons/md";
+import LazyLoad from "react-lazyload";
 
 const MessageSidebar = ({ user, handleData, loading, error }) => {
   const { info } = React.useContext(AuthContext);
@@ -66,11 +67,13 @@ const MessageSidebar = ({ user, handleData, loading, error }) => {
                   <div className="username__left">
                     <Link to={`/sp/${post._id}`} className="avatar cl">
                       {post.profileImage ? (
-                        <img
-                          className="postprofileimage"
-                          src={post.profileImage}
-                          alt="profile"
-                        />
+                        <LazyLoad height={50} offset={100}>
+                          <img
+                            className="postprofileimage"
+                            src={post.profileImage}
+                            alt="profile"
+                          />
+                        </LazyLoad>
                       ) : (
                         <RxAvatar className="postprofileimage" />
                       )}

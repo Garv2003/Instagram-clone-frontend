@@ -4,6 +4,7 @@ import { AuthContext } from "../Context/Auth/AuthContext";
 import { RxAvatar } from "react-icons/rx";
 import UseFollow from "../Hooks/UseFollow";
 import PropType from "prop-types";
+import LazyLoad from "react-lazyload";
 
 const Profilebar = ({ post }) => {
   const { Id } = useContext(AuthContext);
@@ -15,11 +16,13 @@ const Profilebar = ({ post }) => {
         <div className="username__left">
           <Link to={`/sp/${post._id}`} className="avatar cl">
             {post.profileImage ? (
-              <img
-                className="postprofileimage"
-                src={post.profileImage}
-                alt="profile"
-              />
+              <LazyLoad height={40} offset={100}>
+                <img
+                  className="postprofileimage"
+                  src={post.profileImage}
+                  alt="profile"
+                />
+              </LazyLoad>
             ) : (
               <RxAvatar
                 style={{

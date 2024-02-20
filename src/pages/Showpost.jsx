@@ -27,6 +27,7 @@ import { BsVolumeUpFill } from "react-icons/bs";
 import UsePrev from "../Hooks/UsePrev";
 import { RotatingLines } from "react-loader-spinner";
 import { MdError } from "react-icons/md";
+import LazyLoad from "react-lazyload";
 
 const Showpost = ({ setProgress }) => {
   const { id } = useParams();
@@ -360,11 +361,13 @@ const Showpost = ({ setProgress }) => {
             />
           </div>
           {post.User_id.profileImage ? (
-            <img
-              className="postprofileimage"
-              src={post.User_id.profileImage}
-              alt="profile"
-            />
+            <LazyLoad height={40} offset={100}>
+              <img
+                className="postprofileimage"
+                src={post.User_id.profileImage}
+                alt="profile"
+              />
+            </LazyLoad>
           ) : (
             <IoPersonCircleSharp
               style={{
@@ -412,7 +415,9 @@ const Showpost = ({ setProgress }) => {
         <div className="showpost1">
           <div className="im">
             {post.type === "image" ? (
-              <img src={post.ImageUrl} alt="Post" />
+              <LazyLoad height={40} offset={100}>
+                <img src={post.ImageUrl} alt="Post" />
+              </LazyLoad>
             ) : (
               <div className="video__container">
                 {VideoPlayer}
@@ -449,11 +454,13 @@ const Showpost = ({ setProgress }) => {
           >
             <div className="postp_header_pro">
               {post.User_id.profileImage ? (
-                <img
-                  className="postprofileimage"
-                  src={post.User_id.profileImage}
-                  alt="profile"
-                />
+                <LazyLoad height={40} offset={100}>
+                  <img
+                    className="postprofileimage"
+                    src={post.User_id.profileImage}
+                    alt="profile"
+                  />
+                </LazyLoad>
               ) : (
                 <IoPersonCircleSharp
                   style={{
