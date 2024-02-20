@@ -345,7 +345,7 @@ const Showpost = ({ setProgress }) => {
   return (
     <div className="show_post">
       {hidden && <SidePopup />}
-      <div className="arrow">
+      <div className="arrow hidden_arrow">
         <IoMdArrowBack
           onClick={prev}
           style={{ fontSize: "30px", cursor: "pointer" }}
@@ -353,6 +353,12 @@ const Showpost = ({ setProgress }) => {
       </div>
       <div className="Postp_header bar_hidden">
         <div className="postp_header_pro">
+          <div className="arrow hidden">
+            <IoMdArrowBack
+              onClick={prev}
+              style={{ fontSize: "30px", cursor: "pointer" }}
+            />
+          </div>
           {post.User_id.profileImage ? (
             <img
               className="postprofileimage"

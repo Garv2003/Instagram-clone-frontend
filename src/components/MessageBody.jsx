@@ -28,6 +28,7 @@ const MessageBody = ({ info, setInfo }) => {
   const { socket } = UseSocket();
 
   const scrollRef = useRef();
+  const fileRef = useRef();
 
   useEffect(() => {
     socket.current.on("typingResponse", (data) => {
@@ -117,6 +118,33 @@ const MessageBody = ({ info, setInfo }) => {
       receiverId: info._id,
       text: type ? "Typing..." : "Online",
     });
+  };
+
+  const handleImage = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("senderId", Id);
+    formData.append("receiverId", info._id);
+    formData.append("text", newMessage);
+    formData.append("createdAt", Date.now());
+    formData.append("file", file);
+    setMessages((messages) => [
+      ...messages,
+      {
+        senderId: Id,
+        receiverId: info._id,
+        text: newMessage,
+        createdAt: Date.now(),
+      },
+    ]);
+    axios
+      .post("http://localhost:4444/upload", formData)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -219,6 +247,12 @@ const MessageBody = ({ info, setInfo }) => {
                 <p className="sender__name">You</p>
                 <div className="message__sender">
                   <p>{message.text}</p>
+                  {/* <img
+                    src={URL.createObjectURL(
+                      new Blob([new Uint8Array(message?.file?.data)])
+                    )}
+                    alt="file"
+                  /> */}
                 </div>
               </div>
             ) : (
@@ -226,6 +260,7 @@ const MessageBody = ({ info, setInfo }) => {
                 <p>{info.username}</p>
                 <div className="message__recipient">
                   <p>{message.text}</p>
+                  {/* <img src={message?.file?.data} alt="file" /> */}
                 </div>
               </div>
             )
@@ -237,7 +272,17 @@ const MessageBody = ({ info, setInfo }) => {
         <button onClick={() => setEmojiBox(!EmojiBox)}>
           <MdEmojiEmotions />
         </button>
-        <button>
+        <button
+          onClick={() => {
+            fileRef.current.click();
+          }}
+        >
+          <input
+            type="file"
+            hidden
+            ref={fileRef}
+            onChange={(e) => handleImage(e)}
+          />
           <MdInsertPhoto />
         </button>
         <div className="emoji">
