@@ -120,6 +120,7 @@ const MessageBody = ({ info, setInfo }) => {
     });
   };
 
+  // handle image
   const handleImage = async (e) => {
     const file = e.target.files[0];
     const formData = new FormData();
