@@ -9,6 +9,7 @@ import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 import PropTypes from "prop-types";
+import LazyLoad from "react-lazy-load";
 
 const CommentBar = ({
   comment,
@@ -74,11 +75,13 @@ const CommentBar = ({
       <div className="comment">
         <div>
           {comment.postedby.profileImage ? (
-            <img
-              className="postprofileimage"
-              src={comment.postedby.profileImage}
-              alt="profile"
-            />
+            <LazyLoad>
+              <img
+                className="postprofileimage"
+                src={comment.postedby.profileImage}
+                alt="profile"
+              />
+            </LazyLoad>
           ) : (
             <RxAvatar style={{ marginRight: "10px" }} />
           )}

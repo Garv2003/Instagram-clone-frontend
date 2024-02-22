@@ -723,6 +723,7 @@ header {
   position: absolute;
   top: 0;
   width: 100%;
+  height: 100%;
   aspect-ratio: 1/1;
   background-color: rgba(0, 0, 0, 0.3);
 }
@@ -801,7 +802,7 @@ header {
     width: 100vw;
   }
   .postBox {
-    height: 84svh;
+    height: 88svh;
   }
 }
 
@@ -1207,6 +1208,7 @@ header {
   justify-content: space-between;
   flex-direction: row;
   align-items: center;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 .postp_header_pro {

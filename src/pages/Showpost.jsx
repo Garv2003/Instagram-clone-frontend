@@ -27,7 +27,7 @@ import { BsVolumeUpFill } from "react-icons/bs";
 import UsePrev from "../Hooks/UsePrev";
 import { RotatingLines } from "react-loader-spinner";
 import { MdError } from "react-icons/md";
-import LazyLoad from "react-lazyload";
+import LazyLoad from "react-lazy-load";
 
 const Showpost = ({ setProgress }) => {
   const { id } = useParams();
@@ -354,14 +354,14 @@ const Showpost = ({ setProgress }) => {
       </div>
       <div className="Postp_header bar_hidden">
         <div className="postp_header_pro">
-          <div className="arrow hidden">
+          <div>
             <IoMdArrowBack
               onClick={prev}
               style={{ fontSize: "30px", cursor: "pointer" }}
             />
           </div>
           {post.User_id.profileImage ? (
-            <LazyLoad height={40} offset={100}>
+            <LazyLoad>
               <img
                 className="postprofileimage"
                 src={post.User_id.profileImage}
@@ -371,8 +371,7 @@ const Showpost = ({ setProgress }) => {
           ) : (
             <IoPersonCircleSharp
               style={{
-                fontSize: "30px",
-                cursor: "pointer",
+                fontSize: "66px",
               }}
             />
           )}
@@ -415,7 +414,7 @@ const Showpost = ({ setProgress }) => {
         <div className="showpost1">
           <div className="im">
             {post.type === "image" ? (
-              <LazyLoad height={40} offset={100}>
+              <LazyLoad>
                 <img src={post.ImageUrl} alt="Post" />
               </LazyLoad>
             ) : (
@@ -454,7 +453,7 @@ const Showpost = ({ setProgress }) => {
           >
             <div className="postp_header_pro">
               {post.User_id.profileImage ? (
-                <LazyLoad height={40} offset={100}>
+                <LazyLoad>
                   <img
                     className="postprofileimage"
                     src={post.User_id.profileImage}

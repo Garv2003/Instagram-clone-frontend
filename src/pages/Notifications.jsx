@@ -9,7 +9,7 @@ import { RotatingLines } from "react-loader-spinner";
 import { MdError } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
-import LazyLoad from "react-lazyload";
+import LazyLoad from "react-lazy-load";
 
 const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
 
@@ -93,7 +93,7 @@ const Notifications = ({ setProgress }) => {
                       <div className="username__left">
                         <Link to={`/sp/${post._id}`} className="avatar cl">
                           {post.profileImage ? (
-                            <LazyLoad height={40} offset={100}>
+                            <LazyLoad>
                               <img
                                 className="postprofileimage"
                                 src={post.user.profileImage}

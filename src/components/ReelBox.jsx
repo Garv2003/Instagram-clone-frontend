@@ -21,7 +21,7 @@ import { BsVolumeMuteFill } from "react-icons/bs";
 import { BsVolumeUpFill } from "react-icons/bs";
 import { FaRegComment } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
-import LazyLoad from "react-lazyload";
+import LazyLoad from "react-lazy-load";
 
 const Post = ({ post }) => {
   const {

@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PropType from "prop-types";
 import { UseAuth } from "../Context/Auth/AuthContext";
-import LazyLoad from "react-lazyload";
+import LazyLoad from "react-lazy-load";
 
 const ProfileHeader = ({ User, length, followers, following }) => {
   const navigate = useNavigate();
@@ -136,7 +136,7 @@ const ProfileHeader = ({ User, length, followers, following }) => {
           <div className="profile-pic">
             <div className="profileloader">
               {profileImage ? (
-                <LazyLoad height={200} offset={100}>
+                <LazyLoad>
                   <img onClick={onPhoto} src={profileImage} alt="profile" />
                 </LazyLoad>
               ) : (

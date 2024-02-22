@@ -18,7 +18,7 @@ import { FaPlay } from "react-icons/fa";
 import { BsVolumeMuteFill } from "react-icons/bs";
 import { BsVolumeUpFill } from "react-icons/bs";
 import { toast } from "react-toastify";
-import LazyLoad from "react-lazyload";
+import LazyLoad from "react-lazy-load";
 
 const Create = ({ setProgress }) => {
   document.title = "Create new Post • Instagram";
@@ -81,7 +81,7 @@ const Create = ({ setProgress }) => {
   const VideoPlayer = useMemo(() => {
     if (!file) return null;
     return (
-      <LazyLoad height={400} offset={100} style={{ height: "100%" }}>
+      <LazyLoad style={{ height: "100%" }}>
         <video
           src={URL.createObjectURL(file)}
           alt="preview"
@@ -212,7 +212,7 @@ const Create = ({ setProgress }) => {
             )}
             {success && (
               <div className="success">
-                <LazyLoad height={100} offset={100}>
+                <LazyLoad>
                   <img
                     src={Right}
                     alt="Success"
@@ -254,11 +254,7 @@ const Create = ({ setProgress }) => {
               <div className="preview">
                 <div className="preview_left">
                   {type === "image" ? (
-                    <LazyLoad
-                      height={400}
-                      offset={100}
-                      style={{ height: "100%" }}
-                    >
+                    <LazyLoad style={{ height: "100%" }}>
                       <img
                         src={URL.createObjectURL(file)}
                         alt="preview"
@@ -302,7 +298,7 @@ const Create = ({ setProgress }) => {
                   >
                     <div>
                       {info.profileImage ? (
-                        <LazyLoad height={40} offset={100}>
+                        <LazyLoad>
                           <img
                             className="postprofileimage"
                             src={info.profileImage}

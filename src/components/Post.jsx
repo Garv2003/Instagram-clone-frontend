@@ -17,7 +17,7 @@ import UseFollow from "../Hooks/UseFollow";
 import UseComment from "../Hooks/UseComment";
 import { formatInstagramDate } from "../utils/utils";
 import PropTypes from "prop-types";
-import LazyLoad from "react-lazyload";
+import LazyLoad from "react-lazy-load";
 
 const Post = ({ post }) => {
   const {
@@ -129,7 +129,7 @@ const Post = ({ post }) => {
       <div className="Postp_header">
         <div className="postp_header_pro">
           {post.User_id.profileImage ? (
-            <LazyLoad height={200} offset={100}>
+            <LazyLoad>
               <img
                 className="postprofileimage"
                 src={post.User_id.profileImage}
@@ -193,7 +193,7 @@ const Post = ({ post }) => {
         />
       </div>
       {hidden && <SidePopup />}
-      <LazyLoad height="auto" offset={100} className="postp_image">
+      <LazyLoad className="postp_image">
         <img src={post.ImageUrl} alt="PostImage" />
       </LazyLoad>
       <div className="postp_footer">

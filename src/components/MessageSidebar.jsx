@@ -6,7 +6,7 @@ import { AuthContext } from "../Context/Auth/AuthContext";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { TailSpin } from "react-loader-spinner";
 import { MdError } from "react-icons/md";
-import LazyLoad from "react-lazyload";
+import LazyLoad from "react-lazy-load";
 
 const MessageSidebar = ({ user, handleData, loading, error }) => {
   const { info } = React.useContext(AuthContext);
