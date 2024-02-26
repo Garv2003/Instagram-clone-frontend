@@ -13,7 +13,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { UseSocket } from "../Context/Socket/SocketContext";
 import { RotatingLines } from "react-loader-spinner";
 import { MdError } from "react-icons/md";
-import TypeAnimation from "./TypeAnimation/typeanimation";
+import TypeAnimation from "./TypeAnimation/TypeAnimation";
 
 const MessageBody = ({ info, setInfo }) => {
   const { Id } = UseAuth();
