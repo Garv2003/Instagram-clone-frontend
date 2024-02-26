@@ -845,7 +845,6 @@ header {
 .setting_item_login {
   border-top: 8px solid rgb(75, 73, 73);
   padding: 10px 0;
-  border-radius: 10px;
 }
 
 @media screen and (max-width: 768px) {
@@ -961,10 +960,12 @@ header {
 /* Start MessageBody.css */
 
 .messagebody {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 100%;
 }
 .messagebody_top {
   display: flex;
@@ -972,9 +973,8 @@ header {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0 1rem;
-  margin-bottom: 20px;
   border-bottom: 1px solid gray;
+  padding: 0.5rem;
 }
 .messagestatus {
   display: flex;
@@ -997,7 +997,8 @@ header {
   box-sizing: border-box;
   margin-top: 20px;
   width: 100%;
-  height: 700px;
+  /* height: 700px; */
+  height: 100%;
   overflow-y: scroll;
 }
 .chatbox {
@@ -1009,7 +1010,8 @@ header {
   box-sizing: border-box;
 }
 .messagebody_footer {
-  position: relative;
+  position: absolute;
+  bottom: 0;
   width: 98%;
   display: flex;
   flex-direction: row;
@@ -1045,8 +1047,7 @@ header {
 }
 .message__container {
   width: 100%;
-  height: 84vh;
-  flex-grow: 1;
+  height: calc(86svh);
   padding: 20px;
   overflow-y: scroll;
 }
@@ -1093,6 +1094,22 @@ header {
   margin-bottom: 20px;
   font-size: 2rem;
   cursor: pointer;
+}
+
+@media screen and (max-width: 770px) {
+  .message__container {
+    margin-bottom: 50px;
+    height: calc(90svh - 50px);
+  }
+  .messagebody_footer button {
+    font-size: 1.8rem;
+  }
+  .message__recipient {
+    max-width: 200px;
+  }
+  .message__sender {
+    max-width: 200px;
+  }
 }
 
 /* End MessageBody.css */
@@ -1223,6 +1240,7 @@ input[type="submit"]:hover {
 @media screen and (max-width: 770px) {
   .Postp {
     width: 100%;
+    padding: 20px 5px 20px 5px;
   }
   .postp_image {
     width: 100%;
@@ -1827,7 +1845,7 @@ input[type="submit"]:hover {
 @media screen and (max-width: 770px) {
   .ReelBox {
     width: 100%;
-    height: 86vh;
+    height: 100%;
   }
   .ReelBox_Profile {
     left: 10px;

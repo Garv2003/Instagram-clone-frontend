@@ -75,13 +75,14 @@ const Search = ({ setProgress }) => {
                 <MagnifyingGlass
                   visible={true}
                   wrapperStyle={{
-                    height: "100%",
-                    width: "40%",
+                    height: "180px",
+                    width: "180px",
                   }}
                   ariaLabel="MagnifyingGlass-loading"
                   wrapperClass="MagnifyingGlass-wrapper"
                   glassColor="#000000"
                   color="#fafafa"
+                  fontSize={100}
                 />
               </div>
             ) : !search && users.length === 0 ? (
@@ -89,8 +90,9 @@ const Search = ({ setProgress }) => {
                 <FaSearch
                   className="search_icon"
                   style={{
-                    width: "100px",
-                    height: "100px",
+                    width: "80px",
+                    height: "80px",
+                    marginBottom: "20px",
                   }}
                 />
                 <div className="search_icon_heading">No Recent Search</div>
@@ -100,8 +102,9 @@ const Search = ({ setProgress }) => {
                 <FaSearch
                   className="search_icon"
                   style={{
-                    width: "100px",
-                    height: "100px",
+                    width: "80px",
+                    height: "80px",
+                    marginBottom: "20px",
                   }}
                 />
                 <div className="search_icon_heading">No Results Found</div>

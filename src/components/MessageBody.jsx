@@ -13,6 +13,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { UseSocket } from "../Context/Socket/SocketContext";
 import { RotatingLines } from "react-loader-spinner";
 import { MdError } from "react-icons/md";
+import TypeAnimation from "./TypeAnimation/typeanimation";
 
 const MessageBody = ({ info, setInfo }) => {
   const { Id } = UseAuth();
@@ -24,6 +25,7 @@ const MessageBody = ({ info, setInfo }) => {
   const [error, setError] = useState("");
   const [skip, setSkip] = useState(0);
   const [total, setTotal] = useState(0);
+  const [isTyping, setIsTyping] = useState(false);
   const [EmojiBox, setEmojiBox] = useState(false);
   const { socket } = UseSocket();
 
@@ -33,6 +35,11 @@ const MessageBody = ({ info, setInfo }) => {
   useEffect(() => {
     socket.current.on("typingResponse", (data) => {
       setStatus(data.text);
+      if (data.text === "Typing...") {
+        setIsTyping(true);
+      } else {
+        setIsTyping(false);
+      }
     });
     socket.current.on("getmessage", (message) => {
       setarrMessage({
@@ -42,7 +49,7 @@ const MessageBody = ({ info, setInfo }) => {
         createdAt: message.createdAt,
       });
     });
-  }, []);
+  }, [isTyping]);
 
   useEffect(() => {
     arrMessage &&
@@ -118,6 +125,14 @@ const MessageBody = ({ info, setInfo }) => {
       receiverId: info._id,
       text: type ? "Typing..." : "Online",
     });
+
+    if (newMessage.trim() === "") {
+      socket.current.emit("typing", {
+        senderId: Id,
+        receiverId: info._id,
+        text: "Online",
+      });
+    }
   };
 
   // handle image
@@ -267,6 +282,7 @@ const MessageBody = ({ info, setInfo }) => {
             )
           )
         )}
+        {isTyping && <TypeAnimation />}
         <div ref={scrollRef}></div>
       </div>
       <div className="messagebody_footer">
