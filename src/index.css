@@ -1897,19 +1897,20 @@ input[type="submit"]:hover {
 
 .bar_header {
   width: 100%;
-  padding: 10px 20px 1% 20px;
+  padding: 10px 20px 10px 10px;
   font-size: 1em;
   display: none;
   margin: auto;
   position: sticky;
   top: 0;
   z-index: 5;
+  text-align: center;
   background-color: rgb(26, 26, 26);
 }
 
 .bar_header span {
   margin-right: auto;
-  font-size: 1.5em;
+  font-size: 1.2em;
   font-weight: 600;
 }
 
