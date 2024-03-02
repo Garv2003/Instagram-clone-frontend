@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import "./Login/Login.css";
 import { useEffect } from "react";
-import { MdVisibilityOff, MdVisibility } from "react-icons/md";
+import { Icon } from "../utils/iconutitls";
+
 import { RotatingLines } from "react-loader-spinner";
 import PropType from "prop-types";
 import UseLogin from "../Hooks/UseLogin";
@@ -87,14 +88,16 @@ function Signup({ setProgress }) {
                 }}
               >
                 {showPassword ? (
-                  <MdVisibilityOff
+                  <Icon
+                    name="MdVisibilityOff"
                     style={{
                       color: "black",
                       fontSize: "20px",
                     }}
                   />
                 ) : (
-                  <MdVisibility
+                  <Icon
+                    name="MdVisibility"
                     style={{
                       color: "grey",
                       fontSize: "20px",
@@ -121,14 +124,16 @@ function Signup({ setProgress }) {
                 }}
               >
                 {showPassword2 ? (
-                  <MdVisibilityOff
+                  <Icon
+                    name="MdVisibilityOff"
                     style={{
                       color: "black",
                       fontSize: "20px",
                     }}
                   />
                 ) : (
-                  <MdVisibility
+                  <Icon
+                    name="MdVisibility"
                     style={{
                       color: "grey",
                       fontSize: "20px",

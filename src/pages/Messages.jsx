@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import MessageBody from "../components/MessageBody";
 import MessageSidebar from "../components/MessageSidebar";
-import { BsChatDotsFill } from "react-icons/bs";
+import { Icon } from "../utils/iconutitls";
 import Navbar from "../layout/Navbar/Navbar";
 import PropType from "prop-types";
 import UseResize from "../Hooks/UseResize";
@@ -84,7 +84,8 @@ const Messages = ({ setProgress }) => {
             ) : (
               <div className="message_icon">
                 <div className="chaticon">
-                  <BsChatDotsFill
+                  <Icon
+                    name="BsChatDotsFill"
                     style={{ width: "50px", height: "50px", margin: "20px" }}
                   />
                 </div>

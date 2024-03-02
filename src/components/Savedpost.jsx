@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import { MdFavorite } from "react-icons/md";
-import { FaComment } from "react-icons/fa6";
+import { Icon } from "../utils/iconutitls";
 import propTypes from "prop-types";
 import LazyLoad from "react-lazy-load";
 
@@ -12,11 +11,7 @@ const Profile = ({ data }) => {
           <LazyLoad className="gallery-item" key={post._id}>
             <>
               {post.type === "image" ? (
-                <img
-                  className="gallery-post"
-                  // loading="lazy"
-                  src={post.ImageUrl}
-                />
+                <img className="gallery-post" src={post.ImageUrl} />
               ) : (
                 <video className="gallery-post" src={post.ImageUrl} />
               )}
@@ -27,14 +22,14 @@ const Profile = ({ data }) => {
                     <li className="gallery-item-likes cl">
                       <span className="visually-hidden">Likes:</span>
                       <div className="gallery-item-div">
-                        <MdFavorite />
+                        <Icon name="MdFavorite" />
                         {post.likes.length}
                       </div>
                     </li>
                     <li className="gallery-item-comments cl">
                       <span className="visually-hidden">Comments:</span>
                       <div className="gallery-item-div">
-                        <FaComment />
+                        <Icon name="FaComment" />
                         {post.comments.length}
                       </div>
                     </li>

@@ -13,7 +13,7 @@ export default function UseLike(INITIAL_VALUE, INITIAL_COUNT) {
         setLike(true);
         setLikes(likes + 1);
         await axios.put(
-          `${API_URL}/post/like`,
+          `${API_URL}/post/togglelike`,
           {
             postid: id,
           },
@@ -32,7 +32,7 @@ export default function UseLike(INITIAL_VALUE, INITIAL_COUNT) {
         setLike(false);
         setLikes(likes - 1);
         await axios.put(
-          `${API_URL}/post/unlike`,
+          `${API_URL}/post/togglelike`,
           {
             postid: id,
           },

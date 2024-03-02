@@ -5,18 +5,12 @@ import { NavLink, Route, Routes } from "react-router-dom";
 import Navbar from "../layout/Navbar/Navbar";
 import Savedpost from "../components/Savedpost";
 import NoPost from "../components/NoPost";
-import { IoIosSettings } from "react-icons/io";
-import { IoPersonAddOutline } from "react-icons/io5";
-import { FaChevronDown } from "react-icons/fa";
-import { FaRegBookmark } from "react-icons/fa";
-import { MdOutlineGridOn } from "react-icons/md";
-import { BiSolidMoviePlay } from "react-icons/bi";
 import PropType from "prop-types";
 import { UseAuth } from "../Context/Auth/AuthContext";
 const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
 import axios from "axios";
 import { RotatingLines } from "react-loader-spinner";
-import { MdError } from "react-icons/md";
+import { Icon } from "../utils/iconutitls";
 
 const Profile = ({ setProgress }) => {
   const { followers, following, info } = UseAuth();
@@ -60,15 +54,15 @@ const Profile = ({ setProgress }) => {
       <div className="posts">
         <div className="profile_header">
           <NavLink to="/accounts/edit">
-            <IoIosSettings className="icon" />
+            <Icon name="IoIosSettings" className="icon" />
           </NavLink>
           <div className="profile_header_center">
             <span>{info.name}</span>
-            <FaChevronDown />
+            <Icon name="FaChevronDown" />
           </div>
           <div>
             <NavLink to="/notifications">
-              <IoPersonAddOutline className="icon" />
+              <Icon name="IoPersonAddOutline" className="icon" />
             </NavLink>
           </div>
         </div>
@@ -83,19 +77,19 @@ const Profile = ({ setProgress }) => {
             <div className="tabs">
               <NavLink to="" className="tab-item" end>
                 <div>
-                  <MdOutlineGridOn />
+                  <Icon name="MdOutlineGridOn" />
                   <span>POSTS</span>
                 </div>
               </NavLink>
               <NavLink to="saved">
                 <div className="tab-item">
-                  <FaRegBookmark />
+                  <Icon name="FaRegBookmark" />
                   <span>Saved</span>
                 </div>
               </NavLink>
               <NavLink to="reels">
                 <div className="tab-item">
-                  <BiSolidMoviePlay />
+                  <Icon name="BiSolidMoviePlay" />
                   <span>Reels</span>
                 </div>
               </NavLink>
@@ -118,13 +112,13 @@ const Profile = ({ setProgress }) => {
             </ul>
             <div className="actions">
               <NavLink to="" end>
-                <MdOutlineGridOn />
+                <Icon name="MdOutlineGridOn" />
               </NavLink>
               <NavLink to="saved">
-                <FaRegBookmark />
+                <Icon name="FaRegBookmark" />
               </NavLink>
               <NavLink to="reels">
-                <BiSolidMoviePlay />
+                <Icon name="BiSolidMoviePlay" />
               </NavLink>
             </div>
           </div>
@@ -158,7 +152,7 @@ const Profile = ({ setProgress }) => {
                 fontSize: "2rem",
               }}
             >
-              <MdError />
+              <Icon name="MdError" />
               {error}
             </div>
           ) : (

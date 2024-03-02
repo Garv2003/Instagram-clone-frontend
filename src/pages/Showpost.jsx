@@ -1,32 +1,19 @@
 import axios from "axios";
 import { useEffect, useState, useRef, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
-import { MdMoreHoriz } from "react-icons/md";
-import { MdOutlineFavoriteBorder } from "react-icons/md";
-import { MdOutlineChatBubbleOutline } from "react-icons/md";
-import { FaTelegramPlane } from "react-icons/fa";
-import { MdBookmarkBorder } from "react-icons/md";
-import { MdFavorite } from "react-icons/md";
-import { IoMdArrowBack } from "react-icons/io";
-import { FaBookmark } from "react-icons/fa";
-import { IoPersonCircleSharp } from "react-icons/io5";
 import { UseAuth } from "../Context/Auth/AuthContext";
 import { formatInstagramDate } from "../utils/utils";
 import CommentBar from "../components/CommentBar";
 import Picker from "emoji-picker-react";
-import { MdEmojiEmotions } from "react-icons/md";
 import UseFollow from "../Hooks/UseFollow";
 import UseLike from "../Hooks/UseLike";
 import UseBookMark from "../Hooks/UseBookMark";
 import UseComment from "../Hooks/UseComment";
 import UseShowPost from "../Hooks/UseShowPost";
 import PropTypes from "prop-types";
-import { FaPlay } from "react-icons/fa";
-import { BsVolumeMuteFill } from "react-icons/bs";
-import { BsVolumeUpFill } from "react-icons/bs";
 import UsePrev from "../Hooks/UsePrev";
 import { RotatingLines } from "react-loader-spinner";
-import { MdError } from "react-icons/md";
+import { Icon } from "../utils/iconutitls";
 import LazyLoad from "react-lazy-load";
 
 const Showpost = ({ setProgress }) => {
@@ -338,7 +325,7 @@ const Showpost = ({ setProgress }) => {
           fontSize: "2rem",
         }}
       >
-        <MdError />
+        <Icon name="MdError" />
         {error}
       </div>
     );
@@ -347,7 +334,8 @@ const Showpost = ({ setProgress }) => {
     <div className="show_post">
       {hidden && <SidePopup />}
       <div className="arrow hidden_arrow">
-        <IoMdArrowBack
+        <Icon
+          name="IoMdArrowBack"
           onClick={prev}
           style={{ fontSize: "30px", cursor: "pointer" }}
         />
@@ -355,7 +343,8 @@ const Showpost = ({ setProgress }) => {
       <div className="Postp_header bar_hidden">
         <div className="postp_header_pro">
           <div>
-            <IoMdArrowBack
+            <Icon
+              name="IoMdArrowBack"
               onClick={prev}
               style={{ fontSize: "30px", cursor: "pointer" }}
             />
@@ -369,7 +358,8 @@ const Showpost = ({ setProgress }) => {
               />
             </LazyLoad>
           ) : (
-            <IoPersonCircleSharp
+            <Icon
+              name="IoPersonCircleSharp"
               style={{
                 fontSize: "66px",
               }}
@@ -403,7 +393,8 @@ const Showpost = ({ setProgress }) => {
             </div>
           )}
         </div>
-        <MdMoreHoriz
+        <Icon
+          name="MdMoreHoriz"
           style={{ cursor: "pointer" }}
           onClick={() => {
             handlePopup();
@@ -421,18 +412,20 @@ const Showpost = ({ setProgress }) => {
               <div className="video__container">
                 {VideoPlayer}
                 <div className="play" onClick={playVideo}>
-                  <FaPlay />
+                  <Icon name="FaPlay" />
                 </div>
                 <div className="volume">
                   {volume ? (
-                    <BsVolumeUpFill
+                    <Icon
+                      name="BsVolumeUpFill"
                       onClick={() => {
                         video.current.muted = true;
                         setVolume(false);
                       }}
                     />
                   ) : (
-                    <BsVolumeMuteFill
+                    <Icon
+                      name="BsVolumeMuteFill"
                       onClick={() => {
                         video.current.muted = false;
                         setVolume(true);
@@ -461,7 +454,8 @@ const Showpost = ({ setProgress }) => {
                   />
                 </LazyLoad>
               ) : (
-                <IoPersonCircleSharp
+                <Icon
+                  name="IoPersonCircleSharp"
                   style={{
                     fontSize: "40px",
                   }}
@@ -499,7 +493,8 @@ const Showpost = ({ setProgress }) => {
                 </div>
               )}
             </div>
-            <MdMoreHoriz
+            <Icon
+              name="MdMoreHoriz"
               style={{ cursor: "pointer", fontSize: "30px" }}
               onClick={() => {
                 handlePopup();
@@ -515,37 +510,43 @@ const Showpost = ({ setProgress }) => {
             <div className="posticons">
               <div className="post_iconsMain">
                 {like ? (
-                  <MdFavorite
+                  <Icon
+                    name="MdFavorite"
                     style={{ color: "red", fontSize: "45px" }}
                     className="postIcon"
                     onClick={() => handleLikeAction(post._id, false)}
                   />
                 ) : (
-                  <MdOutlineFavoriteBorder
+                  <Icon
+                    name="MdOutlineFavoriteBorder"
                     className="postIcon"
                     style={{ fontSize: "45px" }}
                     onClick={() => handleLikeAction(post._id, true)}
                   />
                 )}
-                <MdOutlineChatBubbleOutline
+                <Icon
+                  name="MdOutlineChatBubbleOutline"
                   style={{ fontSize: "45px" }}
                   className="postIcon cl"
                 />
-                <FaTelegramPlane
+                <Icon
+                  name="FaTelegramPlane"
                   style={{ fontSize: "45px" }}
                   className="postIcon"
                 />
               </div>
               <div className="post_iconsb">
                 {bookmark ? (
-                  <FaBookmark
+                  <Icon
+                    name="FaBookmark"
                     style={{ color: "white" }}
                     className="postIcon"
                     sx={{ fontSize: 45 }}
                     onClick={() => bookmarkPostAction(post._id, false)}
                   />
                 ) : (
-                  <FaBookmark
+                  <Icon
+                    name="FaBookmark"
                     className="postIcon"
                     sx={{ fontSize: 45 }}
                     onClick={() => bookmarkPostAction(post._id, true)}
@@ -581,36 +582,42 @@ const Showpost = ({ setProgress }) => {
             <div className="posticons">
               <div className="post_iconsMain">
                 {like ? (
-                  <MdFavorite
+                  <Icon
+                    name="MdFavorite"
                     style={{ color: "red", fontSize: "45px" }}
                     className="postIcon"
                     onClick={() => handleLikeAction(post._id, false)}
                   />
                 ) : (
-                  <MdOutlineFavoriteBorder
+                  <Icon
+                    name="MdOutlineFavoriteBorder"
                     className="postIcon"
                     style={{ fontSize: "45px" }}
                     onClick={() => handleLikeAction(post._id, true)}
                   />
                 )}
-                <MdOutlineChatBubbleOutline
+                <Icon
+                  name="MdOutlineChatBubbleOutline"
                   style={{ fontSize: "45px" }}
                   className="postIcon cl"
                 />
-                <FaTelegramPlane
+                <Icon
+                  name="FaTelegramPlane"
                   style={{ fontSize: "45px" }}
                   className="postIcon"
                 />
               </div>
               <div className="post_iconsb">
                 {bookmark ? (
-                  <FaBookmark
+                  <Icon
+                    name="FaBookmark"
                     style={{ color: "white", fontSize: "2.5rem" }}
                     className="postIcon"
                     onClick={() => bookmarkPostAction(post._id, false)}
                   />
                 ) : (
-                  <MdBookmarkBorder
+                  <Icon
+                    name="MdBookmarkBorder"
                     className="postIcon"
                     style={{ fontSize: "2.5rem" }}
                     onClick={() => bookmarkPostAction(post._id, true)}
@@ -648,7 +655,8 @@ const Showpost = ({ setProgress }) => {
                 onClick={() => setEmojiBox(!EmojiBox)}
                 style={{ backgroundColor: "black", border: 0 }}
               >
-                <MdEmojiEmotions
+                <Icon
+                  name="MdEmojiEmotions"
                   style={{ color: "white", width: "20px", height: "20px" }}
                 />
               </button>

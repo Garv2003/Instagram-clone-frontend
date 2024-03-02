@@ -1,11 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link, useNavigate } from "react-router-dom";
-import { RxAvatar } from "react-icons/rx";
 import { AuthContext } from "../Context/Auth/AuthContext";
-import { IoMdArrowRoundBack } from "react-icons/io";
 import { TailSpin } from "react-loader-spinner";
-import { MdError } from "react-icons/md";
+import { Icon } from "../utils/iconutitls";
 import LazyLoad from "react-lazy-load";
 
 const MessageSidebar = ({ user, handleData, loading, error }) => {
@@ -16,7 +14,11 @@ const MessageSidebar = ({ user, handleData, loading, error }) => {
       <div className="message_header">
         <div>
           <div className="message_subheader">
-            <IoMdArrowRoundBack onClick={() => navigate(-1)} className="back" />
+            <Icon
+              name="IoMdArrowRoundBack"
+              onClick={() => navigate(-1)}
+              className="back"
+            />
             <div className="currentuser">
               <div>{info.username}</div>
             </div>
@@ -55,7 +57,7 @@ const MessageSidebar = ({ user, handleData, loading, error }) => {
             minHeight: "80vh",
           }}
         >
-          <MdError />
+          <Icon name="MdError" />
           {error}
         </div>
       ) : (
@@ -75,7 +77,7 @@ const MessageSidebar = ({ user, handleData, loading, error }) => {
                           />
                         </LazyLoad>
                       ) : (
-                        <RxAvatar className="postprofileimage" />
+                        <Icon name="RxAvatar" className="postprofileimage" />
                       )}
                     </Link>
                     <div className="username__info">

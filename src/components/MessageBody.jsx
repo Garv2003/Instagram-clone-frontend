@@ -1,18 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { RxAvatar } from "react-icons/rx";
-import { IoEllipsisHorizontalSharp } from "react-icons/io5";
-import { IoSend } from "react-icons/io5";
-import { MdEmojiEmotions } from "react-icons/md";
-import { MdInsertPhoto } from "react-icons/md";
+import { Icon } from "../utils/iconutitls";
 import Picker from "emoji-picker-react";
 import axios from "axios";
 import { UseAuth } from "../Context/Auth/AuthContext";
 import PropType from "prop-types";
-import { IoMdArrowRoundBack } from "react-icons/io";
 import { UseSocket } from "../Context/Socket/SocketContext";
 import { RotatingLines } from "react-loader-spinner";
-import { MdError } from "react-icons/md";
 import TypeAnimation from "./TypeAnimation/TypeAnimation";
 
 const MessageBody = ({ info, setInfo }) => {
@@ -20,7 +14,7 @@ const MessageBody = ({ info, setInfo }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [arrMessage, setarrMessage] = useState(null);
-  const [Status, setStatus] = useState("Offline");
+  const [Status, setStatus] = useState("Not Active");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [skip, setSkip] = useState(0);
@@ -62,9 +56,9 @@ const MessageBody = ({ info, setInfo }) => {
     socket.current.on("getusers", (us) => {
       const user = us.filter((user) => user.userId === info._id);
       if (user[0]) {
-        setStatus("online");
+        setStatus("Active Now");
       } else {
-        setStatus("offline");
+        setStatus("Not Active");
       }
     });
   }, [info]);
@@ -123,7 +117,7 @@ const MessageBody = ({ info, setInfo }) => {
     socket.current.emit("typing", {
       senderId: Id,
       receiverId: info._id,
-      text: type ? "Typing..." : "Online",
+      text: type ? "Typing..." : "Active Now",
     });
 
     if (newMessage.trim() === "") {
@@ -168,7 +162,8 @@ const MessageBody = ({ info, setInfo }) => {
       <div className="messagebody_top">
         <div>
           <div className="topicon">
-            <IoMdArrowRoundBack
+            <Icon
+              name="IoMdArrowRoundBack"
               className="back"
               onClick={() => {
                 document.querySelector(".message_left").style.display = "block";
@@ -185,7 +180,7 @@ const MessageBody = ({ info, setInfo }) => {
                     alt="Profile"
                   />
                 ) : (
-                  <RxAvatar className="postprofileimage" />
+                  <Icon name="RxAvatar" className="postprofileimage" />
                 )}
               </Link>
             </div>
@@ -197,7 +192,7 @@ const MessageBody = ({ info, setInfo }) => {
         </div>
 
         <div>
-          <IoEllipsisHorizontalSharp />
+          <Icon name="IoEllipsisHorizontalSharp" />
         </div>
       </div>
       <div className="message__container">
@@ -227,12 +222,7 @@ const MessageBody = ({ info, setInfo }) => {
               minHeight: "90vh",
             }}
           >
-            <MdError
-              size="5rem"
-              style={{
-                color: "#fafafa",
-              }}
-            />
+            <Icon name="MdError" size="5rem" className="icon" />
             {error}
           </div>
         ) : messages.length === 0 ? (
@@ -287,7 +277,7 @@ const MessageBody = ({ info, setInfo }) => {
       </div>
       <div className="messagebody_footer">
         <button onClick={() => setEmojiBox(!EmojiBox)}>
-          <MdEmojiEmotions />
+          <Icon name="MdEmojiEmotions" />
         </button>
         <button
           onClick={() => {
@@ -300,14 +290,13 @@ const MessageBody = ({ info, setInfo }) => {
             ref={fileRef}
             onChange={(e) => handleImage(e)}
           />
-          <MdInsertPhoto />
+          <Icon name="MdInsertPhoto" />
         </button>
         <div className="emoji">
           {EmojiBox && (
             <Picker
               onEmojiClick={(event) => {
                 setNewMessage(newMessage + event.emoji);
-                // setEmojiBox(false)
               }}
               pickerStyle={{ width: "100%" }}
             />
@@ -327,8 +316,8 @@ const MessageBody = ({ info, setInfo }) => {
             setNewMessage(e.target.value);
           }}
         />
-        <button onClick={handleSendMessage}>
-          <IoSend />
+        <button onClick={handleSendMessage} className="sendBtn">
+          <Icon name="IoSend" />
         </button>
       </div>
     </div>

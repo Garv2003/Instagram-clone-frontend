@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Context/Auth/AuthContext";
-import { RxAvatar } from "react-icons/rx";
+import { Icon } from "../utils/iconutitls";
 import UseFollow from "../Hooks/UseFollow";
 import PropType from "prop-types";
 import LazyLoad from "react-lazy-load";
@@ -24,7 +24,8 @@ const Profilebar = ({ post }) => {
                 />
               </LazyLoad>
             ) : (
-              <RxAvatar
+              <Icon
+                name="RxAvatar"
                 style={{
                   fontSize: "40px",
                   cursor: "pointer",

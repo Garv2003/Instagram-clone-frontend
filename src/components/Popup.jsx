@@ -1,11 +1,7 @@
 import { Link } from "react-router-dom";
-import { IoIosSettings } from "react-icons/io";
-import { MdBookmarkBorder } from "react-icons/md";
-import { MdOutlineModeNight } from "react-icons/md";
-import { MdOutlineAccessTime } from "react-icons/md";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
-import "react-toastify/dist/ReactToastify.css";
+import { Icon } from "../utils/iconutitls";
 
 const Popup = ({ onClose }) => {
   const handlelogout = () => {
@@ -37,13 +33,17 @@ const Popup = ({ onClose }) => {
           <div className="popup1">
             <Link to="/accounts/edit/">
               <button className="popup_items">
-                <IoIosSettings style={{ width: "25px", height: "25px" }} />
+                <Icon
+                  name="IoIosSettings"
+                  style={{ width: "25px", height: "25px" }}
+                />
                 <span>Setting</span>
               </button>
             </Link>
             <Link to="/your_activity/interactions/likes/">
               <button className="popup_items">
-                <MdOutlineAccessTime
+                <Icon
+                  name="MdOutlineAccessTime"
                   style={{ width: "25px", height: "25px" }}
                 />
                 <span>Your activity</span>
@@ -51,12 +51,16 @@ const Popup = ({ onClose }) => {
             </Link>
             <Link to="/profile/saved">
               <button className="popup_items">
-                <MdBookmarkBorder style={{ width: "25px", height: "25px" }} />
+                <Icon
+                  name="MdBookmarkBorder"
+                  style={{ width: "25px", height: "25px" }}
+                />
                 Saved
               </button>
             </Link>
             <button className="popup_items">
-              <MdOutlineModeNight
+              <Icon
+                name="MdOutlineModeNight"
                 style={{
                   transform: "rotate(45deg)",
                   width: "25px",

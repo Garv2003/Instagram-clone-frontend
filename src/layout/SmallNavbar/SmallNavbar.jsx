@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import "./SmallNavbar.css";
-import { IoSearch } from "react-icons/io5";
-import { FaRegHeart } from "react-icons/fa";
+import { Icon } from "../../utils/iconutitls";
 import PropType from "prop-types";
 
 const NavigationButton = ({ icon, to }) => {
@@ -27,7 +26,7 @@ const SmallNavbar = () => {
         <div className="smallnavbarbuttons">
           <NavigationButton
             icon={
-              <IoSearch
+              <Icon name="IoSearch"
                 style={{
                   width: "25px",
                   height: "25px",
@@ -38,7 +37,7 @@ const SmallNavbar = () => {
           />
           <NavigationButton
             icon={
-              <FaRegHeart
+              <Icon name="FaRegHeart"
                 style={{
                   width: "25px",
                   height: "25px",

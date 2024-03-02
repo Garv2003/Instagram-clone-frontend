@@ -2,17 +2,8 @@ import { useState } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import Popup from "../../components/Popup";
-import { FaInstagram } from "react-icons/fa";
 import InstagramLogo from "../../assets/instagram-logo.png";
-import { GrHomeRounded } from "react-icons/gr";
-import { IoSearch } from "react-icons/io5";
-import { MdOutlineExplore } from "react-icons/md";
-import { FaRegHeart } from "react-icons/fa";
-import { BsPlusSquare } from "react-icons/bs";
-import { CgProfile } from "react-icons/cg";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { BiSolidMoviePlay } from "react-icons/bi";
-import { RiMessengerLine } from "react-icons/ri";
+import { Icon } from "../../utils/iconutitls";
 import PropType from "prop-types";
 import { UseAuth } from "../../Context/Auth/AuthContext";
 
@@ -43,44 +34,45 @@ const Navbar = ({ width }) => {
           <img className="logo" src={InstagramLogo} alt="Instagram Logo" />
           <div className="navbutton logo2">
             {" "}
-            <FaInstagram
+            <Icon
+              name="FaInstagram"
               style={{ color: "white", width: "1.8rem", height: "1.8rem" }}
             />
           </div>
         </Link>
         <div className="navbarbuttons">
           <NavigationButton
-            icon={<GrHomeRounded className="icon" />}
+            icon={<Icon name="GrHomeRounded" className="icon" />}
             text="Home"
             to="/"
           />
           <NavigationButton
-            icon={<IoSearch className="icon" />}
+            icon={<Icon name="IoSearch" className="icon" />}
             text="Search"
             to="/search"
           />
           <NavigationButton
-            icon={<MdOutlineExplore className="icon" />}
+            icon={<Icon name="MdOutlineExplore" className="icon" />}
             text="Explore"
             to="/explore"
           />
           <NavigationButton
-            icon={<BiSolidMoviePlay className="icon" />}
+            icon={<Icon name="BiSolidMoviePlay" className="icon" />}
             text="Reels"
             to="/Reels"
           />
           <NavigationButton
-            icon={<RiMessengerLine className="icon" />}
+            icon={<Icon name="RiMessengerLine" className="icon" />}
             text="Messages"
             to="/message"
           />
           <NavigationButton
-            icon={<FaRegHeart className="icon" />}
+            icon={<Icon name="FaRegHeart" className="icon" />}
             text="Notifications"
             to="/notifications"
           />
           <NavigationButton
-            icon={<BsPlusSquare className="icon" />}
+            icon={<Icon name="BsPlusSquare" className="icon" />}
             text="Create"
             to="/create"
           />
@@ -92,7 +84,7 @@ const Navbar = ({ width }) => {
                 className="profile_image"
               />
             ) : (
-              <CgProfile className="icon" id="pro_icon" />
+              <Icon name="CgProfile" className="icon" id="pro_icon" />
             )}
             <span>Profile</span>
           </Link>
@@ -100,7 +92,7 @@ const Navbar = ({ width }) => {
         <div className="navbutton_more">
           {open && <Popup Open={open} onClose={() => setOpen(false)} />}
           <button onClick={() => setOpen(!open)} className="navbutton">
-            <GiHamburgerMenu className="icon" />
+            <Icon name="GiHamburgerMenu" className="icon" />
             <span>More</span>
           </button>
         </div>

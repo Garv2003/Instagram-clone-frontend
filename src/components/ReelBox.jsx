@@ -1,27 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { RxAvatar } from "react-icons/rx";
-import { MdOutlineFavoriteBorder } from "react-icons/md";
-import { MdOutlineChatBubbleOutline } from "react-icons/md";
-import { FaTelegramPlane } from "react-icons/fa";
-import { MdBookmarkBorder } from "react-icons/md";
-import { MdFavorite } from "react-icons/md";
-import { FaBookmark } from "react-icons/fa";
 import { UseAuth } from "../Context/Auth/AuthContext";
 import Picker from "emoji-picker-react";
-import { MdEmojiEmotions } from "react-icons/md";
 import UseBookMark from "../Hooks/UseBookMark";
 import UseLike from "../Hooks/UseLike";
 import UseFollow from "../Hooks/UseFollow";
 import UseComment from "../Hooks/UseComment";
 import { formatInstagramDate } from "../utils/utils";
 import PropTypes from "prop-types";
-import { FaPlay } from "react-icons/fa";
-import { BsVolumeMuteFill } from "react-icons/bs";
-import { BsVolumeUpFill } from "react-icons/bs";
-import { FaRegComment } from "react-icons/fa";
-import { RxCross2 } from "react-icons/rx";
 import LazyLoad from "react-lazy-load";
+import { Icon } from "../utils/iconutitls";
 
 const Post = ({ post }) => {
   const {
@@ -120,12 +108,17 @@ const Post = ({ post }) => {
         ></video>
         <div className="volume">
           {volume ? (
-            <BsVolumeUpFill
+            <Icon
+              name="BsVolumeUpFill"
               className="volume__icon"
               onClick={() => handleVolume()}
             />
           ) : (
-            <BsVolumeMuteFill className="volume__icon" onClick={handleVolume} />
+            <Icon
+              name="BsVolumeMuteFill"
+              className="volume__icon"
+              onClick={handleVolume}
+            />
           )}
         </div>
         <div className="play"></div>
@@ -147,7 +140,8 @@ const Post = ({ post }) => {
                 />
               </LazyLoad>
             ) : (
-              <RxAvatar
+              <Icon
+                name="RxAvatar"
                 style={{
                   fontSize: "40px",
                   cursor: "pointer",
@@ -204,7 +198,11 @@ const Post = ({ post }) => {
                 cursor: "pointer",
               }}
             >
-              <RxCross2 className="close__icon" onClick={() => setBox(false)} />
+              <Icon
+                name="RxCross2"
+                className="close__icon"
+                onClick={() => setBox(false)}
+              />
             </div>
             <div className="formposts">
               <button
@@ -212,7 +210,8 @@ const Post = ({ post }) => {
                 onClick={() => setEmojiBox(!EmojiBox)}
                 style={{ backgroundColor: "black", border: 0 }}
               >
-                <MdEmojiEmotions
+                <Icon
+                  name="MdEmojiEmotions"
                   style={{ fontSize: "1.8rem", color: "white" }}
                 />
               </button>
@@ -255,7 +254,8 @@ const Post = ({ post }) => {
         <div className="ReelBox_Header">
           <div className="side_icon">
             {like ? (
-              <MdFavorite
+              <Icon
+                name="MdFavorite"
                 className="postIcon"
                 style={{
                   fontSize: "3rem",
@@ -266,7 +266,8 @@ const Post = ({ post }) => {
                 }}
               />
             ) : (
-              <MdOutlineFavoriteBorder
+              <Icon
+                name="MdOutlineFavoriteBorder"
                 className="postIcon"
                 style={{ fontSize: "3rem" }}
                 onClick={() => {
@@ -283,7 +284,8 @@ const Post = ({ post }) => {
             </div>
           </div>
           <div className="side_icon">
-            <FaRegComment
+            <Icon
+              name="FaRegComment"
               className="postIcon"
               style={{ fontSize: "3rem" }}
               onClick={() => {
@@ -298,17 +300,23 @@ const Post = ({ post }) => {
               {post.comments.length}
             </div>
           </div>
-          <FaTelegramPlane className="postIcon" style={{ fontSize: 45 }} />
+          <Icon
+            name="FaTelegramPlane"
+            className="postIcon"
+            style={{ fontSize: 45 }}
+          />
           <div className="side_icon">
             <Link to={`/p/${post._id}`}>
-              <MdOutlineChatBubbleOutline
+              <Icon
+                name="MdOutlineChatBubbleOutline"
                 className="postIcon"
                 style={{ fontSize: 45 }}
               />
             </Link>
           </div>
           {bookmark ? (
-            <FaBookmark
+            <Icon
+              name="FaBookmark"
               className="postIcon"
               style={{ fontSize: 45 }}
               onClick={() => {
@@ -316,7 +324,8 @@ const Post = ({ post }) => {
               }}
             />
           ) : (
-            <MdBookmarkBorder
+            <Icon
+              name="MdBookmarkBorder"
               className="postIcon"
               style={{ fontSize: 45 }}
               onClick={() => {
@@ -328,7 +337,7 @@ const Post = ({ post }) => {
         {!playing && (
           <div className="Reel_play" onClick={() => handleVideoToggle()}>
             <div className="play_button">
-              <FaPlay className="play__icon" />
+              <Icon name="FaPlay" className="play__icon" />
             </div>
           </div>
         )}

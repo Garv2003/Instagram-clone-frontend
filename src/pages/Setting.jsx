@@ -3,36 +3,7 @@ import ProfileFooter from "../layout/ProfileFooter/ProfileFooter";
 import PropType from "prop-types";
 import Navbar from "../layout/Navbar/Navbar";
 import { toast } from "react-toastify";
-import { IoBookmarkOutline } from "react-icons/io5";
-import { IoIosArrowForward } from "react-icons/io";
-import { MdRestore } from "react-icons/md";
-import { CgProfile } from "react-icons/cg";
-import { BsFillStarFill } from "react-icons/bs";
-import { FaBell } from "react-icons/fa";
-import { RxTimer } from "react-icons/rx";
-import { IoStarOutline } from "react-icons/io5";
-import { FaBellSlash } from "react-icons/fa";
-import { FaPhotoFilm } from "react-icons/fa6";
-import { LuHeartOff } from "react-icons/lu";
-import { FaLock } from "react-icons/fa";
-import { MdBlockFlipped } from "react-icons/md";
-import { MdHideSource } from "react-icons/md";
-import { FiHelpCircle } from "react-icons/fi";
-import { GoPerson } from "react-icons/go";
-import { FcAbout } from "react-icons/fc";
-import { BsFileBarGraphFill } from "react-icons/bs";
-import { IoLaptopOutline } from "react-icons/io5";
-import { HiChartBar } from "react-icons/hi2";
-import { IoLanguage } from "react-icons/io5";
-import { BsUniversalAccessCircle } from "react-icons/bs";
-import { MdFileDownload } from "react-icons/md";
-import { HiOutlineDevicePhoneMobile } from "react-icons/hi2";
-import { IoPersonAddOutline } from "react-icons/io5";
-import { FaRegComment } from "react-icons/fa6";
-import { IoMdShare } from "react-icons/io";
-import { TiTag } from "react-icons/ti";
-import { RiMessengerLine } from "react-icons/ri";
-import { BsExclamationCircle } from "react-icons/bs";
+import { Icon } from "../utils/iconutitls";
 
 const Setting = ({ setProgress }) => {
   React.useEffect(() => {
@@ -54,7 +25,7 @@ const Setting = ({ setProgress }) => {
           <span>{props.subitem}</span>
         </div>
         <div className="setting_subitem_right">
-          <IoIosArrowForward />
+          <Icon name="IoIosArrowForward" />
         </div>
       </div>
     );
@@ -88,7 +59,8 @@ const Setting = ({ setProgress }) => {
           <div className="setting_subheader">
             <div className="setting_subitem">
               <div className="setting_account">
-                <CgProfile
+                <Icon
+                  name="CgProfile"
                   style={{
                     fontSize: "40px",
                     color: "grey",
@@ -113,37 +85,82 @@ const Setting = ({ setProgress }) => {
                   </div>
                 </div>
               </div>
-              <IoIosArrowForward />
+              <Icon name="IoIosArrowForward" />
             </div>
           </div>
           <div className="setting_item">
             <div className="setting_item_title">How you used Instagram</div>
-            {<SettingBar icon={<IoBookmarkOutline />} subitem="Saved" />}
-            {<SettingBar icon={<MdRestore />} subitem="Archive" />}
-            {<SettingBar icon={<MdRestore />} subitem="Your activity" />}
-            {<SettingBar icon={<BsFillStarFill />} subitem="Close friends" />}
-            {<SettingBar icon={<FaBell />} subitem="Notifications" />}
-            {<SettingBar icon={<RxTimer />} subitem="Time Spent" />}
+            {
+              <SettingBar
+                icon={<Icon name="IoBookmarkOutline" />}
+                subitem="Saved"
+              />
+            }
+            {<SettingBar icon={<Icon name="MdRestore" />} subitem="Archive" />}
+            {
+              <SettingBar
+                icon={<Icon name="MdRestore" />}
+                subitem="Your activity"
+              />
+            }
+            {
+              <SettingBar
+                icon={<Icon name="BsFillStarFill" />}
+                subitem="Close friends"
+              />
+            }
+            {
+              <SettingBar
+                icon={<Icon name="FaBell" />}
+                subitem="Notifications"
+              />
+            }
+            {<SettingBar icon={<Icon name="RxTimer" />} subitem="Time Spent" />}
           </div>
           <div className="setting_item">
             <div className="setting_item_title">What you use</div>
-            {<SettingBar icon={<IoStarOutline />} subitem="Favourities" />}
-            {<SettingBar icon={<FaBellSlash />} subitem="Muted accounts" />}
-            {<SettingBar icon={<FaPhotoFilm />} subitem="Suggested content" />}
             {
               <SettingBar
-                icon={<LuHeartOff />}
+                icon={<Icon name="IoStarOutline" />}
+                subitem="Favourities"
+              />
+            }
+            {
+              <SettingBar
+                icon={<Icon name="FaBellSlash" />}
+                subitem="Muted accounts"
+              />
+            }
+            {
+              <SettingBar
+                icon={<Icon name="FaPhotoFilm" />}
+                subitem="Suggested content"
+              />
+            }
+            {
+              <SettingBar
+                icon={<Icon name="LuHeartOff" />}
                 subitem="Like and share counts"
               />
             }
           </div>
           <div className="setting_item">
             <div className="setting_item_title">Who can see your content</div>
-            {<SettingBar icon={<FaLock />} subitem="Account privacy" />}
-            {<SettingBar icon={<MdBlockFlipped />} subitem="Blocked" />}
             {
               <SettingBar
-                icon={<MdHideSource />}
+                icon={<Icon name="FaLock" />}
+                subitem="Account privacy"
+              />
+            }
+            {
+              <SettingBar
+                icon={<Icon name="MdBlockFlipped" />}
+                subitem="Blocked"
+              />
+            }
+            {
+              <SettingBar
+                icon={<Icon name="MdHideSource" />}
                 subitem="Hide story and live"
               />
             }
@@ -154,24 +171,44 @@ const Setting = ({ setProgress }) => {
             </div>
             {
               <SettingBar
-                icon={<RiMessengerLine />}
+                icon={<Icon name="RiMessengerLine" />}
                 subitem="Messages and story replies"
               />
             }
-            {<SettingBar icon={<TiTag />} subitem="Tags and mentions" />}
-            {<SettingBar icon={<FaRegComment />} subitem="Comments" />}
-            {<SettingBar icon={<IoMdShare />} subitem="Sharing" />}
-            {<SettingBar icon={<MdBlockFlipped />} subitem="Restricted" />}
             {
               <SettingBar
-                icon={<BsExclamationCircle />}
+                icon={<Icon name="TiTag" />}
+                subitem="Tags and mentions"
+              />
+            }
+            {
+              <SettingBar
+                icon={<Icon name="FaRegComment" />}
+                subitem="Comments"
+              />
+            }
+            {<SettingBar icon={<Icon name="IoMdShare" />} subitem="Sharing" />}
+            {
+              <SettingBar
+                icon={<Icon name="MdBlockFlipped" />}
+                subitem="Restricted"
+              />
+            }
+            {
+              <SettingBar
+                icon={<Icon name="BsExclamationCircle" />}
                 subitem="Limited interactions"
               />
             }
-            {<SettingBar icon={<MdHideSource />} subitem="Hidden words" />}
             {
               <SettingBar
-                icon={<IoPersonAddOutline />}
+                icon={<Icon name="MdHideSource" />}
+                subitem="Hidden words"
+              />
+            }
+            {
+              <SettingBar
+                icon={<Icon name="IoPersonAddOutline" />}
                 subitem="Follow and invite friends"
               />
             }
@@ -180,54 +217,69 @@ const Setting = ({ setProgress }) => {
             <div className="setting_item_title">Your app and media</div>
             {
               <SettingBar
-                icon={<HiOutlineDevicePhoneMobile />}
+                icon={<Icon name="HiOutlineDevicePhoneMobile" />}
                 subitem="Device permissions"
               />
             }
             {
               <SettingBar
-                icon={<MdFileDownload />}
+                icon={<Icon name="MdFileDownload" />}
                 subitem="Archiving and downloading"
               />
             }
             {
               <SettingBar
-                icon={<BsUniversalAccessCircle />}
+                icon={<Icon name="BsUniversalAccessCircle" />}
                 subitem="Accessibility"
               />
             }
-            {<SettingBar icon={<IoLanguage />} subitem="Language" />}
             {
               <SettingBar
-                icon={<HiChartBar />}
+                icon={<Icon name="IoLanguage" />}
+                subitem="Language"
+              />
+            }
+            {
+              <SettingBar
+                icon={<Icon name="HiChartBar" />}
                 subitem="Data usage and media quality"
               />
             }
             {
               <SettingBar
-                icon={<IoLaptopOutline />}
+                icon={<Icon name="IoLaptopOutline" />}
                 subitem="Website permissions"
               />
             }
           </div>
           <div className="setting_item">
             <div className="setting_item_title">For families</div>
-            {<SettingBar icon={<GoPerson />} subitem="Supervision" />}
+            {
+              <SettingBar
+                icon={<Icon name="GoPerson" />}
+                subitem="Supervision"
+              />
+            }
           </div>
           <div className="setting_item">
             <div className="setting_item_title">For professionals</div>
             {
               <SettingBar
-                icon={<BsFileBarGraphFill />}
+                icon={<Icon name="BsFileBarGraphFill" />}
                 subitem="Account type and tools"
               />
             }
           </div>
           <div className="setting_item">
             <div className="setting_item_title">More info and support</div>
-            {<SettingBar icon={<FiHelpCircle />} subitem="Help" />}
-            {<SettingBar icon={<GoPerson />} subitem="Account Status" />}
-            {<SettingBar icon={<FcAbout />} subitem="About" />}
+            {<SettingBar icon={<Icon name="FiHelpCircle" />} subitem="Help" />}
+            {
+              <SettingBar
+                icon={<Icon name="GoPerson" />}
+                subitem="Account Status"
+              />
+            }
+            {<SettingBar icon={<Icon name="FcAbout" />} subitem="About" />}
           </div>
           <div className="setting_item_login">
             <div className="setting_item_title">Login</div>

@@ -1,15 +1,13 @@
 import { useState, useRef, useEffect } from "react";
-import { IoIosSettings } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import Settingpopup from "./Settingpopup";
 import axios from "axios";
 import { RotatingLines } from "react-loader-spinner";
-import { IoPersonCircleSharp } from "react-icons/io5";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import PropType from "prop-types";
 import { UseAuth } from "../Context/Auth/AuthContext";
 import LazyLoad from "react-lazy-load";
+import { Icon } from "../utils/iconutitls";
 
 const ProfileHeader = ({ User, length, followers, following }) => {
   const navigate = useNavigate();
@@ -119,7 +117,6 @@ const ProfileHeader = ({ User, length, followers, following }) => {
   return (
     <>
       <header>
-        <ToastContainer />
         <div className="header-wrap">
           <input
             type="file"
@@ -141,7 +138,8 @@ const ProfileHeader = ({ User, length, followers, following }) => {
                 </LazyLoad>
               ) : (
                 <button className="photobtn" disabled={loading}>
-                  <IoPersonCircleSharp
+                  <Icon
+                    name="IoPersonCircleSharp"
                     className="profile_header_avatar"
                     onClick={onAvatar}
                   />
@@ -195,7 +193,8 @@ const ProfileHeader = ({ User, length, followers, following }) => {
                   }}
                   open={onsetting}
                 />
-                <IoIosSettings
+                <Icon
+                  name="IoIosSettings"
                   className="btnset"
                   style={{
                     fontSize: "30px",

@@ -1,13 +1,11 @@
-import { FaCamera } from "react-icons/fa";
-import { IoBookmarkOutline } from "react-icons/io5";
-import { MdOutlineSlideshow } from "react-icons/md";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-
+import { Icon } from "../utils/iconutitls";
 const Data = [
   {
     icon: (
-      <FaCamera
+      <Icon
+        name="FaCamera"
         style={{
           width: "80px",
           height: "80px",
@@ -20,7 +18,8 @@ const Data = [
   },
   {
     icon: (
-      <IoBookmarkOutline
+      <Icon
+        name="IoBookmarkOutline"
         style={{
           width: "80px",
           height: "80px",
@@ -33,7 +32,8 @@ const Data = [
   },
   {
     icon: (
-      <MdOutlineSlideshow
+      <Icon
+        name="MdOutlineSlideshow"
         style={{
           width: "80px",
           height: "80px",

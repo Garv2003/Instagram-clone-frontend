@@ -6,7 +6,7 @@ import axios from "axios";
 import Bar from "../components/Bar";
 import PropType from "prop-types";
 import { RotatingLines } from "react-loader-spinner";
-import { MdError } from "react-icons/md";
+import { Icon } from "../utils/iconutitls";
 
 const Explore = ({ setProgress }) => {
   const [posts, setPosts] = useState([]);
@@ -71,7 +71,7 @@ const Explore = ({ setProgress }) => {
                 fontSize: "2rem",
               }}
             >
-              <MdError />
+              <Icon name="MdError" />
               {error}
             </div>
           ) : (

@@ -10,7 +10,7 @@ export default function UseFollow(INITIALVALUE) {
       try {
         setFollow(true);
         await axios.put(
-          `${import.meta.env.VITE_APP_BACKEND_URL}/user/follow`,
+          `${import.meta.env.VITE_APP_BACKEND_URL}/user/togglefollow`,
           {
             followId: id,
           },
@@ -28,7 +28,7 @@ export default function UseFollow(INITIALVALUE) {
       try {
         setFollow(false);
         await axios.put(
-          `${import.meta.env.VITE_APP_BACKEND_URL}/user/unfollow`,
+          `${import.meta.env.VITE_APP_BACKEND_URL}/user/togglefollow`,
           {
             followId: id,
           },

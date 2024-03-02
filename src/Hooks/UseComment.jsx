@@ -9,26 +9,25 @@ export default function UseComment(INITIAL_COUNT) {
   const [Commentarr, setCommentarr] = useState([]);
 
   const addCommentToPost = async (id, comment) => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const res = await axios.post(
-          `${API_URL}/post/addcomment`,
-          {
-            postid: id,
-            text: comment,
+    try {
+      const res = await axios.post(
+        `${API_URL}/post/addcomment`,
+        {
+          postid: id,
+          text: comment,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
           },
-          {
-            headers: {
-              Authorization: localStorage.getItem("token"),
-            },
-          }
-        );
-        resolve(res.data);
-      } catch (error) {
-        console.error("Error adding comment:", error);
-        reject(error);
-      }
-    });
+        }
+      );
+      console.log("Comment added:", res.data);
+      return res.data;
+    } catch (error) {
+      console.error("Error adding comment:", error);
+      return error;
+    }
   };
 
   return {

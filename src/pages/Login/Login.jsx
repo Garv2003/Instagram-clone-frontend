@@ -2,9 +2,7 @@ import { Link } from "react-router-dom";
 import "./Login.css";
 import { useEffect } from "react";
 import ProfileFooter from "../../layout/ProfileFooter/ProfileFooter";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { MdVisibilityOff, MdVisibility } from "react-icons/md";
+import { Icon } from "../../utils/iconutitls";
 import { RotatingLines } from "react-loader-spinner";
 import PropType from "prop-types";
 import UseLogin from "../../Hooks/UseLogin";
@@ -28,7 +26,6 @@ function Login({ setProgress }) {
 
   return (
     <div className="login">
-      <ToastContainer />
       <div className="containerlogin">
         <div className="box1">
           <div className="headinglogin"></div>
@@ -56,14 +53,16 @@ function Login({ setProgress }) {
               />
               <div className="eye" onClick={() => changeVisibility()}>
                 {showPassword ? (
-                  <MdVisibilityOff
+                  <Icon
+                    name="MdVisibilityOff"
                     style={{
                       color: "black",
                       fontSize: "20px",
                     }}
                   />
                 ) : (
-                  <MdVisibility
+                  <Icon
+                    name="MdVisibility"
                     style={{
                       color: "grey",
                       fontSize: "20px",

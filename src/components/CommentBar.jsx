@@ -1,13 +1,9 @@
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { RxAvatar } from "react-icons/rx";
-import { MdOutlineFavoriteBorder } from "react-icons/md";
-import { MdFavorite } from "react-icons/md";
 import { formatInstagramDate } from "../utils/utils";
 import { AuthContext } from "../Context/Auth/AuthContext";
 import axios from "axios";
-import { MdDelete } from "react-icons/md";
-import { MdEdit } from "react-icons/md";
+import { Icon } from "../utils/iconutitls";
 import PropTypes from "prop-types";
 import LazyLoad from "react-lazy-load";
 
@@ -23,10 +19,10 @@ const CommentBar = ({
   const [ReplyArr, setReplyArr] = useState(comment.replies);
   const [ReplyLength, setReplyLength] = useState(comment.replies.length);
 
-  const handleLikeComment = async () => {
+  const handletoggleLikeComment = async (action) => {
     try {
       const response = await axios.put(
-        `${import.meta.env.VITE_APP_BACKEND_URL}/post/commentlike`,
+        `${import.meta.env.VITE_APP_BACKEND_URL}/post/commenttogglelike`,
         {
           commentid: comment._id,
         },
@@ -38,36 +34,20 @@ const CommentBar = ({
       );
 
       if (response.status === 200) {
-        setLikeCount(likecount + 1);
-        setLike(true);
+        if (action === "like") {
+          setLikeCount(likecount + 1);
+          setLike(true);
+        }
+        if (action === "unlike") {
+          setLikeCount(likecount - 1);
+          setLike(false);
+        }
       } else {
         console.error("Failed to like comment");
       }
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const handleUnLikeComment = () => {
-    axios
-      .put(
-        `${import.meta.env.VITE_APP_BACKEND_URL}/post/commentunlike`,
-        {
-          commentid: comment._id,
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      )
-      .then(() => {
-        setLikeCount(likecount - 1);
-        setLike(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
   return (
@@ -83,7 +63,7 @@ const CommentBar = ({
               />
             </LazyLoad>
           ) : (
-            <RxAvatar style={{ marginRight: "10px" }} />
+            <Icon name="RxAvatar" style={{ marginRight: "10px" }} />
           )}
         </div>
         <div className="comment_header">
@@ -110,7 +90,7 @@ const CommentBar = ({
                     handleDeleteComment(comment._id);
                   }}
                 >
-                  <MdDelete sx={{ fontSize: 15 }} />
+                  <Icon name="MdDelete" style={{ fontSize: "1rem" }} />
                 </button>
               ) : null}
               {Id === comment.postedby._id ? (
@@ -120,7 +100,7 @@ const CommentBar = ({
                     handleEditComment(comment._id, comment.text);
                   }}
                 >
-                  <MdEdit sx={{ fontSize: 15 }} />
+                  <Icon name="MdEdit" style={{ fontSize: "1rem" }} />
                 </button>
               ) : null}
             </div>
@@ -131,17 +111,18 @@ const CommentBar = ({
             ) : null}
           </div>
           {like ? (
-            <MdFavorite
-              style={{ color: "red" }}
+            <Icon
+              name="MdFavorite"
+              style={{ color: "red", fontSize: "2.5rem" }}
               className="postIcon"
-              sx={{ fontSize: 30 }}
-              onClick={() => handleUnLikeComment()}
+              onClick={() => handletoggleLikeComment("unlike")}
             />
           ) : (
-            <MdOutlineFavoriteBorder
+            <Icon
+              name="MdOutlineFavoriteBorder"
               className="postIcon"
-              sx={{ fontSize: 30 }}
-              onClick={() => handleLikeComment()}
+              style={{ fontSize: "2.5rem" }}
+              onClick={() => handletoggleLikeComment("like")}
             />
           )}
         </div>

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import UsePrev from "../Hooks/UsePrev";
-import { GrFormPreviousLink } from "react-icons/gr";
+import { Icon } from "../utils/iconutitls";
 
 const Bar = ({ text }) => {
   const { prev } = UsePrev();
@@ -8,7 +8,8 @@ const Bar = ({ text }) => {
   return (
     <div className="bar_header">
       <button className="bar_header_btn">
-        <GrFormPreviousLink
+        <Icon
+          name="GrFormPreviousLink"
           onClick={() => {
             prev();
           }}

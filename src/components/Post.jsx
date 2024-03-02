@@ -1,16 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { RxAvatar } from "react-icons/rx";
-import { MdMoreHoriz } from "react-icons/md";
-import { MdOutlineFavoriteBorder } from "react-icons/md";
-import { MdOutlineChatBubbleOutline } from "react-icons/md";
-import { FaTelegramPlane } from "react-icons/fa";
-import { MdBookmarkBorder } from "react-icons/md";
-import { MdFavorite } from "react-icons/md";
-import { FaBookmark } from "react-icons/fa";
 import { UseAuth } from "../Context/Auth/AuthContext";
 import Picker from "emoji-picker-react";
-import { MdEmojiEmotions } from "react-icons/md";
 import UseBookMark from "../Hooks/UseBookMark";
 import UseLike from "../Hooks/UseLike";
 import UseFollow from "../Hooks/UseFollow";
@@ -18,6 +9,7 @@ import UseComment from "../Hooks/UseComment";
 import { formatInstagramDate } from "../utils/utils";
 import PropTypes from "prop-types";
 import LazyLoad from "react-lazy-load";
+import { Icon } from "../utils/iconutitls";
 
 const Post = ({ post }) => {
   const {
@@ -137,7 +129,8 @@ const Post = ({ post }) => {
               />
             </LazyLoad>
           ) : (
-            <RxAvatar
+            <Icon
+              name="RxAvatar"
               style={{
                 fontSize: "40px",
                 cursor: "pointer",
@@ -184,7 +177,8 @@ const Post = ({ post }) => {
             )}
           </div>
         </div>
-        <MdMoreHoriz
+        <Icon
+          name="MdMoreHoriz"
           style={{ fontSize: "2.5rem", cursor: "pointer" }}
           className="postIcon"
           onClick={() => {
@@ -200,7 +194,8 @@ const Post = ({ post }) => {
         <div className="posticons">
           <div className="post_iconsMain">
             {like ? (
-              <MdFavorite
+              <Icon
+                name="MdFavorite"
                 className="postIcon"
                 style={{
                   fontSize: "3rem",
@@ -211,7 +206,8 @@ const Post = ({ post }) => {
                 }}
               />
             ) : (
-              <MdOutlineFavoriteBorder
+              <Icon
+                name="MdOutlineFavoriteBorder"
                 className="postIcon"
                 style={{ fontSize: "3rem" }}
                 onClick={() => {
@@ -220,12 +216,14 @@ const Post = ({ post }) => {
               />
             )}
             <Link to={`/p/${post._id}`}>
-              <MdOutlineChatBubbleOutline
+              <Icon
+                name="MdOutlineChatBubbleOutline"
                 className="postIcon"
                 style={{ fontSize: 45 }}
               />
             </Link>
-            <FaTelegramPlane
+            <Icon
+              name="FaTelegramPlane"
               className="postIcon"
               style={{ fontSize: 45 }}
               onClick={() => {
@@ -235,7 +233,8 @@ const Post = ({ post }) => {
           </div>
           <div className="post_iconsb">
             {bookmark ? (
-              <FaBookmark
+              <Icon
+                name="FaBookmark"
                 className="postIcon"
                 style={{ fontSize: 45 }}
                 onClick={() => {
@@ -243,7 +242,8 @@ const Post = ({ post }) => {
                 }}
               />
             ) : (
-              <MdBookmarkBorder
+              <Icon
+                name="MdBookmarkBorder"
                 className="postIcon"
                 style={{ fontSize: 45 }}
                 onClick={() => {
@@ -267,7 +267,10 @@ const Post = ({ post }) => {
             onClick={() => setEmojiBox(!EmojiBox)}
             style={{ backgroundColor: "black", border: 0 }}
           >
-            <MdEmojiEmotions style={{ fontSize: "1.8rem", color: "white" }} />
+            <Icon
+              name="MdEmojiEmotions"
+              style={{ fontSize: "1.8rem", color: "white" }}
+            />
           </button>
           <div className="emoji">
             {EmojiBox && (

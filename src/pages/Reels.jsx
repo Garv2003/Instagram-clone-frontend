@@ -5,8 +5,7 @@ import axios from "axios";
 import Bar from "../components/Bar";
 import PropType from "prop-types";
 import { RotatingLines } from "react-loader-spinner";
-import { MdError } from "react-icons/md";
-
+import { Icon } from "../utils/iconutitls";
 function Reels({ setProgress }) {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -83,7 +82,7 @@ function Reels({ setProgress }) {
                   minHeight: "90vh",
                 }}
               >
-                <MdError size="5rem" color="#fafafa" />
+                <Icon name="MdError" size="5rem" color="#fafafa" />
                 <h1 style={{ color: "#fafafa", marginLeft: "1rem" }}>
                   {error}
                 </h1>

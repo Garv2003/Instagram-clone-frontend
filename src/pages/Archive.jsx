@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import Navbar from "../layout/Navbar/Navbar";
 import ProfileFooter from "../layout/ProfileFooter/ProfileFooter";
-import { MdRestore } from "react-icons/md";
-import { IoArrowBack } from "react-icons/io5";
-import { MdOutlineRotateLeft } from "react-icons/md";
+import { Icon } from "../utils/iconutitls";
 import { Link } from "react-router-dom";
 import PropType from "prop-types";
 
@@ -20,14 +18,15 @@ const Archive = ({ setProgress }) => {
           <div className="archive_header">
             <div className="archive_header_1">
               <button className="archive_header_button">
-                <IoArrowBack />
+                <Icon name="IoArrowBack" />
                 <Link className="cl" to="/profile">
                   <span> Archive</span>
                 </Link>
               </button>
             </div>
             <div className="archive_header_2">
-              <MdOutlineRotateLeft
+              <Icon
+                name="MdOutlineRotateLeft"
                 style={{
                   width: "2rem",
                   height: "2rem",
@@ -40,7 +39,8 @@ const Archive = ({ setProgress }) => {
           </div>
           <div className="archive_section">
             <div className="restoreicon">
-              <MdRestore
+              <Icon
+                name="MdRestore"
                 className="fa-plus-circle"
                 style={{
                   width: "50px",

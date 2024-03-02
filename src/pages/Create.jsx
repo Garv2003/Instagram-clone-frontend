@@ -7,16 +7,9 @@ import PropType from "prop-types";
 import { UseAuth } from "../Context/Auth/AuthContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { GrFormPreviousLink } from "react-icons/gr";
-import { RxAvatar } from "react-icons/rx";
-import { MdError, MdOutlineLocationOn } from "react-icons/md";
-import { MdEmojiEmotions } from "react-icons/md";
 import Picker from "emoji-picker-react";
-import { RxCross2 } from "react-icons/rx";
 import Right from "../assets/Right_Logo.png";
-import { FaPlay } from "react-icons/fa";
-import { BsVolumeMuteFill } from "react-icons/bs";
-import { BsVolumeUpFill } from "react-icons/bs";
+import { Icon } from "../utils/iconutitls";
 import { toast } from "react-toastify";
 import LazyLoad from "react-lazy-load";
 
@@ -81,7 +74,7 @@ const Create = ({ setProgress }) => {
   const VideoPlayer = useMemo(() => {
     if (!file) return null;
     return (
-      <LazyLoad style={{ height: "100%" }}>
+      <LazyLoad style={{ height: "100%" }} className="preview_sub_left">
         <video
           src={URL.createObjectURL(file)}
           alt="preview"
@@ -173,7 +166,8 @@ const Create = ({ setProgress }) => {
           <div className="container">
             <div className="tic">
               {next && (
-                <RxCross2
+                <Icon
+                  name="RxCross2"
                   onClick={() => {
                     setShowPopup(true);
                   }}
@@ -181,7 +175,8 @@ const Create = ({ setProgress }) => {
                 />
               )}
               {next ? (
-                <GrFormPreviousLink
+                <Icon
+                  name="GrFormPreviousLink"
                   onClick={() => {
                     setShowPopup(true);
                   }}
@@ -206,7 +201,7 @@ const Create = ({ setProgress }) => {
             </div>
             {error && (
               <div className="error">
-                <MdError size="2.5rem" color="#fafafa" />
+                <Icon name="MdError" size="2.5rem" color="#fafafa" />
                 <div>{error}</div>
               </div>
             )}
@@ -254,7 +249,10 @@ const Create = ({ setProgress }) => {
               <div className="preview">
                 <div className="preview_left">
                   {type === "image" ? (
-                    <LazyLoad style={{ height: "100%" }}>
+                    <LazyLoad
+                      style={{ height: "100%" }}
+                      className="preview_sub_left"
+                    >
                       <img
                         src={URL.createObjectURL(file)}
                         alt="preview"
@@ -265,18 +263,20 @@ const Create = ({ setProgress }) => {
                     <>
                       {VideoPlayer}
                       <div className="play" onClick={playVideo}>
-                        <FaPlay />
+                        <Icon name="FaPlay" />
                       </div>
                       <div className="volume">
                         {volume ? (
-                          <BsVolumeUpFill
+                          <Icon
+                            name="BsVolumeUpFill"
                             onClick={() => {
                               setVolume(!volume);
                               video.current.muted = true;
                             }}
                           />
                         ) : (
-                          <BsVolumeMuteFill
+                          <Icon
+                            name="BsVolumeMuteFill"
                             onClick={() => {
                               setVolume(!volume);
                               video.current.muted = false;
@@ -306,7 +306,8 @@ const Create = ({ setProgress }) => {
                           />
                         </LazyLoad>
                       ) : (
-                        <RxAvatar
+                        <Icon
+                          name="RxAvatar"
                           style={{
                             fontSize: "40px",
                             cursor: "pointer",
@@ -364,7 +365,8 @@ const Create = ({ setProgress }) => {
                           onClick={() => setEmoji(false)}
                         ></div>
                         <div>
-                          <MdEmojiEmotions
+                          <Icon
+                            name="MdEmojiEmotions"
                             style={{
                               fontSize: "20px",
                               cursor: "pointer",
@@ -400,7 +402,8 @@ const Create = ({ setProgress }) => {
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
                       />
-                      <MdOutlineLocationOn
+                      <Icon
+                        name="MdOutlineLocationOn"
                         style={{
                           fontSize: "20px",
                           cursor: "pointer",

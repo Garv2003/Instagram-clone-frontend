@@ -6,19 +6,11 @@ import Savedpost from "../components/Savedpost";
 import axios from "axios";
 import { AuthContext } from "../Context/Auth/AuthContext";
 import NoPost from "../components/NoPost";
-import { IoPersonAddOutline } from "react-icons/io5";
-import { FaChevronDown } from "react-icons/fa";
-import { PiDotsThreeOutlineFill } from "react-icons/pi";
+import { Icon } from "../utils/iconutitls";
 import UseFollow from "../Hooks/UseFollow";
-import { IoPersonCircleSharp } from "react-icons/io5";
-import { IoArrowBack } from "react-icons/io5";
 import PropType from "prop-types";
 import UsePrev from "../Hooks/UsePrev";
 import { RotatingLines } from "react-loader-spinner";
-import { MdError } from "react-icons/md";
-import { FaRegBookmark } from "react-icons/fa";
-import { MdOutlineGridOn } from "react-icons/md";
-import { BiSolidMoviePlay } from "react-icons/bi";
 import LazyLoad from "react-lazy-load";
 
 const Profile = ({ setProgress }) => {
@@ -67,21 +59,22 @@ const Profile = ({ setProgress }) => {
       <Navbar />
       <div className="posts">
         <div className="profile_header">
-          <IoArrowBack
+          <Icon
+            name="IoArrowBack"
             onClick={() => {
               prev();
             }}
           />
           <div className="profile_header_center">
             <span>{user.name}</span>
-            <FaChevronDown />
+            <Icon name="FaChevronDown" />
           </div>
           <div
             style={{
               opacity: "0",
             }}
           >
-            <IoPersonAddOutline />
+            <Icon name="IoPersonAddOutline" />
           </div>
         </div>
         <div className="profile">
@@ -95,7 +88,10 @@ const Profile = ({ setProgress }) => {
                     </LazyLoad>
                   ) : (
                     <button className="photobtn">
-                      <IoPersonCircleSharp className="profile_header_avatar" />
+                      <Icon
+                        name="IoPersonCircleSharp"
+                        className="profile_header_avatar"
+                      />
                     </button>
                   )}
                 </div>
@@ -131,7 +127,8 @@ const Profile = ({ setProgress }) => {
                     </button>
                   </div>
                   <div className="btnsetting">
-                    <PiDotsThreeOutlineFill
+                    <Icon
+                      name="PiDotsThreeOutlineFill"
                       className="btnset"
                       style={{
                         fontSize: "30px",
@@ -180,13 +177,13 @@ const Profile = ({ setProgress }) => {
             <div className="tabs">
               <NavLink to="" className="tab-item" end>
                 <div>
-                  <FaRegBookmark />
+                  <Icon name="FaRegBookmark" />
                   <span>POSTS</span>
                 </div>
               </NavLink>
               <NavLink to="reels">
                 <div className="tab-item">
-                  <BiSolidMoviePlay />
+                  <Icon name="BiSolidMoviePlay" />
                   <span>REELS</span>
                 </div>
               </NavLink>
@@ -209,10 +206,10 @@ const Profile = ({ setProgress }) => {
             </ul>
             <div className="actions">
               <NavLink to="" end>
-                <MdOutlineGridOn />
+                <Icon name="MdOutlineGridOn" />
               </NavLink>
               <NavLink to="reels">
-                <BiSolidMoviePlay />
+                <Icon name="BiSolidMoviePlay" />
               </NavLink>
             </div>
           </div>
@@ -246,7 +243,7 @@ const Profile = ({ setProgress }) => {
                 fontSize: "2rem",
               }}
             >
-              <MdError />
+              <Icon name="MdError" />
               {error}
             </div>
           ) : (

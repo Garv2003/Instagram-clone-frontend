@@ -13,8 +13,6 @@ html {
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
-  /* background-color: white;
-  color: black; */
   background-color: #000000;
   color: white;
 }
@@ -22,6 +20,12 @@ html {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.icon {
+  color: white;
+  font-size: 3rem;
+  cursor: pointer;
 }
 
 /* input, */
@@ -1003,7 +1007,6 @@ header {
   box-sizing: border-box;
   margin-top: 20px;
   width: 100%;
-  /* height: 700px; */
   height: 100%;
   overflow-y: scroll;
 }
@@ -1024,7 +1027,7 @@ header {
   justify-content: space-between;
   align-items: center;
   gap: 15px;
-  padding: 8px 10px 5px 10px;
+  padding: 5px 10px 5px 10px;
   border: 1px solid gray;
   border-radius: 100px;
 }
@@ -1043,13 +1046,24 @@ header {
 .messagebody_footer button {
   border: none;
   outline: none;
-  background: transparent;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 132, 255, 1) 0%,
+    rgba(135, 86, 215, 1) 100%
+  );
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: white;
-  font-size: 1.5rem;
+  padding: 8px;
+  font-size: 1.6rem;
   cursor: pointer;
 }
 .messagebody_footer button:hover {
-  color: gray;
+  opacity: 0.8;
 }
 .message__container {
   width: 100%;
@@ -1800,6 +1814,8 @@ input[type="submit"]:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
+  border-radius: 10px;
 }
 .ReelBox_Header {
   width: 100%;
@@ -1863,6 +1879,17 @@ input[type="submit"]:hover {
     bottom: 30px;
   }
 }
+@media screen and (min-height: 1050px) {
+  .ReelBox {
+    height: 90%;
+  }
+}
+
+@media screen and (min-height: 1200px) and (max-width: 770px) {
+  .postBox {
+    height: 90vh;
+  }
+}
 
 /* End ReelBox.css */
 
@@ -1921,7 +1948,7 @@ input[type="submit"]:hover {
 .container {
   max-width: 80%;
   min-width: 50%;
-  height: 600px;
+  height: 650px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1934,6 +1961,7 @@ input[type="submit"]:hover {
 .tic {
   width: 100%;
   display: flex;
+  height: 50px;
   align-items: center;
   justify-content: space-between;
   position: relative;
@@ -2009,15 +2037,27 @@ input[type="submit"]:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
-.preview_left img {
+.preview_sub_left {
   width: 100%;
   height: 100%;
-  object-fit: fill;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
-.preview_left video {
+
+.preview_sub_left img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  border-bottom-left-radius: 20px;
+}
+.preview_sub_left video {
+  width: 100%;
+  height: 100%;
+  border-bottom-left-radius: 20px;
   object-fit: fill;
 }
 .preview_right {
@@ -2119,11 +2159,12 @@ input[type="submit"]:hover {
 
 @media screen and (max-width: 770px) {
   .Create_container {
-    height: 90%;
+    height: 94%;
     min-height: 0px;
   }
   .container {
     min-width: 100%;
+    height: 100%;
     background: none;
     transform: none;
   }
@@ -2149,8 +2190,28 @@ input[type="submit"]:hover {
   .preview {
     flex-direction: column;
   }
+  .preview_sub_left {
+    width: 100%;
+    height: 100%;
+  }
+
+  .preview_sub_left img {
+    width: 100%;
+    height: 430px;
+    object-fit: cover;
+    border-bottom-left-radius: 0px;
+  }
+
+  .preview_sub_left video {
+    width: 100%;
+    height: 430px;
+    object-fit: fill;
+    border-bottom-left-radius: 0px;
+  }
+
   .preview_left {
     width: 100%;
+    height: 100%;
   }
   .preview_right {
     width: 100%;

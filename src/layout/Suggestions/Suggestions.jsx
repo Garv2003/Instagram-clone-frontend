@@ -1,11 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Profilebar from "../../components/ProfileBar";
-import { RxCross2 } from "react-icons/rx";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Icon } from "../../utils/iconutitls";
 import { RotatingLines } from "react-loader-spinner";
-import { IoPersonCircleSharp } from "react-icons/io5";
 import PropType from "prop-types";
 import UseLogin from "../../Hooks/UseLogin";
 import { UseAuth } from "../../Context/Auth/AuthContext";
@@ -26,12 +23,11 @@ function Suggestions(props) {
 
   return (
     <>
-      <ToastContainer />
       {open && (
         <>
           <div className="overlayst" onClick={handleClose}></div>
           <div className="Login_Popup">
-            <RxCross2 className="close" onClick={handleClose} />
+            <Icon name="RxCross2" className="close" onClick={handleClose} />
             <div className="Login_Header">
               <div className="headinglogin"></div>
               <form className="login-form" onSubmit={handleLogin}>
@@ -90,7 +86,8 @@ function Suggestions(props) {
                     alt="profile"
                   />
                 ) : (
-                  <IoPersonCircleSharp
+                  <Icon
+                    name="IoPersonCircleSharp"
                     style={{
                       fontSize: "30px",
                       cursor: "pointer",

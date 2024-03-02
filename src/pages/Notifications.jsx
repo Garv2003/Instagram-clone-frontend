@@ -2,13 +2,11 @@ import { useEffect, useState } from "react";
 import ProfileBar from "../components/ProfileBar";
 import Navbar from "../layout/Navbar/Navbar";
 import axios from "axios";
-import { MdCircleNotifications } from "react-icons/md";
+import { Icon } from "../utils/iconutitls";
 import Bar from "../components/Bar";
 import PropType from "prop-types";
 import { RotatingLines } from "react-loader-spinner";
-import { MdError } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { RxAvatar } from "react-icons/rx";
 import LazyLoad from "react-lazy-load";
 
 const API_URL = import.meta.env.VITE_APP_BACKEND_URL;
@@ -81,7 +79,8 @@ const Notifications = ({ setProgress }) => {
                   When someone likes or comments on one of your posts,
                   you&apos;ll see it here.
                 </div>
-                <MdCircleNotifications
+                <Icon
+                  name="MdCircleNotifications"
                   style={{ fontSize: "100px", margin: "auto" }}
                 />
               </>
@@ -101,7 +100,8 @@ const Notifications = ({ setProgress }) => {
                               />
                             </LazyLoad>
                           ) : (
-                            <RxAvatar
+                            <Icon
+                              name="RxAvatar"
                               style={{
                                 fontSize: "40px",
                                 cursor: "pointer",
@@ -164,7 +164,7 @@ const Notifications = ({ setProgress }) => {
                   fontSize: "2rem",
                 }}
               >
-                <MdError style={{ fontSize: "3.5rem" }} />
+                <Icon name="MdError" style={{ fontSize: "3.5rem" }} />
                 {error}
               </div>
             ) : (

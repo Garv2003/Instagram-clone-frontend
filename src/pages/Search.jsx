@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import Navbar from "../layout/Navbar/Navbar";
-import { FaSearch } from "react-icons/fa";
 import ProfileBar from "../components/ProfileBar";
 import Bar from "../components/Bar";
 import { MagnifyingGlass } from "react-loader-spinner";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { Icon } from "../utils/iconutitls";
 
 const Search = ({ setProgress }) => {
   const [search, setSearch] = useState("");
@@ -87,7 +87,8 @@ const Search = ({ setProgress }) => {
               </div>
             ) : !search && users.length === 0 ? (
               <div className="search_name">
-                <FaSearch
+                <Icon
+                  name="FaSearch"
                   className="search_icon"
                   style={{
                     width: "80px",
@@ -99,7 +100,8 @@ const Search = ({ setProgress }) => {
               </div>
             ) : (
               <div className="search_name">
-                <FaSearch
+                <Icon
+                  name="FaSearch"
                   className="search_icon"
                   style={{
                     width: "80px",

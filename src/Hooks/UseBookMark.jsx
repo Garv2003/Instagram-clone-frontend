@@ -10,7 +10,7 @@ export default function UseBookMark(INITIAL_VALUE) {
       try {
         setBookmark(true);
         await axios.put(
-          `${API_URL}/post/bookmark`,
+          `${API_URL}/post/togglebookmark`,
           {
             postid: id,
           },
@@ -27,7 +27,7 @@ export default function UseBookMark(INITIAL_VALUE) {
       try {
         setBookmark(false);
         await axios.put(
-          `${API_URL}/post/unbookmark`,
+          `${API_URL}/post/togglebookmark`,
           {
             postid: id,
           },
