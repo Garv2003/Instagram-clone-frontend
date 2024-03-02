@@ -2169,8 +2169,7 @@ input[type="submit"]:hover {
     transform: none;
   }
   .tic {
-    padding: 0px;
-    border-bottom: 0px;
+    display: none;
   }
   .tic h1 {
     display: none;

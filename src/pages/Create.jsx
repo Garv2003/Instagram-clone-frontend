@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useMemo } from "react";
 import Navbar from "../layout/Navbar/Navbar";
 import { ColorRing } from "react-loader-spinner";
-import Bar from "../components/Bar";
+import UsePrev from "../Hooks/UsePrev";
 import PropType from "prop-types";
 // import { useDropzone } from "react-dropzone";
 import { UseAuth } from "../Context/Auth/AuthContext";
@@ -27,6 +27,7 @@ const Create = ({ setProgress }) => {
   const [emoji, setEmoji] = useState(false);
   const [location, setLocation] = useState("");
   const [volume, setVolume] = useState(true);
+  const { prev } = UsePrev();
 
   const navigate = useNavigate();
 
@@ -157,11 +158,45 @@ const Create = ({ setProgress }) => {
     );
   };
 
+  const handleBack = () => {
+    console.log(prev);
+    if (!next) {
+      prev();
+      return;
+    }
+    setShowPopup(true);
+  };
+
   return (
     <div className="home">
       <Navbar />
       <div className="posts">
-        <Bar text="Create new Post" />
+        <div className="bar_header">
+          <button className="bar_header_btn">
+            <Icon
+              name="GrFormPreviousLink"
+              onClick={() => {
+                handleBack();
+              }}
+            />
+          </button>
+          <span>Create New Post</span>
+          {next ? (
+            loading ? (
+              <div></div>
+            ) : (
+              <button
+                className="submit_btn"
+                onClick={handleSubmit}
+                disabled={loading}
+              >
+                Create Post
+              </button>
+            )
+          ) : (
+            <div></div>
+          )}
+        </div>
         <div className="Create_container">
           <div className="container">
             <div className="tic">
@@ -185,7 +220,6 @@ const Create = ({ setProgress }) => {
               ) : (
                 <div></div>
               )}
-              {showPopup ? <Popup /> : ""}
               <h1>Create New Post</h1>
               {next ? (
                 <button
@@ -199,6 +233,7 @@ const Create = ({ setProgress }) => {
                 <div></div>
               )}
             </div>
+            {showPopup ? <Popup /> : ""}
             {error && (
               <div className="error">
                 <Icon name="MdError" size="2.5rem" color="#fafafa" />
