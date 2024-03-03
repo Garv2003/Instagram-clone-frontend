@@ -63,7 +63,11 @@ const CommentBar = ({
               />
             </LazyLoad>
           ) : (
-            <Icon name="RxAvatar" style={{ marginRight: "10px" }} />
+            <Icon
+              name="RxAvatar"
+              className="icon"
+              style={{ marginRight: "10px" }}
+            />
           )}
         </div>
         <div className="comment_header">
